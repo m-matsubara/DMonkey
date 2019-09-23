@@ -9,6 +9,8 @@ unit ecma_engine;
 interface
 
 uses
+  System.UITypes,
+  System.Types,
   windows,classes,sysutils,ecma_type,hashtable,ecma_object,
 {$IFNDEF NO_SOCKET}
   ecma_sockobject,

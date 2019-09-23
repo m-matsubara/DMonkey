@@ -1217,10 +1217,21 @@ end;
 
 procedure TgSocket.Write(const S: String);
 //•¶Žš—ñ‚ð‘—‚é
+{$ifdef UNICODE}
+var
+  Bytes: TBytes;
+  Encoding: TEncoding;
+{$endif}
 begin
 //  Report('trc>TgSocket.Write',Status_Trace);
 
+{$ifdef UNICODE}
+  Encoding := TEncoding.ASCII;
+  Bytes := Encoding.GetBytes(S);
+  WriteBuffer(FSocket, Bytes[0], Length(Bytes));
+{$else}
   WriteBuffer(FSocket,PChar(S)^,Length(S));
+{$endif}
 end;
 
 function TgSocket.WriteBuffer(var Socket: TSocket; var Buf; Size: Integer): Integer;

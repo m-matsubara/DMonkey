@@ -393,7 +393,145 @@ begin
   end;
 end;
 
+{$IFDEF UNICODE}
+//  マルチバイト系関数（マルチバイトを考慮しない処理に置換）
 
+function MBCopy(const S: String; Index, Count: Integer): string;
+begin
+  Result := Copy(S, Index, Count);
+end;
+
+procedure MBInsert(const Source: string; var S: string; Index: Integer);
+begin
+  Insert(Source, S, Index);
+end;
+
+procedure MBDelete(var S: string; Index, Count: Integer);
+begin
+  Delete(S, Index, Count);
+end;
+
+function MBLength(const S: String): Integer;
+begin
+  Result := Length(S);
+end;
+
+function MBGetCharAt(const S: String; Index: Integer): String;
+begin
+  //0以下のときは空文字
+  if Index > 0 then
+    Result := MBCopy(S, Index, 1)
+  else
+    Result := '';
+end;
+
+procedure MBSetCharAt(const Source: String; var S: String; Index: Integer);
+begin
+  MBDelete(S, Index, 1);
+  MBInsert(Source, S, Index);
+end;
+
+function MBSlice(const S: String; Start,Last: Integer): String;
+var
+  len: Integer;
+begin
+  //長さ調節
+  if (Start < 1) or (Last < 1) then
+  begin
+    len := MBLength(S);
+    if Start < 1 then
+    begin
+      Start := len + Start;
+      if Start < 1 then
+        Start := 1;
+    end;
+
+    if Last < 1 then
+      Last := len + Last;
+  end;
+
+  Result := MBCopy(S, Start, Last - Start);
+end;
+
+procedure MBReplace(const Source: String; var S: String; Start,Last: Integer);
+var
+  len: Integer;
+begin
+  //長さ調節
+  if (Start < 1) or (Last < 1) then
+  begin
+    len := MBLength(S);
+    if Start < 1 then
+      Start := len + Start;
+
+    if Last < 1 then
+      Last := len + Last;
+  end;
+
+  MBDelete(S, Start, Last - Start);
+  MBInsert(Source, S, Start);
+end;
+
+function MBIndexOf(const Substr, S: string; StartIndex: Integer): Integer;
+var
+  v: String;
+begin
+  if StartIndex > 1 then
+    v := MBCopy(S,StartIndex,MaxInt)
+  else
+    v := S;
+
+//  Result := ByteToCharIndex(v,AnsiPos(SubStr,v));
+  Result := IndexOf(SubStr, v);
+  if Result > 0 then
+    Result := Result + StartIndex - 1;
+end;
+
+function MBLastIndexOf(const Substr, S: string; StartIndex: Integer): Integer;
+var
+  v: String;
+  len: Integer;
+begin
+  len := MBLength(Substr);
+  if StartIndex > 0 then
+    v := MBReverse(MBCopy(S,1,StartIndex + len - 1))
+  else
+    v := MBReverse(S);
+
+//  Result := ByteToCharIndex(v,AnsiPos(MBReverse(Substr),v));
+  Result := IndexOf(SubStr, v);
+  if Result > 0 then
+    Result := MBLength(v) - Result - len + 2;
+end;
+
+function MBReverse(const S: string): String;
+var
+  i,j,len: Integer;
+  c: Char;
+begin
+  len := Length(S);
+  SetLength(Result,len);
+  i := 1;
+  j := len;
+  while i < len do
+  begin
+    c := S[i];
+{
+    if c in LeadBytes then
+    begin
+      Inc(i);
+      Result[j] := S[i];
+      Dec(j);
+    end;
+}
+    Result[j] := c;
+    Inc(i);
+    Dec(j);
+  end;
+  if i = len then
+    Result[j] := S[i];
+end;
+{$ELSE}
 function MBCopy(const S: String; Index, Count: Integer): string;
 //MBコピー
 var
@@ -563,6 +701,7 @@ begin
   if i = len then
     Result[j] := S[i];
 end;
+{$ENDIF}
 
 
 function MapString(const Source: string; Flags: DWORD): string;

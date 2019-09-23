@@ -7,6 +7,16 @@ unit DMonkey;
            使用、改変、配布に一切の制限はありません。
            作者に通知やライセンス表示も必要ありません。
   History:
+  2010/04/29 ver.0.3.9.1 (Unicode対応) m.matsubara
+          Unicode対応
+          Bytes, Encoding, FileReader, FileWriter型の追加
+          String型でShiftJISやEUC, JISコードの相互変換メソッドを廃止
+          File型はバイナリのみを扱う仕様に変更
+            readln(), writeln()の廃止
+            read() の戻り値をStringからBytesに変更
+            write() の引数をStringからBytesに変更
+          ※このUnicode対応版ではString型が特定の文字コードであることに依存するようなコードを書くことは推奨されません。
+
   2005/08/07 ver.0.3.9.1
           COMオブジェクトにオブジェクトの値が渡らないことがあるのを修正
           メッセージボックスやフォームを表示するメソッドの引数を拡張
@@ -279,6 +289,12 @@ unit DMonkey;
   {$DEFINE NO_VCL}
   {$DEFINE NO_GUI}
 {$ENDIF}
+
+{$IFDEF UNICODE}
+  // こののUnicode対応DMonkeyはソケット関連の型をUnicode対応していません。
+  {$DEFINE NO_SOCKET}
+{$ENDIF}
+
 
 interface
 

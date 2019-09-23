@@ -4,6 +4,15 @@ unit ecma_type;
 //2001/04/10 ~
 //by Wolfy
 
+//Unicode対応による仕様変更
+//2010/4/29
+//by m.matsubara
+//  UnicodeStringを扱うように修正しました。
+
+{$if CompilerVersion<=18.5}
+type
+  NativeInt = Integer;
+{$ifend}
 
 {$IFDEF VER130}
   {$DEFINE DELPHI4_5}
@@ -32,7 +41,11 @@ uses
 {$ENDIF}
 
 const //バージョンを定義する
+{$ifdef UNICODE}
+  DMS_ENGINE = 'DMScript(Unicode)';
+{$else}
   DMS_ENGINE = 'DMScript';
+{$endif}
   DMS_BUILD = 42;
   DMS_MAJOR = 0;
   DMS_MINOR = 3.9;
@@ -392,7 +405,7 @@ type
     //メソッドを登録する
     //できればここでRegistMethodを使って欲しいが現在は必須ではない
     procedure RegistMethods; virtual;
-    procedure Registproperties; virtual;
+    procedure RegistProperties; virtual;
 
     procedure RegistEventName(EventName: String);
 
@@ -684,6 +697,12 @@ const
   E_KEY = 'EKeyError';
   E_IO = 'EIOError';
   E_FILE = 'EFileError';
+{$ifdef UNICODE}
+  E_BYTES = 'EBytes';
+  E_ENCODING = 'EEncoding';
+  E_FILEREADER = 'EFileReader';
+  E_FILEWRITER = 'EFileWriter';
+{$endif}
   E_DIR = 'EDirectoryError';
   E_NAME = 'ENameError';
   E_TYPE = 'ETypeError';
@@ -1063,7 +1082,7 @@ begin
         Result := 'infinity';
     end;
     vtNaN: Result := 'NaN';
-    vtDispatch: Result := 'dispatch' + IntToStr(Integer(P^.vDispatch));
+    vtDispatch: Result := 'dispatch' + IntToStr(NativeInt(P^.vDispatch));
   end;
 end;
 
@@ -1464,7 +1483,12 @@ end;
 function ValueToVarRec(const V: TJValue): TVarRec;
 //TVarRecから変換する
 var
-  p: PChar;
+{$ifdef UNICODE}
+  p: PWideChar;
+  bytes: TBytes;
+{$else}
+  p: PAnsiChar;
+{$endif}
   s: String;
 begin
   case V.ValueType of
@@ -1484,12 +1508,22 @@ begin
     vtString,vtObject,vtBool,vtNull,vtUndefined,
     vtDispatch,vtNaN,vtInfinity,vtFunction,vtRegExp:
     begin
+{$ifdef UNICODE}
+      Result.VType := system.vtPWideChar;
+      s := AsString(@v);
+      bytes := TEncoding.Unicode.GetBytes(s);
+      GetMem(p, Length(bytes) + 2);
+      CopyMemory(p, bytes, Length(bytes));
+      p[Length(bytes) - 1] := #0;
+      Result.VPWideChar := p;
+{$else}
       Result.VType := system.vtPChar;
       s := AsString(@v);
       GetMem(p,Length(s) + 1);
       FillChar(p^,Length(s) + 1,0);
       StrPLCopy(p,s,Length(s));
       Result.VPChar := p;
+{$endif}
     end;
   else
     Result.VType := system.vtInteger;
@@ -1764,7 +1798,11 @@ begin
       'c','t','l','h','p','u': Result := BuildInteger(DynaResult._long);
       'b': Result := BuildBool(DynaResult._long <> 0);
       'i': Result := BuildDouble(DynaResult._int64);
+{$ifdef WIN64}
+      'a','k': Result := BuildDispatch(IDispatch(DynaResult._int64)); //  TODO 本当？
+{$else}
       'a','k': Result := BuildDispatch(IDispatch(DynaResult._long));
+{$endif}
       's': Result := BuildString(PChar(DynaResult._pointer));
       'w': Result := BuildString(PWideChar(DynaResult._pointer));
       'd': Result := BuildDouble(DynaResult._double);
@@ -2399,7 +2437,7 @@ begin
             end;
 
             //文字列
-            tkString,tkLString,tkWString:
+            tkString,tkLString,tkWString{$ifdef UNICODE},tkUString{$endif}:
             begin
               Value := BuildString(GetStrProp(Obj,PropInfo));
               Result := True;
@@ -2558,7 +2596,7 @@ begin
             end;
 
             //文字列
-            tkString,tkLString,tkWString:
+            tkString,tkLString,tkWString{$ifdef UNICODE},tkUString{$endif}:
             begin
               SetStrProp(Obj,PropInfo,AsString(@Value));
               Result := True;
@@ -2607,14 +2645,14 @@ begin
             begin
               if IsDispatch(@Value) then
               begin
-                SetOrdProp(Obj,PropInfo,Integer(AsDispatch(@Value)));
+                SetOrdProp(Obj,PropInfo,NativeInt(AsDispatch(@Value)));
                 Result := True;
               end
 {$IFNDEF NO_ACTIVEX}
               else if IsObject(@Value) and (Value.vObject is TJActiveXObject) then
               begin
                 SetOrdProp(Obj,PropInfo,
-                  Integer((Value.vObject as TJActiveXObject).Disp));
+                  NativeInt((Value.vObject as TJActiveXObject).Disp));
                 Result := True;
               end
 {$ENDIF}
@@ -2955,17 +2993,17 @@ begin
       p := PChar(S);
 
       // '[' と ' ' をスキップ
-      while p^ in ['[',' '] do
+      while (CharInSet(p^, ['[',' '])) do
         Inc(p);
 
       // ','  ' ' #0 ']' までを要素名として取り出す
       i := 0;
-      while not (p[i] in [',', ' ', #0,']']) do
+      while not (CharInSet(p[i], [',', ' ', #0,']'])) do
         Inc(i);
 
       SetString(EnumName, p, i);
       // 次の語の先頭までポインタを進める
-      while p[i] in [',', ' ',']'] do
+      while CharInSet(p[i], [',', ' ',']']) do
         Inc(i);
 
       Inc(p, i);
@@ -2983,12 +3021,12 @@ begin
         end;
         // ','  ' ' #0 ']' までを要素名として取り出す
         i := 0;
-        while not (p[i] in [',', ' ', #0,']']) do
+        while not (CharInSet(p[i], [',', ' ', #0,']'])) do
           Inc(i);
 
         SetString(EnumName, p, i);
         // 次の語の先頭までポインタを進める
-        while p[i] in [',', ' ',']'] do
+        while CharInSet(p[i], [',', ' ',']']) do
           Inc(i);
 
         Inc(p, i);
@@ -3276,6 +3314,12 @@ function TJObject.HasDefaultProperty(Prop: String): Boolean;
 var
   i: Integer;
 begin
+  //  2010/12/31 m.matsubara
+  //  Delphi XE で実行すると何故かソートされていないため、そのままではFindメソッドが正しく動作しない。
+  //  コンストラクタでSortedプロパティをTrueにしているようだが、いつの間にかFalseになっているので、ここで設定し直す。
+  if (FDefaultProperties.Sorted = False) then
+    FDefaultProperties.Sorted := True;
+
   Result := FDefaultProperties.Find(Prop,i);
 end;
 
@@ -3598,7 +3642,7 @@ begin
   FMembers.ClearValue(Target,Ignore);
 end;
 
-procedure TJObject.Registproperties;
+procedure TJObject.RegistProperties;
 begin
 //ここを継承してメンバプロパティを登録する
 end;

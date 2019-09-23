@@ -6,7 +6,7 @@ unit gSocketFtp;
   Version: 0.00
 }
 
-
+ 
 interface
 
 uses
@@ -357,9 +357,9 @@ begin
   if Line = '' then
     Exit;
 
-  DS := DateSeparator;
-  SD := ShortDateFormat;
-  ST := ShortTimeFormat;
+  DS := {$if CompilerVersion >= 23.0}FormatSettings.{$endif}DateSeparator;
+  SD := {$if CompilerVersion >= 23.0}FormatSettings.{$endif}ShortDateFormat;
+  ST := {$if CompilerVersion >= 23.0}FormatSettings.{$endif}ShortTimeFormat;
 
   sl := TStringList.Create;
   try
@@ -371,9 +371,9 @@ begin
       else
         Item.FileType := ftFile;
 
-      DateSeparator:='-';
-      ShortDateFormat:='mm/dd/yy';
-      Shorttimeformat:='hh:nnAM/PM';
+      {$if CompilerVersion >= 23.0}FormatSettings.{$endif}DateSeparator:='-';
+      {$if CompilerVersion >= 23.0}FormatSettings.{$endif}ShortDateFormat:='mm/dd/yy';
+      {$if CompilerVersion >= 23.0}FormatSettings.{$endif}Shorttimeformat:='hh:nnAM/PM';
       try
         Item.Size := StrToInt(RemoveComma(sl[1]));
         //拡張子なし
@@ -397,9 +397,9 @@ begin
       Result := False;
     end;
   finally
-    DateSeparator := DS;
-    ShortdateFormat := SD;
-    Shorttimeformat := ST;
+    {$if CompilerVersion >= 23.0}FormatSettings.{$endif}DateSeparator := DS;
+    {$if CompilerVersion >= 23.0}FormatSettings.{$endif}ShortdateFormat := SD;
+    {$if CompilerVersion >= 23.0}FormatSettings.{$endif}Shorttimeformat := ST;
 
     sl.Free;
   end;
@@ -1017,7 +1017,7 @@ begin
         SL.Free;
       end;
 
-      FIPAddress := inet_addr(PChar(IP));
+      FIPAddress := inet_addr(PAnsiChar(IP));
       //サーバとConnect
       ConnectSocket(Result,FDataPort,FIPAddress);
       if Result = INVALID_SOCKET then

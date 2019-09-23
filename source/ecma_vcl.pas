@@ -3,9 +3,16 @@ unit ecma_vcl;
 interface
 
 uses
+  System.UITypes,
+  System.Types,
   Windows,Sysutils,Classes,ecma_type,forms,controls,StdCtrls,messages,
   ecma_object,ecma_extobject,menus,extctrls,checklst,comctrls,hashtable,
   toolwin,graphics,spin,typinfo,ActnList,dialogs,ecma_re,drag_drop;
+
+{$if CompilerVersion<=18.5}
+type
+  NativeInt = Integer;
+{$ifend}
 
 {テンプレート
   TJVCLBase_ = class(TJVCL_)
@@ -375,7 +382,7 @@ type
     //イベント
     procedure OnClose(Sender: TObject; var Action: TCloseAction);
     procedure OnCloseQuery(Sender: TObject; var CanClose: Boolean);
-    function  OnHelp(Command: Word; Data: Integer;
+    function  OnHelp(Command: Word; Data: NativeInt;
       var CallHelp: Boolean): Boolean;
     procedure OnShortCut(var Msg: TWMKey; var Handled: Boolean);
   end;
@@ -1160,7 +1167,7 @@ type
     function DoGetSearchString(Param: TJValueList): TJValue;
     function DoIsEditing(Param: TJValueList): TJValue;
     function DoScroll(Param: TJValueList): TJValue;
-    function DoCustomSort(Param: TJValueList): TJValue;
+//    function DoCustomSort(Param: TJValueList): TJValue;
     function DoStringWidth(Param: TJValueList): TJValue;
     function DoUpdateItems(Param: TJValueList): TJValue;
 
@@ -1431,7 +1438,7 @@ type
     FTreeNodes: TJVCLBaseTreeNodes;
 
     function DoAlphaSort(Param: TJValueList): TJValue;
-    function DoCustomSort(Param: TJValueList): TJValue;
+//    function DoCustomSort(Param: TJValueList): TJValue;
     function DoFullCollapse(Param: TJValueList): TJValue;
     function DoFullExpand(Param: TJValueList): TJValue;
     function DoGetHitTestInfoAt(Param: TJValueList): TJValue;
@@ -1654,7 +1661,11 @@ type
   protected
     procedure OnChanging(Sender: TObject; var AllowChange: Boolean);
     procedure OnChangingEx(Sender: TObject; var AllowChange: Boolean;
+{$if CompilerVersion >= 26.0}
+      NewValue: Integer; Direction: TUpDownDirection);
+{$else}
       NewValue: Smallint; Direction: TUpDownDirection);
+{$endif}
     procedure OnClick(Sender: TObject; Button: TUDBtnType);
   end;
 
@@ -4590,7 +4601,7 @@ begin
   end;
 end;
 
-function TJVCLBaseForm.OnHelp(Command: Word; Data: Integer;
+function TJVCLBaseForm.OnHelp(Command: Word; Data: NativeInt;
   var CallHelp: Boolean): Boolean;
 //イベント
 var
@@ -8246,7 +8257,11 @@ begin
 end;
 
 procedure TJVCLBaseUpDown.OnChangingEx(Sender: TObject;
+{$if CompilerVersion >= 26.0}
+  var AllowChange: Boolean; NewValue: Integer;
+{$else}
   var AllowChange: Boolean; NewValue: Smallint;
+{$endif}
   Direction: TUpDownDirection);
 //VCLイベント
 var
@@ -9933,11 +9948,13 @@ begin
   end;
 end;
 
+(*
 function TJVCLBaseListView.DoCustomSort(Param: TJValueList): TJValue;
 begin
 { TODO : 保留 }
   EmptyValue(Result);
 end;
+*)
 
 function TJVCLBaseListView.DoFindCaption(Param: TJValueList): TJValue;
 //VCLメソッド
@@ -12277,11 +12294,13 @@ begin
   end;
 end;
 
+(*
 function TJVCLBaseTreeView.DoCustomSort(Param: TJValueList): TJValue;
 begin
 { TODO : 保留 }
   EmptyValue(Result);
 end;
+*)
 
 function TJVCLBaseTreeView.DoFullCollapse(Param: TJValueList): TJValue;
 //VCLメソッド

@@ -87,6 +87,9 @@ var
 
 function CalcFileCRC(var CRC16: Word; var CRC32: DWord; const FileName: String): Boolean;
 procedure CalcStringCRC(var CRC16: Word; var CRC32: DWord; const S: String);
+{$ifdef UNICODE}
+procedure CalcBytesCRC(var CRC16: Word; var CRC32: DWord; const Bytes: TBytes);
+{$endif}
 procedure CalcPointerCRC(var CRC: Word; var CRC32: DWord; P: PByte);
 procedure CalcBufferCRC(var CRC16: Word; var CRC32: DWord; const Buffer; BufLen: Integer);
 procedure CalcStreamCRC(var CRC16: Word; var CRC32: DWord; Stream: TStream);
@@ -206,6 +209,25 @@ begin
 
   CRC32 := not CRC32;
 end;
+
+{$ifdef UNICODE}
+procedure CalcBytesCRC(var CRC16: Word; var CRC32: DWord; const Bytes: TBytes);
+var
+  i,len: Integer;
+begin
+  CRC16 := $FFFF;
+  CRC32 := $FFFFFFFF;
+  len := Length(Bytes);
+
+  for i := 0 to len do
+  begin
+    CRC16 := gCRCTable[Byte(CRC16) xor Bytes[i]] xor (CRC16 shr 8);
+    CRC32 := gCRCTable32[Byte(CRC32) xor Bytes[i]] xor (CRC32 shr 8);
+  end;
+
+  CRC32 := not CRC32;
+end;
+{$endif}
 
 procedure CalcBufferCRC(var CRC16: Word; var CRC32: DWord; const Buffer; BufLen: Integer);
 var

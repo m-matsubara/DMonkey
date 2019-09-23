@@ -7,6 +7,8 @@ unit ecma_expr;
 interface
 
 uses
+  System.UITypes,
+  System.Types,
   windows,sysutils,classes,ecma_type;
 
 type

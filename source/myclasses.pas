@@ -50,7 +50,11 @@ type
     function ComparePointer(Item1, Item2: Pointer): Integer;
     function Search(Target: Pointer; Min,Max: Integer): Integer;
   public
+{$if CompilerVersion >= 23.0}
+    class procedure Error(const Msg: string; Data: NativeInt); override;
+{$else}
     class procedure Error(const Msg: string; Data: Integer); override;
+{$endif}
     procedure Add(P: Pointer);
     procedure Remove(P: Pointer);
     function IndexOf(P: Pointer): Integer;
@@ -272,7 +276,11 @@ begin
   if (List <> nil) and (Count > 0) then
   begin
     if Assigned(FOnSortFunc) then
+{$if CompilerVersion >= 23.0}
+      FOnSortFunc(@List, 0, Count - 1, Compare)
+{$else}
       FOnSortFunc(List, 0, Count - 1, Compare)
+{$endif}
     else begin
       case FSortType of
         stMerge:
@@ -281,14 +289,26 @@ begin
           SetLength(work,Count);
           try
             //ŠJŽn
+{$if CompilerVersion >= 23.0}
+            MergeSort(@List,work,0,Count - 1,Compare);
+{$else}
             MergeSort(List,work,0,Count - 1,Compare);
+{$endif}
           finally
             work := nil;
           end;
         end;
+{$if CompilerVersion >= 23.0}
+        stInsert: InsertSort(@List,0,Count - 1,Compare);
+{$else}
         stInsert: InsertSort(List,0,Count - 1,Compare);
+{$endif}
       else
+{$if CompilerVersion >= 23.0}
+        QuickSort(@List, 0, Count - 1, Compare);
+{$else}
         QuickSort(List, 0, Count - 1, Compare);
+{$endif}
       end;
     end;
   end;
@@ -312,7 +332,11 @@ begin
   Result := Integer(Item1) - Integer(Item2);
 end;
 
+{$if CompilerVersion >= 23.0}
+class procedure TPointerList.Error(const Msg: string; Data: NativeInt);
+{$else}
 class procedure TPointerList.Error(const Msg: string; Data: Integer);
+{$endif}
   function ReturnAddr: Pointer;
   asm
           MOV     EAX,[EBP+4]

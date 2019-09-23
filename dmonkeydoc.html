@@ -1,104 +1,130 @@
-
+﻿
 <HTML>
 <HEAD>
-<TITLE>DMonkey�}�j���A�� 0.3.9</TITLE>
+<TITLE>DMonkeyマニュアル 0.3.9.1 (非公式 Unicode 対応版 by m.matsubara)</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<body>
+<h1>DMonkeyマニュアル 0.3.9.1 (非公式 Unicode 対応版 by m.matsubara)</h1>
 <DIV ALIGN="right"></DIV>
 <P>
-<UL><LI><A HREF="#id1">�͂��߂�</A><LI><A HREF="#id2">���C�Z���X</A><LI><A HREF="#id3">�C���X�g�[��</A><LI><A HREF="#id4">�g�p�@</A><LI><A HREF="#id5">����d�l�ɂ���</A><UL>
-<LI><A HREF="#id5did1">��</A><LI><A HREF="#id5did2">��</A><LI><A HREF="#id5did3">�����R���p�C����</A><LI><A HREF="#id5did4">�錾</A><LI><A HREF="#id5did5">�I�u�W�F�N�g</A><LI><A HREF="#id5did6">VCL�I�u�W�F�N�g</A><LI><A HREF="#id5did7">�N���X��`</A><LI><A HREF="#id5did8">��O</A><LI><A HREF="#id5did9">�C���|�[�g</A></UL>
-<LI><A HREF="#id6">�g���݃I�u�W�F�N�g</A><UL>
-<LI><A HREF="#id6did1">Object</A><LI><A HREF="#id6did2">Global</A><LI><A HREF="#id6did3">Array</A><LI><A HREF="#id6did4">Number</A><LI><A HREF="#id6did5">Boolean</A><LI><A HREF="#id6did6">String</A><LI><A HREF="#id6did7">RegExp</A><LI><A HREF="#id6did8">Math</A><LI><A HREF="#id6did9">Date</A><LI><A HREF="#id6did10">File</A><LI><A HREF="#id6did11">Directory</A><LI><A HREF="#id6did12">Strings</A><LI><A HREF="#id6did13">Win32</A><LI><A HREF="#id6did14">Ini</A><LI><A HREF="#id6did15">RegIni</A><LI><A HREF="#id6did16">CRC</A><LI><A HREF="#id6did17">Base64</A><LI><A HREF="#id6did18">Dialog</A><LI><A HREF="#id6did19">Mutex</A><LI><A HREF="#id6did20">URL</A><LI><A HREF="#id6did21">Cookie</A><LI><A HREF="#id6did22">Response</A><LI><A HREF="#id6did23">HTTP</A><LI><A HREF="#id6did24">HTTPS</A><LI><A HREF="#id6did25">HtmlTag</A><LI><A HREF="#id6did26">HtmlParser</A><LI><A HREF="#id6did27">FileProperty</A><LI><A HREF="#id6did28">FTP</A><LI><A HREF="#id6did29">TCPSocket</A><LI><A HREF="#id6did30">Mail</A><LI><A HREF="#id6did31">POP3</A><LI><A HREF="#id6did32">SMTP</A><LI><A HREF="#id6did33">ActiveXObject</A><LI><A HREF="#id6did34">Keyboard</A><LI><A HREF="#id6did35">Mouse</A><LI><A HREF="#id6did36">Clipboard</A><LI><A HREF="#id6did37">DynaCall</A><LI><A HREF="#id6did38">Struct</A><LI><A HREF="#id6did39">StringBuffer</A><LI><A HREF="#id6did40">WScript</A><LI><A HREF="#id6did41">Enumerator</A><LI><A HREF="#id6did42">CheckListBox</A></UL>
-<LI><A HREF="#id7">�g���g���݃I�u�W�F�N�g</A></UL><P>
+<UL>
+  <LI><A HREF="#id1">はじめに</A>
+  <LI><A HREF="#id2">ライセンス</A>
+  <LI><A HREF="#id3">インストール</A>
+  <LI><A HREF="#id4">使用法</A>
+  <LI><A HREF="#id5">言語仕様について</A>
+  <UL>
+    <LI><A HREF="#id5did1">式</A><LI><A HREF="#id5did2">文</A><LI><A HREF="#id5did3">条件コンパイル文</A><LI><A HREF="#id5did4">宣言</A><LI><A HREF="#id5did5">オブジェクト</A><LI><A HREF="#id5did6">VCLオブジェクト</A><LI><A HREF="#id5did7">クラス定義</A><LI><A HREF="#id5did8">例外</A><LI><A HREF="#id5did9">インポート</A>
+  </UL>
+  <LI><A HREF="#id6">組込みオブジェクト</A>
+  <UL>
+    <LI><A HREF="#id6did1">Ob-ject</A><LI><A HREF="#id6did2">Global</A><LI><A HREF="#id6did3">Array</A><LI><A HREF="#id6did4">Number</A><LI><A HREF="#id6did5">Boolean</A><LI><A HREF="#id6did6">String</A><LI><A HREF="#id6did7">RegExp</A><LI><A HREF="#id6did8">Math</A><LI><A HREF="#id6did9">Date</A><LI><A HREF="#id6did10">File</A><LI><A HREF="#id6did11">Directory</A><LI><A HREF="#id6did12">Strings</A><LI><A HREF="#id6did13">Win32</A><LI><A HREF="#id6did14">Ini</A><LI><A HREF="#id6did15">RegIni</A><LI><A HREF="#id6did16">CRC</A><LI><A HREF="#id6did17">Base64</A><LI><A HREF="#id6did18">Dialog</A><LI><A HREF="#id6did19">Mutex</A><LI><A HREF="#id6did20">URL</A><LI><A HREF="#id6did21">Cookie</A><LI><A HREF="#id6did22">Response</A><LI><A HREF="#id6did23">HTTP</A><LI><A HREF="#id6did24">HTTPS</A><LI><A HREF="#id6did25">HtmlTag</A><LI><A HREF="#id6did26">HtmlParser</A><LI><A HREF="#id6did27">FileProperty</A>
+    <LI><A HREF="#id6did28">FTP</A>&nbsp;&nbsp;<b><font color="red" size="-2">未サポートクラス</font></b>
+    <LI><A HREF="#id6did29">TCPSocket</A>&nbsp;&nbsp;<b><font color="red" size="-2">未サポートクラス</font></b>
+    <LI><A HREF="#id6did30">Mail</A>&nbsp;&nbsp;<b><font color="red" size="-2">未サポートクラス</font></b>
+    <LI><A HREF="#id6did31">POP3</A>&nbsp;&nbsp;<b><font color="red" size="-2">未サポートクラス</font></b>
+    <LI><A HREF="#id6did32">SMTP</A>&nbsp;&nbsp;<b><font color="red" size="-2">未サポートクラス</font></b>
+    <LI><A HREF="#id6did33">ActiveXObject</A><LI><A HREF="#id6did34">Keyboard</A><LI><A HREF="#id6did35">Mouse</A><LI><A HREF="#id6did36">Clipboard</A><LI><A HREF="#id6did37">DynaCall</A><LI><A HREF="#id6did38">Struct</A><LI><A HREF="#id6did39">StringBuffer</A><LI><A HREF="#id6did40">WScript</A><LI><A HREF="#id6did41">Enumerator</A><LI><A HREF="#id6did42">CheckListBox</A>
+    <LI><A HREF="#id6did43">Bytes</A>&nbsp;&nbsp;<b><font color="red" size="-2">追加クラス</font></b>
+    <LI><A HREF="#id6did44">Encoding</A>&nbsp;&nbsp;<b><font color="red" size="-2">追加クラス</font></b>
+    <LI><A HREF="#id6did45">FileReader</A>&nbsp;&nbsp;<b><font color="red" size="-2">追加クラス</font></b>
+    <LI><A HREF="#id6did46">FileWriter</A>&nbsp;&nbsp;<b><font color="red" size="-2">追加クラス</font></b>
+  </UL>
+  <LI><A HREF="#id7">拡張組込みオブジェクト</A>
+ </UL><P>
 <A NAME="id1"><BR></A>
 <HR>
-<H2>�͂��߂�</H2>
+<H2>はじめに</H2>
 <P>
-DMonkey�� Delphi�ō��ꂽ
-�A�v���P�[�V�����ւ̑g���݂�ړI�Ƃ����C���^�v���^�E�X�N���v�g�G���W���ł��B<br>
-����d�l��
+DMonkeyは Delphiで作られた
+アプリケーションへの組込みを目的としたインタプリタ・スクリプトエンジンです。<br>
+言語仕様は
 <A HREF="http://www.ecma-international.org/publications/standards/Ecma%2D262.htm" target="_top">ECMAScript(JavaScript)</A>
-�̃T�u�Z�b�g�ɂȂ��Ă��܂��B
+のサブセットになっています。
+<br>
+<br>
+この実装ではオリジナルの実装に加えてUnicode対応を行い、そのための追加機能として Bytes, Encoding, FileReader, FileWriterクラスを実装します。<br>
+元の実装にあった、StringクラスのEncoding変換系のクラスは廃止されています。<br>
 <P>
 <A NAME="id2"><BR></A>
 <HR>
-<H2>���C�Z���X</H2>
+<H2>ライセンス</H2>
 <P>
-DMonkey�̎g�p�E�z�z�E���ςɂ��Ă̐����͂���܂���B
+DMonkeyの使用・配布・改変についての制限はありません。
 <P>
 <A NAME="id3"><BR></A>
 <HR>
-<H2>�C���X�g�[��</H2>
+<H2>インストール</H2>
 <P>
-�R���|�[�l���g�̃C���X�g�[������ DMonkey.pas���C���X�g�[�����܂��B
+コンポーネントのインストールから DMonkey.pasをインストールします。
 <P>
 <A NAME="id4"><BR></A>
 <HR>
-<H2>�g�p�@</H2>
+<H2>使用法</H2>
 <P>
-1.���\�b�h
-<PRE>�X�N���v�g���R���p�C�����܂��B
+1.メソッド
+<PRE>スクリプトをコンパイルします。
 function Compile(SourceCode: String): Boolean;
 function CompileFile(AFilename: String): Boolean;
 <P>
-�X�N���v�g�����s���܂��B
+スクリプトを実行します。
 function Run(Args: array of const): Integer; overload;
 function Run(Args: TJValueList): Integer; overload;
 function Run: Integer; overload;
 <P>
-�֐����Ăяo���܂��B
+関数を呼び出します。
 function CallFunction(Symbol: String; Param: array of const; var RetValue: TJValue): Boolean; overload;
 function CallFunction(Symbol: String; Param: TJValueList; var RetValue: TJValue): Boolean; overload;
 <P>
-�N���A���܂��B
+クリアします。
 procedure Clear;
 <P>
-�X�N���v�g�𒆎~���܂��B
+スクリプトを中止します。
 procedure Abort;
 <P>
-���s�����ǂ����B
+実行中かどうか。
 function IsRunning: Boolean;
 <P>
-�g���g���݃I�u�W�F�N�g���C���|�[�g���܂��B
+拡張組込みオブジェクトをインポートします。
 procedure ImportObject(ObjectName: String; ObjectClass: TJObjectClass);
 </PRE>
-2.�v���p�e�B
-<PRE>import�錾�ł̌����p�X�B
+2.プロパティ
+<PRE>import宣言での検索パス。
 property LibraryPath: TStringList
 <P>
-�R���p�C���σo�C�i�����g�p����B
+コンパイル済バイナリを使用する。
 property CompiledBinary: Boolean
 </PRE>
-3.�C�x���g
-<PRE>�W���o��
+3.イベント
+<PRE>標準出力
 property OnStdout: TStringEvent
 <P>
-�W���G���[
+標準エラー
 property OnStderr: TStringEvent
 <P>
-�W������
+標準入力
 property OnStdin: TReadStringEvent
 <P>
-�f�o�b�O�o��
+デバッグ出力
 property OnDebugout: TStringEvent
 <P>
-�X�N���v�g���s���ɃI�u�W�F�N�g���쐬���ꂽ�Ƃ��Ă΂�܂��B
+スクリプト実行時にオブジェクトが作成されたとき呼ばれます。
 property OnNewObject: TNewObjectEvent
 <P>
-���s�J�n
+実行開始
 property OnRun: TNotifyEvent
 <P>
-���s�I��
+実行終了
 property OnDone: TNotifyEvent
 <P>
-�X�N���v�g�̕�(statement)������s���邽�тɌĂ΂�܂��B�X�N���v�g�̒��f�ȂǂɎg�p���܂��B
+スクリプトの文(statement)を一つ実行するたびに呼ばれます。スクリプトの中断などに使用します。
 property OnStep: TStepEvent
 <P>
 </PRE>
-4.���s��
+4.実行例
 <PRE>begin
-  //���s
+  //実行
   if DMonkey1.Compile('println("hello,world");') then
     DMonkey1.Run;
 end;
@@ -106,96 +132,97 @@ end;
 var
   retval: TJValue;
 begin
-  //�֐��Ăяo��
+  //関数呼び出し
   if DMonkey1.Compile('function f(a){ println(a);}') then
   begin
-    //���s����K�v������܂�
+    //実行する必要があります
     DMonkey1.Run;
-    //�Ăяo��
+    //呼び出し
     DMonkey1.CallFunction('f',['hello'],retval);
   end;
 end;
 </PRE>
-5.������` {$DEFINE }
-<PRE><UL><LI>NO_EXTENSION ... �g��Object���g�p���Ȃ��B</UL>
-<UL><LI>NO_SOCKET ... Socket Object���g�p���Ȃ��B</UL>
-<UL><LI>NO_ACTIVEX ... Activex Object���g�p���Ȃ��B</UL>
-<UL><LI>NO_DYNACALL ... DynaCall Object���g�p���Ȃ��B</UL>
-<UL><LI>NO_GUI ... GUI Object���g�p���Ȃ��B</UL>
-<UL><LI>NO_WSH ... WScript Object���g�p���Ȃ��B</UL>
-<UL><LI>NO_VCL ... VCL Object���g�p���Ȃ��B</UL>
-<UL><LI>MB_NO_OWNER ... alert()�Ȃǂł̃_�C�A���O���^�X�N�o�[�ɕ\������B</UL>
+5.条件定義 {$DEFINE }
+<PRE><UL><LI>NO_EXTENSION ... 拡張Objectを使用しない。</UL>
+<UL><LI>NO_SOCKET ... Socket Objectを使用しない。</UL>
+<UL><LI>NO_ACTIVEX ... Activex Objectを使用しない。</UL>
+<UL><LI>NO_DYNACALL ... DynaCall Objectを使用しない。</UL>
+<UL><LI>NO_GUI ... GUI Objectを使用しない。</UL>
+<UL><LI>NO_WSH ... WScript Objectを使用しない。</UL>
+<UL><LI>NO_VCL ... VCL Objectを使用しない。</UL>
+<UL><LI>MB_NO_OWNER ... alert()などでのダイアログをタスクバーに表示する。</UL>
 </PRE>
 <P>
 <A NAME="id5"><BR></A>
 <HR>
-<H2>����d�l�ɂ���</H2>
+<H2>言語仕様について</H2>
 <P>
-DMonkey�̌���d�l�ɂ��ĊȒP�ɉ�����܂��B
+DMonkeyの言語仕様について簡単に解説します。
 <P>
 <A NAME="id5did1"><BR></A>
-<H3>��</H3>
-���ɂ��Ă� JavaScript�Ƃقړ����ł��B<br>
-�ϐ���var�錾���g�p����ƃ��[�J���A<s>�g�p���Ȃ��ꍇ�̓O���[�o���ϐ��ɂȂ�܂�</s>�B<br>
-var�錾���g�p������������I�ɂȂ�܂��B<br>
-����`�̕ϐ����g�p�����ꍇ�ɂ͗�O���������܂��B<br>
-������� ' �ň͂ނƃG�X�P�[�v������W�J���܂���B
+<H3>式</H3>
+式については JavaScriptとほぼ同じです。<br>
+変数はvar宣言を使用するとローカル、<s>使用しない場合はグローバル変数になります</s>。<br>
+var宣言を使用する方が効率的になります。<br>
+未定義の変数を使用した場合には例外が発生します。<br>
+文字列は ' で囲むとエスケープ文字を展開しません。
 <P>
 <A NAME="id5did2"><BR></A>
-<H3>��</H3>
-���͈ȉ����g�p�ł��܂��B<br>
+<H3>文</H3>
+文は以下が使用できます。<br>
 if..else, while, do..while, for, for..in, continue,
 break, return, try, throw, catch, finally, with, switch-case-default<br>
 <p>
-<STRONG>��0.2.0����for..in�����ύX�ɂȂ�܂���<br></STRONG>
-Array,Strings,HtmlParser�̈������ύX�ɂȂ��Ă��܂��B<br>
-��(1) 0.1.7�܂�
-<PRE>  a = ['a','b','c','d'];//�z��
-  for(i in a)           //i�ɂ̓C���f�b�N�X������
+<STRONG>※0.2.0からfor..in文が変更になりました<br></STRONG>
+Array,Strings,HtmlParserの扱いが変更になっています。<br>
+例(1) 0.1.7まで
+<PRE>  a = ['a','b','c','d'];//配列
+  for(i in a)           //iにはインデックスが入る
     println(a[i]);
 </PRE>
-��(2) 0.2.0����
-<PRE>  a = ['a','b','c','d'];//�z��
-  for(v in a)           //v�ɂ͗v�f�����ړ���
+例(2) 0.2.0から
+<PRE>  a = ['a','b','c','d'];//配列
+  for(v in a)           //vには要素が直接入る
     println(v);
 </PRE>
 <P>
-<STRONG>��0.2.1����for..in�����ύX�ɂȂ�܂���<br></STRONG>
-��(1) 0.2.1����
-<PRE>  a = ['a','b','c','d'];//�z��
-  for(i in a)           //i�ɂ̓C���f�b�N�X������
+<STRONG>※0.2.1からfor..in文が変更になりました<br></STRONG>
+例(1) 0.2.1から
+<PRE>  a = ['a','b','c','d'];//配列
+  for(i in a)           //iにはインデックスが入る
     println(a[i]);
 </PRE>
-��(2) ������`
-<PRE>  @set @VERSION7 = true //������`
-  a = ['a','b','c','d'];//�z��
-  for(v in a)           //v�ɂ͗v�f�����ړ���
+例(2) 条件定義
+<PRE>  @set @VERSION7 = true //条件定義
+  a = ['a','b','c','d'];//配列
+  for(v in a)           //vには要素が直接入る
     println(v);
 </PRE>
 </p>
 <P>
 <A NAME="id5did3"><BR></A>
-<H3>�����R���p�C����</H3>
-�����R���p�C���͈ȉ��̃V���{�����g�p�ł��܂��B<br>
-@set @VERSION7 = true         //�f�t�H���g��false�Atrue�ɂ����for..in���Ŕz��̗v�f��ϐ��ɓ����<br>
-@set @SHORT_CIRCUIT = false   //�f�t�H���g��true�Afalse�ɂ���Ə������Ŋ��S�]��<br>
+<H3>条件コンパイル文</H3>
+条件コンパイルは以下のシンボルが使用できます。<br>
+@set @VERSION7 = true         //デフォルトはfalse、trueにするとfor..in文で配列の要素を変数に入れる<br>
+@set @SHORT_CIRCUIT = false   //デフォルトはtrue、falseにすると条件文で完全評価<br>
 <P>
 <A NAME="id5did4"><BR></A>
-<H3>�錾</H3>
-�錾�͈ȉ����g�p�ł��܂��B<br>
+<H3>宣言</H3>
+宣言は以下が使用できます。<br>
 function, var, class, import, static
 <P>
 <A NAME="id5did5"><BR></A>
-<H3>�I�u�W�F�N�g</H3>
-�I�u�W�F�N�g�͈ȉ����g�p�ł��܂��B�i�ʂɂ��Ă͌�q�j<br>
+<H3>オブジェクト</H3>
+オブジェクトは以下が使用できます。（個別については後述）<br>
 Object, Global, Array, String, RegExp, Number, Boolean, Date,
 Math, Strings, File, Directory,TCPSocket, HTTP, HTTPS, Cookie, Response, Mail,
 SMTP, POP3, URL, CRC, Dialog, Mutex, Win32, Base64, Ini, ActiveXObject, Keyboard, Mouse, Clipboard, Dynacall,
 RegIni, HtmlTag, HtmlParser, FTP, WScript, Enumerator, CheckListBox
+, Bytes, Encoding, FileReader, FileWriter
 <P>
 <A NAME="id5did6"><BR></A>
-<H3>VCL�I�u�W�F�N�g</H3>
-�d�l��Delphi6�̃w���v���Q�Ƃ��Ă��������B<br>
+<H3>VCLオブジェクト</H3>
+仕様はDelphi6のヘルプを参照してください。<br>
 VCLForm, VCLEdit, VCLButton, VCLMemo, VCLLabel, VCLTimer,
 VCLMenuItem, VCLMainMenu, VCLPopupMenu, VCLCheckBox, VCLRadioButton,
 VCLListBox, VCLComboBox, VCLGroupBox, VCLRadioGroup, VCLPanel, VCLSplitter,
@@ -205,14 +232,14 @@ VCLAction, VCLOpenDialog, VCLSaveDialog, VCLFontDialog, VCLFindDialog, VCLReplac
 VCLSpinEdit, VCLUpDown
 <P>
 <A NAME="id5did7"><BR></A>
-<H3>�N���X��`</H3>
-�����̃I�u�W�F�N�g���p�����ĐV�����I�u�W�F�N�g����邱�Ƃ��ł��܂��B<br>
+<H3>クラス定義</H3>
+既存のオブジェクトを継承して新しいオブジェクトを作ることができます。<br>
 <br>
-��(1)
-<PRE>class Foo{ //�w�肵�Ȃ��ꍇ�� Object���p��
+例(1)
+<PRE>class Foo{ //指定しない場合は Objectを継承
   aaa = 10;
   function f1(a){
-    Global.println(a + ',world'); //Global���K�v�ɂȂ�܂�
+    Global.println(a + ',world'); //Globalが必要になります
   }
 }
 class Bar extends Foo{
@@ -236,11 +263,11 @@ a.f3();
 for(i in a.ccc)
   println(i);
 </PRE>
-��(2)
+例(2)
 <PRE>class IE {
   ie = new ActiveXObject('InternetExplorer.Application');
   win32 = new Win32;
-  function IE(){  //�R���X�g���N�^���w�肷��ƍ쐬���ɌĂ΂�܂��B
+  function IE(){  //コンストラクタを指定すると作成時に呼ばれます。
     if(arguments.length > 0)
       this.ie.Visible = arguments[0];
     else
@@ -252,7 +279,7 @@ for(i in a.ccc)
   function go(url){
     this.ie.Navigate(url);
     while(this.ie.Busy)
-      this.win32.processMessages(); //�ҋ@
+      this.win32.processMessages(); //待機
   }
   function quit(){
     this.ie.Quit();
@@ -261,7 +288,7 @@ for(i in a.ccc)
   ie = new IE(true);
   //ie.goGoogle();
   for(;;){
-    a = prompt('URL���w�肵�Ă�������');
+    a = prompt('URLを指定してください');
     if(a)
       ie.go(a);
     else{
@@ -272,26 +299,26 @@ for(i in a.ccc)
 </PRE>
 <P>
 <A NAME="id5did8"><BR></A>
-<H3>��O</H3>
-����`�̒l���Q�Ƃ�����G���[�̏ꍇ�Ȃǂɂ́A
-��O���������ăX�N���v�g�͏I�����܂��B
-��O����p�����Ď��s����ꍇ�ɂ� try..catch���g�p���܂��B<br>
+<H3>例外</H3>
+未定義の値を参照したりエラーの場合などには、
+例外が発生してスクリプトは終了します。
+例外後も継続して実行する場合には try..catchを使用します。<br>
 <br>
-��(1)
-<PRE>  println(a);       //����`�̒l���Q�Ƃ������ߗ�O���N���܂��B
-  println('hello'); //�����͎��s����܂���
+例(1)
+<PRE>  println(a);       //未定義の値を参照したため例外が起きます。
+  println('hello'); //ここは実行されません
 </PRE>
-��(2) catch���͗�O���N�����ꍇ�ɂ̂ݎ��s���܂��B
+例(2) catch文は例外が起きた場合にのみ実行します。
 <PRE>  try{
-    println(a);   //��O���N�����catch���ֈړ����܂��B
+    println(a);   //例外が起きるとcatch文へ移動します。
   }
   catch(e){
     println('error: ' + e);
   }
 </PRE>
-��(3) finally�����g���Ɨ�O�Ɋ֌W�Ȃ���Ɏ��s���܂��B
+例(3) finally文を使うと例外に関係なく常に実行します。
 <PRE>  try{
-    println(a);   //��O���N�����catch���ֈړ����܂��B
+    println(a);   //例外が起きるとcatch文へ移動します。
   }
   catch(e){
     println('error: ' + e);
@@ -302,75 +329,75 @@ for(i in a.ccc)
 </PRE>
 <P>
 <A NAME="id5did9"><BR></A>
-<H3>�C���|�[�g</H3>
-���̃X�N���v�g�t�@�C�����C���|�[�g���邱�Ƃ��ł��܂��B<br>
+<H3>インポート</H3>
+他のスクリプトファイルをインポートすることができます。<br>
 <br>
-��(1) hello.dms�̃t�@�C�����ŕۑ����܂��B
+例(1) hello.dmsのファイル名で保存します。
 <PRE>  println('hello,');
   a = 'world';
 </PRE>
-��(2) ���O��ԂȂ��ŃC���|�[�g���܂��B
+例(2) 名前空間なしでインポートします。
 <PRE>  import hello.*;
   println(a);
 </PRE>
 <P>
-��(3) ���O��Ԃ���ŃC���|�[�g���܂��B
+例(3) 名前空間ありでインポートします。
 <PRE>  import hello;
   println(hello.a);
-  println(a); //���݂̖��O��Ԃ� a �����݂��Ȃ��ꍇ
+  println(a); //現在の名前空間に a が存在しない場合
 </PRE>
 <P>
-��(4) ���O��Ԃ���ŃC���|�[�g���܂��B
+例(4) 名前空間ありでインポートします。
 <PRE>  import hello;
   a = 10;
   println(hello.a);
-  println(a); //���݂̖��O��Ԃ� a �����݂���ꍇ
+  println(a); //現在の名前空間に a が存在する場合
 </PRE>
 <P>
 <P>
 <A NAME="id6"><BR></A>
 <HR>
-<H2>�g���݃I�u�W�F�N�g</H2>
-DMonkey�ł͑g���݃I�u�W�F�N�g�ɂ���ċ@�\���g�����Ă����܂��B<br>
+<H2>組込みオブジェクト</H2>
+DMonkeyでは組込みオブジェクトによって機能を拡張していきます。<br>
 <P>
 <A NAME="id6did1"><BR></A>
 <H3>Object</H3>
-���ׂĂ̊�{�ƂȂ�I�u�W�F�N�g�B�n�b�V���e�[�u���̋@�\�������܂��B<br>
-<UL><LI>hasKey(������) ... �������key�������Ă��邩�`�F�b�N���܂��B�Ԓl�� Boolean�l�B</UL>
-<UL><LI>hasOwnProperty(������) ... hasKey�Ɠ����B</UL>
-<UL><LI>removeKey(������) ... �������key���폜���܂��B�Ԓl�� Boolean�l�B</UL>
-<UL><LI>getKeys() ... �S�Ă�key�����s�ŋ�؂�ꂽ������ŕԂ��B</UL>
-<UL><LI>getProperties() ... �S�Ă�property�����s�ŋ�؂�ꂽ������ŕԂ��B</UL>
-<UL><LI>getMethods() ... �S�Ă�method�����s�ŋ�؂�ꂽ������ŕԂ��B</UL>
+すべての基本となるオブジェクト。ハッシュテーブルの機能を持ちます。<br>
+<UL><LI>hasKey(文字列) ... 文字列のkeyを持っているかチェックします。返値は Boolean値。</UL>
+<UL><LI>hasOwnProperty(文字列) ... hasKeyと同じ。</UL>
+<UL><LI>removeKey(文字列) ... 文字列のkeyを削除します。返値は Boolean値。</UL>
+<UL><LI>getKeys() ... 全てのkeyを改行で区切られた文字列で返す。</UL>
+<UL><LI>getProperties() ... 全てのpropertyを改行で区切られた文字列で返す。</UL>
+<UL><LI>getMethods() ... 全てのmethodを改行で区切られた文字列で返す。</UL>
 <P>
 <P>
-��(1)
+例(1)
 <PRE>  a = new Object;
   a['hello'] = 'world';
   println(a['hello']);
   println(a.hello);
   println(a.hasKey('hello'));
 </PRE>
-��(2)
-<PRE>  obj = {hello : 'world', foo : 10}; //object����
+例(2)
+<PRE>  obj = {hello : 'world', foo : 10}; //object生成
   println(obj.hello);
   println(obj.foo);
 </PRE>
-��(3)
-<PRE>  obj = {hello : 'world', foo : 10}; //object����
+例(3)
+<PRE>  obj = {hello : 'world', foo : 10}; //object生成
   keys = obj.getKeys();
   for(i in keys)
     println(keys[i]);
 <P>
 </PRE>
-��(4)
+例(4)
 <PRE>function _inc(){
   return this.counter += 1;
 }
 function _dec(){
   return this.counter -= 1;
 }
-  //�[���I�ȃI�u�W�F�N�g��`
+  //擬似的なオブジェクト定義
   a = {counter: 0,
        inc: _inc,
        dec: _dec
@@ -393,83 +420,83 @@ function _dec(){
 <P>
 <A NAME="id6did2"><BR></A>
 <H3>Global</H3>
-�J�����g�I�u�W�F�N�g�B�X�N���v�g�� Global�I�u�W�F�N�g���Ŏ��s����܂��B<br>
-�O���[�o���I�u�W�F�N�g Global���X�N���v�g�ɍŏ����瑶�݂��܂��B
+カレントオブジェクト。スクリプトは Globalオブジェクト内で実行されます。<br>
+グローバルオブジェクト Globalがスクリプトに最初から存在します。
 <P>
-<UL><LI>escape(������) ... ��������G���R�[�h���܂��B�Ԓl�͕�����B</UL>
-<UL><LI>unescape(������) ... ��������f�R�[�h���܂��B�Ԓl�͕�����B</UL>
-<UL><LI>eval(������) ... ��������X�N���v�g�Ƃ��Ď��s���܂��B�Ԓl�͐����l�B</UL>
-<UL><LI>isFinite(�l) ... �l�����l���ǂ����`�F�b�N���܂��B</UL>
-<UL><LI>isNaN(�l) ... �l��NaN���ǂ����`�F�b�N���܂��B</UL>
-<UL><LI>parseFloat(�l) ... �l�𕂓������_�ɕϊ����܂��B�Ԓl�͐��l�B</UL>
-<UL><LI>parseInt(�l�j ... �l�𐮐��l�ɕϊ����܂��B�Ԓl�͐����l�B</UL>
-<UL><LI>print(�l�j ... �l��W���o�͂ɏo�͂��܂��B</UL>
-<UL><LI>println(�l�j ... �l��W���o�͂ɉ��s��t���ďo�͂��܂��B</UL>
+<UL><LI>escape(文字列) ... 文字列をエンコードします。返値は文字列。</UL>
+<UL><LI>unescape(文字列) ... 文字列をデコードします。返値は文字列。</UL>
+<UL><LI>eval(文字列) ... 文字列をスクリプトとして実行します。返値は整数値。</UL>
+<UL><LI>isFinite(値) ... 値が数値かどうかチェックします。</UL>
+<UL><LI>isNaN(値) ... 値がNaNかどうかチェックします。</UL>
+<UL><LI>parseFloat(値) ... 値を浮動小数点に変換します。返値は数値。</UL>
+<UL><LI>parseInt(値） ... 値を整数値に変換します。返値は整数値。</UL>
+<UL><LI>print(値） ... 値を標準出力に出力します。</UL>
+<UL><LI>println(値） ... 値を標準出力に改行を付けて出力します。</UL>
 <UL><LI>write() ... print()</UL>
 <UL><LI>writeln() ... println()</UL>
-<UL><LI>alert(������) ... �x���_�C�A���O��\�����܂��B</UL>
-<UL><LI>prompt(������A,������B) ... �v�����v�g��\�����܂��BA�̓��b�Z�[�W�AB�͏����l�B�Ԓl�͕�����null�B</UL>
-<UL><LI>confirm(������) ... �m�F�_�C�A���O��\�����܂��B�Ԓl��Boolean�B</UL>
-<UL><LI>textArea(������A,������B) ... �e�L�X�g�G���A��\�����܂��BA�̓��b�Z�[�W�AB�͏����l�B�Ԓl�͕�����null�B</UL>
-<UL><LI>exit() ... �X�N���v�g���I�����܂��B</UL>
-<UL><LI>scriptEngine() ... �X�N���v�g�G���W���̖��O�B</UL>
-<UL><LI>scriptEngineBuildVersion() ... �X�N���v�g�G���W���̃r���h�ԍ��B</UL>
-<UL><LI>scriptEngineMajorVersion() ... �X�N���v�g�G���W���̃��W���[�o�[�W�����B</UL>
-<UL><LI>scriptEngineMinorVersion() ... �X�N���v�g�G���W���̃}�C�i�[�o�[�W�����B</UL>
-<UL><LI>scriptEngineVersion() ... �X�N���v�g�G���W���̃o�[�W�����B</UL>
-<UL><LI>read(�����l) ... �W�����͂��琮���l���ǂݍ���ŕ������Ԃ��܂��B</UL>
-<UL><LI>readln() ... �W�����͂���1�s�ǂݍ��݂܂��B</UL>
-<UL><LI>isConsole() ... �R���\�[���Ŏ��s����Ă���̂��ǂ����B</UL>
-<UL><LI>encodeURI(������) ... ��������ꕔ�̕���������URL�G���R�[�h���܂��B�Ԓl�͕�����B</UL>
-<UL><LI>encodeURIComponent(������) ... �������URL�G���R�[�h���܂��B�Ԓl�͕�����B</UL>
-<UL><LI>decodeURI(������) ... ��������ꕔ�̕���������UR�f�R�[�h���܂��B�Ԓl�͕�����B</UL>
-<UL><LI>decodeURIComponent(������) ... �������URL�f�R�[�h���܂��B�Ԓl�͕�����B</UL>
-<UL><LI>format(������,�l1[,�l2,[�l3,...]]]) ... �`��������B</UL>
-<UL><LI>sprintf(������,�l1[,�l2,[�l3,...]]]) ... �`��������B</UL>
-<UL><LI>formatFloat(������,���l) ... ���l�E�`��������B</UL>
-<UL><LI>printf(������,�l1[,�l2,[�l3,...]]]) ... �`����������o�́B</UL>
-<UL><LI>printfln(������,�l1[,�l2,[�l3,...]]]) ... �`������������s�o�́B</UL>
-<UL><LI>eventLoop() ... VCL�̃C�x���g���[�v�ɓ���B</UL>
-<UL><LI>terminate() ... VCL�̃C�x���g���[�v���I������B</UL>
-<UL><LI>sleep(���l) ... �~���b��~����B</UL>
-<UL><LI>isNull(�l) ... �l��null���ǂ����`�F�b�N�B</UL>
-<UL><LI>isUndefined(�l) ... �l������`���ǂ����`�F�b�N�B</UL>
-<UL><LI>nameOf(�I�u�W�F�N�g) ... �I�u�W�F�N�g����Ԃ��B�Ԓl�͕�����null�B</UL>
+<UL><LI>alert(文字列) ... 警告ダイアログを表示します。</UL>
+<UL><LI>prompt(文字列A,文字列B) ... プロンプトを表示します。Aはメッセージ、Bは初期値。返値は文字列かnull。</UL>
+<UL><LI>confirm(文字列) ... 確認ダイアログを表示します。返値はBoolean。</UL>
+<UL><LI>textArea(文字列A,文字列B) ... テキストエリアを表示します。Aはメッセージ、Bは初期値。返値は文字列かnull。</UL>
+<UL><LI>exit() ... スクリプトを終了します。</UL>
+<UL><LI>scriptEngine() ... スクリプトエンジンの名前。</UL>
+<UL><LI>scriptEngineBuildVersion() ... スクリプトエンジンのビルド番号。</UL>
+<UL><LI>scriptEngineMajorVersion() ... スクリプトエンジンのメジャーバージョン。</UL>
+<UL><LI>scriptEngineMinorVersion() ... スクリプトエンジンのマイナーバージョン。</UL>
+<UL><LI>scriptEngineVersion() ... スクリプトエンジンのバージョン。</UL>
+<UL><LI>read(整数値) ... 標準入力から整数値分読み込んで文字列を返します。</UL>
+<UL><LI>readln() ... 標準入力から1行読み込みます。</UL>
+<UL><LI>isConsole() ... コンソールで実行されているのかどうか。</UL>
+<UL><LI>encodeURI(文字列) ... 文字列を一部の文字を除きURLエンコードします。返値は文字列。</UL>
+<UL><LI>encodeURIComponent(文字列) ... 文字列をURLエンコードします。返値は文字列。</UL>
+<UL><LI>decodeURI(文字列) ... 文字列を一部の文字を除きURデコードします。返値は文字列。</UL>
+<UL><LI>decodeURIComponent(文字列) ... 文字列をURLデコードします。返値は文字列。</UL>
+<UL><LI>format(文字列,値1[,値2,[値3,...]]]) ... 形式文字列。</UL>
+<UL><LI>sprintf(文字列,値1[,値2,[値3,...]]]) ... 形式文字列。</UL>
+<UL><LI>formatFloat(文字列,数値) ... 数値・形式文字列。</UL>
+<UL><LI>printf(文字列,値1[,値2,[値3,...]]]) ... 形式文字列を出力。</UL>
+<UL><LI>printfln(文字列,値1[,値2,[値3,...]]]) ... 形式文字列を改行出力。</UL>
+<UL><LI>eventLoop() ... VCLのイベントループに入る。</UL>
+<UL><LI>terminate() ... VCLのイベントループを終了する。</UL>
+<UL><LI>sleep(数値) ... ミリ秒停止する。</UL>
+<UL><LI>isNull(値) ... 値がnullかどうかチェック。</UL>
+<UL><LI>isUndefined(値) ... 値が未定義かどうかチェック。</UL>
+<UL><LI>nameOf(オブジェクト) ... オブジェクト名を返す。返値は文字列かnull。</UL>
 <P>
-<UL><LI>arguments ... Array�B�N�����̈������������z��B</UL>
-<UL><LI>applicationHandle ... �A�v���P�[�V�����̃n���h���B</UL>
-<UL><LI>mainFormHandle ... ���C���t�H�[���̃n���h���B</UL>
-<UL><LI>platform ... OS�̎�ނ𕶎��ŕԂ��B'nt'|'windows'|'win32s'</UL>
+<UL><LI>arguments ... Array。起動時の引数が入った配列。</UL>
+<UL><LI>applicationHandle ... アプリケーションのハンドル。</UL>
+<UL><LI>mainFormHandle ... メインフォームのハンドル。</UL>
+<UL><LI>platform ... OSの種類を文字で返す。'nt'|'windows'|'win32s'</UL>
 <P>
 <P>
-��(1)
-<PRE>  a = '����������';
+例(1)
+<PRE>  a = 'あいうえお';
   b = escape(a);
   println(b);
   println(unescape(b));
 </PRE>
-��(2)
+例(2)
 <PRE>  ret = eval('10*10');
   println(ret);
 </PRE>
-��(3)
+例(3)
 <PRE>  a = 10;
   if (isFinite(a))
     println('number');
 </PRE>
-��(4)
+例(4)
 <PRE>  a = '0.9';
   b = 0.1;
   println(a + b);
   println(parseFloat(a) + b);
 </PRE>
-��(5)
+例(5)
 <PRE>  a = '0xa'; //10
   b = 1;
   println(a + b);
   println(parseInt(a) + b);
 </PRE>
-��(6)
+例(6)
 <PRE>  alert('hello');
   if(confirm('prompt?'))
     a = prompt('prompt','');
@@ -483,8 +510,8 @@ function _dec(){
     exit();
   }
 </PRE>
-��(7)
-<PRE>   s = ""; // �������A�����܂��B
+例(7)
+<PRE>   s = ""; // 文字列を連結します。
    s += scriptEngine() + " Version ";
    s += scriptEngineMajorVersion() + ".";
    s += scriptEngineMinorVersion() + ".";
@@ -495,28 +522,28 @@ function _dec(){
 <P>
 <A NAME="id6did3"><BR></A>
 <H3>Array</H3>
-�z��I�u�W�F�N�g�B���݂��Ȃ��v�f�̒l��get���悤�Ƃ���Ɨ�O���������܂�<br>
+配列オブジェクト。存在しない要素の値をgetしようとすると例外が発生します<br>
 <P>
-<UL><LI>new Array(����) ... �������̔z����쐬���܂��B</UL>
-<UL><LI>new Array(�l,�l,...) ... �z���l�ŏ��������܂��B</UL>
-<UL><LI>delete(����) ... �����Ԗڂ̗v�f���폜���܂��B</UL>
-<UL><LI>clear() ... �z����N���A���܂��B</UL>
-<UL><LI>add(�l) ... �l��1�Ō�ɉ����܂��B</UL>
-<UL><LI>sort()  ... �ȗ��B</UL>
-<UL><LI>concat()... �ȗ��B</UL>
-<UL><LI>join()... �ȗ��B</UL>
-<UL><LI>pop()... �ȗ��B</UL>
-<UL><LI>push()... �ȗ��B</UL>
-<UL><LI>reverse()... �ȗ��B</UL>
-<UL><LI>shift()... �ȗ��B</UL>
-<UL><LI>slice()... �ȗ��B</UL>
-<UL><LI>splice()... �ȗ��B</UL>
-<UL><LI>toString()... �ȗ��B</UL>
-<UL><LI>unshift()... �ȗ��B</UL>
-<UL><LI>assign(Array)... �z���Array����R�s�[�B</UL>
-<UL><LI>lengh ... �����l�B�v�f���B</UL>
+<UL><LI>new Array(整数) ... 整数分の配列を作成します。</UL>
+<UL><LI>new Array(値,値,...) ... 配列を値で初期化します。</UL>
+<UL><LI>delete(整数) ... 整数番目の要素を削除します。</UL>
+<UL><LI>clear() ... 配列をクリアします。</UL>
+<UL><LI>add(値) ... 値を1つ最後に加えます。</UL>
+<UL><LI>sort()  ... 省略。</UL>
+<UL><LI>concat()... 省略。</UL>
+<UL><LI>join()... 省略。</UL>
+<UL><LI>pop()... 省略。</UL>
+<UL><LI>push()... 省略。</UL>
+<UL><LI>reverse()... 省略。</UL>
+<UL><LI>shift()... 省略。</UL>
+<UL><LI>slice()... 省略。</UL>
+<UL><LI>splice()... 省略。</UL>
+<UL><LI>toString()... 省略。</UL>
+<UL><LI>unshift()... 省略。</UL>
+<UL><LI>assign(Array)... 配列をArrayからコピー。</UL>
+<UL><LI>lengh ... 整数値。要素数。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  a = new Array;
   a.add(1);
   a.add(2);
@@ -541,36 +568,36 @@ function _dec(){
   a.clear();
   println(c[0].length);
 </PRE>
-��(2)
-<PRE>  a = [5,4,3,2,1,0]; //�z�񐶐�
+例(2)
+<PRE>  a = [5,4,3,2,1,0]; //配列生成
   for(i in a)
     println(a[i]);
 </PRE>
 <P>
 <A NAME="id6did4"><BR></A>
 <H3>Number</H3>
-���l�I�u�W�F�N�g�B<br>
-�O���[�o���I�u�W�F�N�g Number���X�N���v�g�ɍŏ����瑶�݂��܂��B
+数値オブジェクト。<br>
+グローバルオブジェクト Numberがスクリプトに最初から存在します。
 <P>
-<UL><LI>toString(�����l) ... �����l�͕ϊ�����i�����w��B10,16,8,2�ɑΉ��B</UL>
-<UL><LI>toChar() ... ���l�̕����R�[�h�𕶎��ɕϊ��B</UL>
-<UL><LI>NaN ... �񐔒l�B</UL>
-<UL><LI>MAX_VALUE ... �ő�l�B</UL>
-<UL><LI>MIN_VALUE ... �ŏ��l�B</UL>
-<UL><LI>POSITIVE_INFINITY ... ���̖�����B</UL>
-<UL><LI>NEGATIVE_INFINITY ... ���̖�����B</UL>
-<UL><LI>number ... Number�I�u�W�F�N�g�̓������������_�l�փA�N�Z�X�B</UL>
-<UL><LI>int ... Number�I�u�W�F�N�g�̓��������l�փA�N�Z�X�B</UL>
-<UL><LI>asChar ... Number�I�u�W�F�N�g�̓��������l�𕶎��Ŏ擾�A�ݒ�B</UL>
+<UL><LI>toString(整数値) ... 整数値は変換する進数を指定。10,16,8,2に対応。</UL>
+<UL><LI>toChar() ... 数値の文字コードを文字に変換。</UL>
+<UL><LI>NaN ... 非数値。</UL>
+<UL><LI>MAX_VALUE ... 最大値。</UL>
+<UL><LI>MIN_VALUE ... 最小値。</UL>
+<UL><LI>POSITIVE_INFINITY ... 正の無限大。</UL>
+<UL><LI>NEGATIVE_INFINITY ... 負の無限大。</UL>
+<UL><LI>number ... Numberオブジェクトの内部浮動小数点値へアクセス。</UL>
+<UL><LI>int ... Numberオブジェクトの内部整数値へアクセス。</UL>
+<UL><LI>asChar ... Numberオブジェクトの内部整数値を文字で取得、設定。</UL>
 <P>
 <br>
-��(1)
+例(1)
 <PRE>  a = 100;
   println(a.toString(16));
 <P>
   println(0x41.toChar());
 </PRE>
-��(2)
+例(2)
 <PRE>  n = new Number(0x41);
   println(n.asChar);
   n.asChar = 'B';
@@ -579,13 +606,13 @@ function _dec(){
 <P>
 <A NAME="id6did5"><BR></A>
 <H3>Boolean</H3>
-�^�U�I�u�W�F�N�g�B
+真偽オブジェクト。
 <P>
-<UL><LI>toString() ... ������ɕϊ������l��Ԃ��܂��B</UL>
-<UL><LI>bool ... Boolean�I�u�W�F�N�g�̓����l�փA�N�Z�X�B</UL>
+<UL><LI>toString() ... 文字列に変換した値を返します。</UL>
+<UL><LI>bool ... Booleanオブジェクトの内部値へアクセス。</UL>
 <P>
 <br>
-��(1)
+例(1)
 <PRE>  a = true;
   b = new Boolean(true);
   println(a.toString());  //true
@@ -594,71 +621,78 @@ function _dec(){
 <P>
 <A NAME="id6did6"><BR></A>
 <H3>String</H3>
-������I�u�W�F�N�g�B<br>
-�O���[�o���I�u�W�F�N�g String���X�N���v�g�ɍŏ����瑶�݂��܂��B<br>
-�z��Ƃ��Ċe�����𓾂邱�Ƃ��o���܂��B<br>
-��0.2.2��������R�[�h��WideString�ɕύX�ɂȂ�܂����BDynaCall�Ȃǂł�StringBuffer���g���Ă��������B
+文字列オブジェクト。<br>
+グローバルオブジェクト Stringがスクリプトに最初から存在します。<br>
+配列として各文字を得ることが出来ます。<br>
+※0.2.2から内部コードがWideStringに変更になりました。DynaCallなどではStringBufferを使ってください。
+<font color="red">
+<br>オリジナルの実装からtoJIS(), toSJIS(), toEUC(), toUTF8(), fromJIStoSJIS(), fromJIStoEUC(), fromEUCtoSJIS(), fromEUCtoJIS(), fromSJIStoEUC(), fromSJIStoJIS(), fromUTF8toSJIS() の各メソッドが削除されています。<br>
+<br>
+</font>
 <P>
 <P>
-<UL><LI>charAt()... �ȗ��B</UL>
-<UL><LI>anchor()... �ȗ��B</UL>
-<UL><LI>big()... �ȗ��B</UL>
-<UL><LI>blink()... �ȗ��B</UL>
-<UL><LI>bold()... �ȗ��B</UL>
-<UL><LI>charCodeAt()... �ȗ��B</UL>
-<UL><LI>concat()... �ȗ��B</UL>
-<UL><LI>fixed()... �ȗ��B</UL>
-<UL><LI>fontcolor()... �ȗ��B</UL>
-<UL><LI>fontsize()... �ȗ��B</UL>
-<UL><LI>fromCharCode()... �ȗ��B</UL>
-<UL><LI>indexOf()... �ȗ��B</UL>
-<UL><LI>italics()... �ȗ��B</UL>
-<UL><LI>lastIndexOf()... �ȗ��B</UL>
-<UL><LI>link()... �ȗ��B</UL>
-<UL><LI>match()... �ȗ��B</UL>
-<UL><LI>replace()... �ȗ��B</UL>
-<UL><LI>search()... �ȗ��B</UL>
-<UL><LI>slice()... �ȗ��B</UL>
-<UL><LI>small()... �ȗ��B</UL>
-<UL><LI>split()... �ȗ��B</UL>
-<UL><LI>strike()... �ȗ��B</UL>
-<UL><LI>sub()... �ȗ��B</UL>
-<UL><LI>substr()... �ȗ��B</UL>
-<UL><LI>substring()... �ȗ��B</UL>
-<UL><LI>sup()... �ȗ��B</UL>
-<UL><LI>toLowerCase()... �ȗ��B</UL>
-<UL><LI>toUpperCase()... �ȗ��B</UL>
-<UL><LI>toString()... �ȗ��B</UL>
-<UL><LI>toJIS()... JIS�ɕϊ����ĕԂ��܂��B</UL>
-<UL><LI>toSJIS()... SJIS�ɕϊ����ĕԂ��܂��B</UL>
-<UL><LI>toEUC()... EUC�ɂ��ĕԂ��܂��B</UL>
-<UL><LI>toUTF8()... UTF8�ɂ��ĕԂ��܂��B</UL>
-<UL><LI>fromJIStoSJIS()... JIS����SJIS�֕ϊ��B</UL>
-<UL><LI>fromJIStoEUC()... JIS����EUC�֕ϊ��B</UL>
-<UL><LI>fromEUCtoSJIS()... EUC����SJIS�֕ϊ��B</UL>
-<UL><LI>fromEUCtoJIS()... EUC����JIS�֕ϊ��B</UL>
-<UL><LI>fromSJIStoEUC()... SJIS����EUC�֕ϊ��B</UL>
-<UL><LI>fromSJIStoJIS()... SJIS����JIS�֕ϊ��B</UL>
-<UL><LI>fromUTF8toSJIS()... UTF8����SJIS�֕ϊ��B</UL>
-<UL><LI>crypt(������) ... �������salt�ɂ��ĈÍ������܂��Bcrypt(3)�B</UL>
-<UL><LI>trim()... �O��̐���E�󔒕������폜���܂��B</UL>
-<UL><LI>trimLeft()... �O�̐���E�󔒕������폜���܂��B</UL>
-<UL><LI>trimRight()... ��̐���E�󔒕������폜���܂��B</UL>
-<UL><LI>localeCompare(������)... ������Ɣ�r����-1,0,1��Ԃ��܂��B</UL>
-<UL><LI>sizeOf() ... �����̃o�C�g����Ԃ��܂��B</UL>
-<UL><LI>toZenkaku() ... �S�p�����֕ϊ��B</UL>
-<UL><LI>toHankaku() ... ���p�����֕ϊ��B</UL>
-<UL><LI>toHiragana() ... �Ђ炪�Ȃ֕ϊ��B</UL>
-<UL><LI>toKatakana() ... �J�^�J�i�֕ϊ��B</UL>
-<UL><LI>multiply(���l) ... ������𐔒l�񐔘A�����ĕԂ��܂��B</UL>
+<UL><LI>charAt()... 省略。</UL>
+<UL><LI>anchor()... 省略。</UL>
+<UL><LI>big()... 省略。</UL>
+<UL><LI>blink()... 省略。</UL>
+<UL><LI>bold()... 省略。</UL>
+<UL><LI>charCodeAt()... 省略。</UL>
+<UL><LI>concat()... 省略。</UL>
+<UL><LI>fixed()... 省略。</UL>
+<UL><LI>fontcolor()... 省略。</UL>
+<UL><LI>fontsize()... 省略。</UL>
+<UL><LI>fromCharCode()... 省略。</UL>
+<UL><LI>indexOf()... 省略。</UL>
+<UL><LI>italics()... 省略。</UL>
+<UL><LI>lastIndexOf()... 省略。</UL>
+<UL><LI>link()... 省略。</UL>
+<UL><LI>match()... 省略。</UL>
+<UL><LI>replace()... 省略。</UL>
+<UL><LI>search()... 省略。</UL>
+<UL><LI>slice()... 省略。</UL>
+<UL><LI>small()... 省略。</UL>
+<UL><LI>split()... 省略。</UL>
+<UL><LI>strike()... 省略。</UL>
+<UL><LI>sub()... 省略。</UL>
+<UL><LI>substr()... 省略。</UL>
+<UL><LI>substring()... 省略。</UL>
+<UL><LI>sup()... 省略。</UL>
+<UL><LI>toLowerCase()... 省略。</UL>
+<UL><LI>toUpperCase()... 省略。</UL>
+<UL><LI>toString()... 省略。</UL>
+<!-- Unicode対応により廃止
+<UL><LI>toJIS()... JISに変換して返します。</UL>
+<UL><LI>toSJIS()... SJISに変換して返します。</UL>
+<UL><LI>toEUC()... EUCにして返します。</UL>
+<UL><LI>toUTF8()... UTF8にして返します。</UL>
+<UL><LI>fromJIStoSJIS()... JISからSJISへ変換。</UL>
+<UL><LI>fromJIStoEUC()... JISからEUCへ変換。</UL>
+<UL><LI>fromEUCtoSJIS()... EUCからSJISへ変換。</UL>
+<UL><LI>fromEUCtoJIS()... EUCからJISへ変換。</UL>
+<UL><LI>fromSJIStoEUC()... SJISからEUCへ変換。</UL>
+<UL><LI>fromSJIStoJIS()... SJISからJISへ変換。</UL>
+<UL><LI>fromUTF8toSJIS()... UTF8からSJISへ変換。</UL>
+-->
+<UL><LI>crypt(文字列) ... 文字列をsaltにして暗号化します。crypt(3)。</UL>
+<UL><LI>trim()... 前後の制御・空白文字を削除します。</UL>
+<UL><LI>trimLeft()... 前の制御・空白文字を削除します。</UL>
+<UL><LI>trimRight()... 後の制御・空白文字を削除します。</UL>
+<UL><LI>localeCompare(文字列)... 文字列と比較して-1,0,1を返します。</UL>
+<UL><LI>sizeOf() ... 文字のバイト数を返します。</UL>
+<UL><LI>toZenkaku() ... 全角文字へ変換。</UL>
+<UL><LI>toHankaku() ... 半角文字へ変換。</UL>
+<UL><LI>toHiragana() ... ひらがなへ変換。</UL>
+<UL><LI>toKatakana() ... カタカナへ変換。</UL>
+<UL><LI>multiply(数値) ... 文字列を数値回数連結して返します。</UL>
 <P>
-<UL><LI>length ... �����l�B�������B</UL>
-<UL><LI>text ... String�I�u�W�F�N�g�̓����l�փA�N�Z�X�B</UL>
-<UL><LI>str ... text�Ɠ����B</UL>
+<UL><LI>length ... 整数値。文字数。</UL>
+<UL><LI>text ... Stringオブジェクトの内部値へアクセス。</UL>
+<UL><LI>str ... textと同じ。</UL>
 <P>
 <P>
-��(1)
-<PRE>  a = '����������';
+例(1)
+　<font color="red">例(1)は削除されたメソッドを利用しているため利用出来ません。</font>
+<PRE>  a = 'あいうえお';
   b = a.toEUC();
   c = a.toJIS();
   println(b);
@@ -667,62 +701,62 @@ function _dec(){
   println(c.fromJIStoSJIS());
 </PRE>
 <P>
-��(2)
-<PRE>  s = new String('����������');
+例(2)
+<PRE>  s = new String('あいうえお');
   println(s.toString());
 </PRE>
 <P>
-��(3)
-<PRE>  s = 'a��cd��g��ij��lmn';
+例(3)
+<PRE>  s = 'aｂcdｆgｈijｋlmn';
   for(i = 0; i < s.length; i++)
     println(s[i]);
 </PRE>
-��(4)
-<PRE>  pass = prompt('�p�X���[�h����͂��Ă�������','');
-  //salt�͍ŏ��̓񕶎�
+例(4)
+<PRE>  pass = prompt('パスワードを入力してください','');
+  //saltは最初の二文字
   salt = pass;
   /*chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTQVWXYZ';
   salt = chars[Math.floor(Math.random() * chars.length)] +
          chars[Math.floor(Math.random() * chars.length)];
   */;
-  //�Í���
+  //暗号化
   alert(c = pass.crypt(salt));
-  a = prompt('�m�F�̃p�X���[�h����͂��Ă�������','');
+  a = prompt('確認のパスワードを入力してください','');
   if(a){
-    //�Í������ꂽ������salt�Ɏg��
+    //暗号化された文字をsaltに使う
     if(c == a.crypt(c))
-      alert('�����ł�');
+      alert('正解です');
     else
-      alert('�Ⴂ�܂�');
+      alert('違います');
   }
 </PRE>
 <P>
 <P>
 <A NAME="id6did7"><BR></A>
 <H3>RegExp</H3>
-���K�\���I�u�W�F�N�g�B<br>
-�O���[�o���I�u�W�F�N�g RegExp���X�N���v�g�ɍŏ����瑶�݂��܂��B
+正規表現オブジェクト。<br>
+グローバルオブジェクト RegExpがスクリプトに最初から存在します。
 <P>
-<UL><LI>new RegExp(������A,������B) ... A�͐��K�\���AB�̓I�v�V����(igm)</UL>
-<UL><LI>exec(������) ... ������𐳋K�\���ƃ}�b�`���O���܂��B�Ԓl�̓}�b�`������̔z��B</UL>
-<UL><LI>test(������) ... ������𐳋K�\���ƃ}�b�`���O���܂��B�Ԓl��Boolean�B</UL>
-<UL><LI>replace(������A,������B) ... A�Ɛ��K�\�����}�b�`���镶�����B�ɕϊ����܂��B</UL>
-<UL><LI>split(������,�����l) ... ������𐳋K�\���ŕ������܂��B�Ԓl�͕�������������̔z��B�����l�͔z��̐������B</UL>
-<UL><LI>ignoreCase ... Boolean�B�����̃P�[�X�𖳎����邩�ǂ����B</UL>
-<UL><LI>global ... Boolean�B�A���Ń}�b�`���O�����邩�ǂ����B</UL>
-<UL><LI>source ... ������B���K�\���B</UL>
-<UL><LI>$1 �` $9 ...������B�T�u�}�b�`�̒l�B</UL>
-<UL><LI>multiline ... Boolean�B�����s�B</UL>
+<UL><LI>new RegExp(文字列A,文字列B) ... Aは正規表現、Bはオプション(igm)</UL>
+<UL><LI>exec(文字列) ... 文字列を正規表現とマッチングします。返値はマッチ文字列の配列。</UL>
+<UL><LI>test(文字列) ... 文字列を正規表現とマッチングします。返値はBoolean。</UL>
+<UL><LI>replace(文字列A,文字列B) ... Aと正規表現がマッチする文字列をBに変換します。</UL>
+<UL><LI>split(文字列,整数値) ... 文字列を正規表現で分割します。返値は分割した文字列の配列。整数値は配列の制限数。</UL>
+<UL><LI>ignoreCase ... Boolean。文字のケースを無視するかどうか。</UL>
+<UL><LI>global ... Boolean。連続でマッチングをするかどうか。</UL>
+<UL><LI>source ... 文字列。正規表現。</UL>
+<UL><LI>$1 ～ $9 ...文字列。サブマッチの値。</UL>
+<UL><LI>multiline ... Boolean。複数行。</UL>
 <P>
 <br>
-��(1)
+例(1)
 <PRE>  re = new RegExp(';');
   a = '100;200;300;400';
   b = re.split(a);
   for(i in b)
     println(b[i]);
 </PRE>
-��(2)
+例(2)
 <PRE>  re = new RegExp('a+','g');
   a = 'akgatranavayakhahjajatdaa';
   b = re.exec(a);
@@ -732,58 +766,62 @@ function _dec(){
 <P>
 <A NAME="id6did8"><BR></A>
 <H3>Math</H3>
-���w�I�u�W�F�N�g�B<br>
-�O���[�o���I�u�W�F�N�g Math���X�N���v�g�ɍŏ����瑶�݂��܂��B
+数学オブジェクト。<br>
+グローバルオブジェクト Mathがスクリプトに最初から存在します。
 <P>
-<UL><LI>���ׂďȗ��B</UL>
+<UL><LI>すべて省略。</UL>
 <P>
 <A NAME="id6did9"><BR></A>
 <H3>Date</H3>
-���t�I�u�W�F�N�g�B<br>
-�O���[�o���I�u�W�F�N�g Date���X�N���v�g�ɍŏ����瑶�݂��܂��B<br>
-���� 1 �` 12�ɂȂ�܂��B
+日付オブジェクト。<br>
+グローバルオブジェクト Dateがスクリプトに最初から存在します。<br>
+月は 1 ～ 12になります。
 <P>
-<UL><LI>���ׂďȗ��B</UL>
+<UL><LI>すべて省略。</UL>
 <P>
 <A NAME="id6did10"><BR></A>
 <H3>File</H3>
-�t�@�C���I�u�W�F�N�g�B�t�@�C���̓o�C�i�����[�h�ŊJ���܂�<br>
-�e�L�X�g���[�h�͌�q����Strings�I�u�W�F�N�g���g�p���܂��B
+ファイルオブジェクト。ファイルはバイナリモードで開きます<br>
+テキストモードは後述するStringsオブジェクトを使用します。
 <P>
-<UL><LI>new File(������j ... ������̓t�@�C�������w�肵�܂��B</UL>
-<UL><LI>open(������) ... �t�@�C�����J���܂��B������̓I�v�V�����ŏ�������(w)�ǂݍ���(r)�r������(d)���w�肵�܂��B�J���Ȃ������ꍇ�͗�O�B</UL>
-<UL><LI>close() ... �t�@�C������܂��B</UL>
-<UL><LI>isOpened() ... �t�@�C�����J����Ă��邩�ǂ����� Boolean�l�B</UL>
-<UL><LI>read(�����l) ... �����l���ǂݍ���ŕ������Ԃ��܂��B</UL>
-<UL><LI>readln() ... 1�s�ǂݍ��݂܂��B</UL>
-<UL><LI>write(������) ... ��������������݂܂��B</UL>
-<UL><LI>writeln(������) ... ����������s�t���ŏ������݂܂��B</UL>
-<UL><LI>flush() ... �t�@�C�����t���b�V�����܂��B</UL>
-<UL><LI>eof() ... �t�@�C���̍Ō�Ȃ�� true��Ԃ��܂��B</UL>
-<UL><LI>exists() ... �t�@�C�������݂���� true��Ԃ��܂��B</UL>
-<UL><LI>remove() ... �t�@�C�����폜���܂��B</UL>
-<UL><LI>renameTo(������) ... ������t�@�C�����Ƀ��l�[�����܂��B</UL>
-<UL><LI>copyTo(������) ... ������t�@�C�����ɃR�s�[���܂��B</UL>
-<UL><LI>canRead() ... �ǂݍ��݉\�Ȃ�� true�B</UL>
-<UL><LI>canWrite() ... �������݉\�Ȃ�� true�B</UL>
-<UL><LI>seek(�����l) ... �t�@�C���̈ʒu���ړ����܂��B���̒l�̏ꍇ�� length + �����l�ɂȂ�܂��B</UL>
-<UL><LI>extractName() ... �t�@�C��������p�X�̏��������������o���܂��B</UL>
-<UL><LI>extractDrive() ... �t�@�C��������h���C�u�������o���܂��B</UL>
-<UL><LI>extractDir() ... �t�@�C��������p�X�̕��������o���܂��B</UL>
-<UL><LI>extractPath() ... �t�@�C��������Ō��\�̂����p�X���������o���܂��B</UL>
-<UL><LI>extractExt() ... �t�@�C��������g���q�����o���܂��B</UL>
-<UL><LI>changeExt(������) ... �t�@�C�����𕶎���̊g���q�ɕϊ������t�@�C������Ԃ��܂��B</UL>
-<UL><LI>expandUNCFilename() ... UNC�t�@�C�����֕ϊ��������̂�Ԃ��B</UL>
-<UL><LI>extractShortPathName() ... �t�@�C������Z���t�@�C�����֕ϊ��������̂�Ԃ��B</UL>
-<UL><LI>length ... �����l�B�t�@�C���T�C�Y�B</UL>
-<UL><LI>filename ... ������B�t�@�C�����B</UL>
-<UL><LI>lastModified ...Date�B�X�V�����B</UL>
-<UL><LI>path ... filename�B</UL>
+<UL><LI>new File(文字列） ... 文字列はファイル名を指定します。</UL>
+<UL><LI>open(文字列) ... ファイルを開きます。文字列はオプションで書き込み(w)読み込み(r)排他処理(d)を指定します。開けなかった場合は例外。</UL>
+<UL><LI>close() ... ファイルを閉じます。</UL>
+<UL><LI>isOpened() ... ファイルが開かれているかどうかの Boolean値。</UL>
+<UL><LI>read(整数値) ... 整数値分読み込んで文字列を返します。</UL>
+<!-- Unicode対応により廃止
+<UL><LI>readln() ... 1行読み込みます。</UL>
+-->
+<UL><LI>write(文字列) ... 文字列を書き込みます。</UL>
+<!-- Unicode対応により廃止
+<UL><LI>writeln(文字列) ... 文字列を改行付きで書き込みます。</UL>
+-->
+<UL><LI>flush() ... ファイルをフラッシュします。</UL>
+<UL><LI>eof() ... ファイルの最後ならば trueを返します。</UL>
+<UL><LI>exists() ... ファイルが存在すれば trueを返します。</UL>
+<UL><LI>remove() ... ファイルを削除します。</UL>
+<UL><LI>renameTo(文字列) ... 文字列ファイル名にリネームします。</UL>
+<UL><LI>copyTo(文字列) ... 文字列ファイル名にコピーします。</UL>
+<UL><LI>canRead() ... 読み込み可能ならば true。</UL>
+<UL><LI>canWrite() ... 書き込み可能ならば true。</UL>
+<UL><LI>seek(整数値) ... ファイルの位置を移動します。負の値の場合は length + 整数値になります。</UL>
+<UL><LI>extractName() ... ファイル名からパスの除いた部分を取り出します。</UL>
+<UL><LI>extractDrive() ... ファイル名からドライブ名を取り出します。</UL>
+<UL><LI>extractDir() ... ファイル名からパスの部分を取り出します。</UL>
+<UL><LI>extractPath() ... ファイル名から最後に\のついたパス部分を取り出します。</UL>
+<UL><LI>extractExt() ... ファイル名から拡張子を取り出します。</UL>
+<UL><LI>changeExt(文字列) ... ファイル名を文字列の拡張子に変換したファイル名を返します。</UL>
+<UL><LI>expandUNCFilename() ... UNCファイル名へ変換したものを返す。</UL>
+<UL><LI>extractShortPathName() ... ファイル名を短いファイル名へ変換したものを返す。</UL>
+<UL><LI>length ... 整数値。ファイルサイズ。</UL>
+<UL><LI>filename ... 文字列。ファイル名。</UL>
+<UL><LI>lastModified ...Date。更新日時。</UL>
+<UL><LI>path ... filename。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  f = new File('temp.txt');
   try{
-    f.open('w'); //�������݃��[�h�ŊJ��
+    f.open('w'); //書き込みモードで開く
     f.writeln('hello,');
     f.write('world');
   }
@@ -795,14 +833,14 @@ function _dec(){
   }
 </PRE>
 <P>
-��(2)
+例(2)
 <PRE>  f = new File('temp.txt');
   try{
-    f.open('r'); //�ǂݍ��݃��[�h�ŊJ��
-    s = f.read();//���ׂēǂ�
+    f.open('r'); //読み込みモードで開く
+    s = f.read();//すべて読む
     println(s);
-    f.seek(0);  //�ŏ��ɖ߂�
-    s = f.readln(); //1�s�ǂ�
+    f.seek(0);  //最初に戻る
+    s = f.readln(); //1行読む
     println(s);
   }
   catch(e){
@@ -812,7 +850,7 @@ function _dec(){
     f.close();
   }
 </PRE>
-��(3)
+例(3)
 <PRE>  f = new File('c:\program files\irvine\irvine.exe');
   println(f.extractName());
   println(f.extractPath());
@@ -824,44 +862,44 @@ function _dec(){
 <P>
 <A NAME="id6did11"><BR></A>
 <H3>Directory</H3>
-�f�B���N�g���I�u�W�F�N�g�B<br>
+ディレクトリオブジェクト。<br>
 <P>
-<UL><LI>new Directory(������j ... ������Ƀf�B���N�g�����w�肵�܂��B</UL>
-<UL><LI>make() ... �V�K�쐬���܂��B</UL>
-<UL><LI>remove() ... �폜���܂��B</UL>
-<UL><LI>exists() ... ���݂��Ă���� true�B</UL>
-<UL><LI>changeTo(������) ... �J�����g�f�B���N�g���𕶎���ɕύX���܂��B</UL>
-<UL><LI>findFirst(������) ... �f�B���N�g���������C���h�J�[�h�Ō������܂��B�Ԓl�͕�����null�B</UL>
-<UL><LI>findFirstFile(������) ... �f�B���N�g���������C���h�J�[�h�Ńt�@�C�����������܂��B�Ԓl�͕�����null�B</UL>
-<UL><LI>findFirstDir(������) ... �f�B���N�g���������C���h�J�[�h�Ńf�B���N�g�����������܂��B�Ԓl�͕�����null�B</UL>
-<UL><LI>findNext() ... �����Č������܂��B�Ԓl�͕�����null�B</UL>
-<UL><LI>findNextFile() ... �����ăt�@�C�����������܂��B�Ԓl�͕�����null�B</UL>
-<UL><LI>findNextDir() ... �����ăf�B���N�g�����������܂��B�Ԓl�͕�����null�B</UL>
-<UL><LI>findClose() ... �������I�����܂��B</UL>
-<UL><LI>includePathDelimiter() ... �Ō��\�̕t�����f�B���N�g������Ԃ��B</UL>
-<UL><LI>excludePathDelimiter() ... �Ō��\���폜�����f�B���N�g������Ԃ��B</UL>
-<UL><LI>expandUNCFilename() ... UNC�t�@�C�����֕ϊ��������̂�Ԃ��B</UL>
-<UL><LI>clear([Undo]) ... �S�Ẵt�@�C�����폜����BUndo��true�ł��ݔ��Ɉړ�����B</UL>
-<UL><LI>findFiles(������) ... Strings�B�t�@�C�������C���h�J�[�h�Ō�������B</UL>
-<UL><LI>dirname ... ������B�f�B���N�g�����B</UL>
-<UL><LI>files ... Strings�B�f�B���N�g�����̃t�@�C���B</UL>
-<UL><LI>directories ... Strings�B�f�B���N�g�����̃f�B���N�g���B</UL>
-<UL><LI>path ... dirname�B</UL>
+<UL><LI>new Directory(文字列） ... 文字列にディレクトリを指定します。</UL>
+<UL><LI>make() ... 新規作成します。</UL>
+<UL><LI>remove() ... 削除します。</UL>
+<UL><LI>exists() ... 存在していれば true。</UL>
+<UL><LI>changeTo(文字列) ... カレントディレクトリを文字列に変更します。</UL>
+<UL><LI>findFirst(文字列) ... ディレクトリ内をワイルドカードで検索します。返値は文字列かnull。</UL>
+<UL><LI>findFirstFile(文字列) ... ディレクトリ内をワイルドカードでファイルを検索します。返値は文字列かnull。</UL>
+<UL><LI>findFirstDir(文字列) ... ディレクトリ内をワイルドカードでディレクトリを検索します。返値は文字列かnull。</UL>
+<UL><LI>findNext() ... 続けて検索します。返値は文字列かnull。</UL>
+<UL><LI>findNextFile() ... 続けてファイルを検索します。返値は文字列かnull。</UL>
+<UL><LI>findNextDir() ... 続けてディレクトリを検索します。返値は文字列かnull。</UL>
+<UL><LI>findClose() ... 検索を終了します。</UL>
+<UL><LI>includePathDelimiter() ... 最後に\の付いたディレクトリ名を返す。</UL>
+<UL><LI>excludePathDelimiter() ... 最後の\を削除したディレクトリ名を返す。</UL>
+<UL><LI>expandUNCFilename() ... UNCファイル名へ変換したものを返す。</UL>
+<UL><LI>clear([Undo]) ... 全てのファイルを削除する。Undoがtrueでごみ箱に移動する。</UL>
+<UL><LI>findFiles(文字列) ... Strings。ファイルをワイルドカードで検索する。</UL>
+<UL><LI>dirname ... 文字列。ディレクトリ名。</UL>
+<UL><LI>files ... Strings。ディレクトリ内のファイル。</UL>
+<UL><LI>directories ... Strings。ディレクトリ内のディレクトリ。</UL>
+<UL><LI>path ... dirname。</UL>
 <P>
 <P>
-��(1)
+例(1)
 <PRE>  d = new Directory('.\temp');
   if(! d.exists())
     d.make();
 </PRE>
 <P>
-��(2)
+例(2)
 <PRE>  d = new Directory('.\temp');
   if(d.exists())
     d.remove();
 </PRE>
 <P>
-��(3)
+例(3)
 <PRE>function checkpath(dirname){
   if(dirname.lastIndexOf('\') == (dirname.length - 1))
     return dirname;
@@ -875,7 +913,7 @@ function search(dirname){
   dirname = checkpath(dirname);
   println(dirname);
   d = new Directory(dirname);
-  n = d.findFirstFile(); //�t�@�C������
+  n = d.findFirstFile(); //ファイル検索
   try{
     if(n){
       println("\t" + n);
@@ -891,16 +929,16 @@ function search(dirname){
   finally{
     d.findClose();
   }
-  n = d.findFirstDir(); //�t�H���_����
+  n = d.findFirstDir(); //フォルダ検索
   try{
     if(n){
       if (checkdot(n))
-        search(dirname + n); //�ċA����
+        search(dirname + n); //再帰検索
       for(;;){
         n = d.findNextDir();
         if(n){
           if (checkdot(n))
-            search(dirname + n);//�ċA����
+            search(dirname + n);//再帰検索
         }
         else
           break;
@@ -917,7 +955,7 @@ search('.');
 <P>
 </PRE>
 <P>
-��(4)
+例(4)
 <PRE>  d = new Directory('c:\program files\irvine');
   println(d.includePathDelimiter());
   println(d.excludePathDelimiter());
@@ -925,27 +963,27 @@ search('.');
 <P>
 <A NAME="id6did12"><BR></A>
 <H3>Strings</H3>
-�����񃊃X�g�I�u�W�F�N�g�BTStringList�̃��b�p�[�ł��B
+文字列リストオブジェクト。TStringListのラッパーです。
 <P>
-<UL><LI>add(������) ... ����������X�g�̍Ō�ɉ����܂��B</UL>
-<UL><LI>insert(�����l,������) ... ������𐮐��l�̗v�f�ɑ}�����܂��B</UL>
-<UL><LI>delete(�����l) ... �����l�̗v�f���폜���܂��B</UL>
-<UL><LI>clear() ... �N���A���܂��B</UL>
-<UL><LI>indexOf(������) ... ������ƈ�v����v�f�̐����l��Ԃ��܂��B</UL>
-<UL><LI>sort() ... �\�[�g���܂��B</UL>
-<UL><LI>saveToFile(������) ... ������̃t�@�C���ɕۑ����܂��B</UL>
-<UL><LI>loadFromFile(������) ... ������̃t�@�C����ǂݍ��݂܂��B</UL>
-<UL><LI>assign(Strings) ... �ʂ�Strings�I�u�W�F�N�g���炷�ׂăR�s�[���܂��B</UL>
-<UL><LI>addStrings(Strings) ... �ʂ�Strings�I�u�W�F�N�g����v�f�����ׂĉ����܂��B</UL>
-<UL><LI>text ... ������B�����񃊃X�g��1�̕�����ɂ��ĕԂ��܂��B</UL>
-<UL><LI>commaText ... ������B�����񃊃X�g�� , �ŋ�؂�ꂽ1�̕�����ɂ��ĕԂ��܂��B</UL>
-<UL><LI>length ... �����l�B�v�f���B</UL>
-<UL><LI>count ... length�B</UL>
-<UL><LI>sorted ... Boolean�B�����񃊃X�g���\�[�g�ς݂ɂ��邩�ǂ����B</UL>
-<UL><LI>caseSensitive ... Boolean�B�啶������������ʂ��邩�ǂ����B</UL>
-<UL><LI>duplicates ... Boolean�B�\�[�g���ꂽ���X�g�ɏd���������ǉ��ł��邩�ǂ����B</UL>
+<UL><LI>add(文字列) ... 文字列をリストの最後に加えます。</UL>
+<UL><LI>insert(整数値,文字列) ... 文字列を整数値の要素に挿入します。</UL>
+<UL><LI>delete(整数値) ... 整数値の要素を削除します。</UL>
+<UL><LI>clear() ... クリアします。</UL>
+<UL><LI>indexOf(文字列) ... 文字列と一致する要素の整数値を返します。</UL>
+<UL><LI>sort() ... ソートします。</UL>
+<UL><LI>saveToFile(文字列, [Encoding]) ... 文字列のファイルに保存します。</UL>
+<UL><LI>loadFromFile(文字列, [Encoding]) ... 文字列のファイルを読み込みます。</UL>
+<UL><LI>assign(Strings) ... 別のStringsオブジェクトからすべてコピーします。</UL>
+<UL><LI>addStrings(Strings) ... 別のStringsオブジェクトから要素をすべて加えます。</UL>
+<UL><LI>text ... 文字列。文字列リストを1つの文字列にして返します。</UL>
+<UL><LI>commaText ... 文字列。文字列リストを , で区切られた1つの文字列にして返します。</UL>
+<UL><LI>length ... 整数値。要素数。</UL>
+<UL><LI>count ... length。</UL>
+<UL><LI>sorted ... Boolean。文字列リストをソート済みにするかどうか。</UL>
+<UL><LI>caseSensitive ... Boolean。大文字小文字を区別するかどうか。</UL>
+<UL><LI>duplicates ... Boolean。ソートされたリストに重複文字列を追加できるかどうか。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  sl = new Strings;
   sl.add('aaa');
   sl.add('bbb');
@@ -956,7 +994,7 @@ search('.');
   sl.saveToFile('temp.txt');
 </PRE>
 <P>
-��(2)
+例(2)
 <PRE>  sl = new Strings;
   sl.loadFromFile('temp.txt');
   for(i in sl)
@@ -967,28 +1005,28 @@ search('.');
 <P>
 <A NAME="id6did13"><BR></A>
 <H3>Win32</H3>
-Win32�I�u�W�F�N�g�BWin32API�ȂǁB
+Win32オブジェクト。Win32APIなど。
 <P>
-<UL><LI>sleep(�����l) ... �����l�~���b�������~�߂܂��B</UL>
-<UL><LI>winExec(������) ... ��������R�}���h�Ƃ��Ď��s���܂��B���������true�B</UL>
-<UL><LI>shellExecute(������A,������B,������C,������D) ... �t�@�C�����֘A�t���Ŏ��s���܂��BA������('open'�Ȃ�)�AB�����s�t�@�C���AC���p�����[�^�i���w��ł���)�AD�����[�N�f�B���N�g���i���w��ł���)�B���������true�B</UL>
-<UL><LI>getTickCount() ... OS���N�����Ă���̃~���b���𓾂܂��B</UL>
+<UL><LI>sleep(整数値) ... 整数値ミリ秒処理を止めます。</UL>
+<UL><LI>winExec(文字列) ... 文字列をコマンドとして実行します。成功すればtrue。</UL>
+<UL><LI>shellExecute(文字列A,文字列B,文字列C,文字列D) ... ファイルを関連付けで実行します。Aが操作('open'など)、Bが実行ファイル、Cがパラメータ（無指定でも可)、Dがワークディレクトリ（無指定でも可)。成功すればtrue。</UL>
+<UL><LI>getTickCount() ... OSが起動してからのミリ秒数を得ます。</UL>
 <P>
 <A NAME="id6did14"><BR></A>
 <H3>Ini</H3>
-Ini�I�u�W�F�N�g�BIni�t�@�C�����������܂��BTIniFile�̃��b�p�[�ł��B
+Iniオブジェクト。Iniファイルを処理します。TIniFileのラッパーです。
 <P>
-<UL><LI>new Ini(������) ... �������Ini�t�@�C�����w�肵�܂��B</UL>
-<UL><LI>deleteKey(������A,������B) ... A�Z�N�V������B�̃L�[���폜���܂��B</UL>
-<UL><LI>eraseSection(������) ... ������̃Z�N�V�������폜���܂��B</UL>
-<UL><LI>readSection(������) ... ������̃Z�N�V��������S�ẴL�[��ǂ�Strings�I�u�W�F�N�g��Ԃ��܂��B</UL>
-<UL><LI>readSections() ... �S�ẴZ�N�V������ǂ�Strings�I�u�W�F�N�g��Ԃ��܂��B</UL>
-<UL><LI>sectionExists(������) ... ������̃Z�N�V���������݂���� true�B</UL>
-<UL><LI>write(������A,������B,������C) ... A�Z�N�V������B�L�[��C���������݂܂��B</UL>
-<UL><LI>read(������A,������B,������C) ... A�Z�N�V������B�L�[����ǂݍ��ݕ������Ԃ��܂��B���s�����ꍇ��C��Ԃ��܂��B</UL>
-<UL><LI>update() ... write()�������e���t�@�C���ɏ������ށB</UL>
+<UL><LI>new Ini(文字列) ... 文字列のIniファイルを指定します。</UL>
+<UL><LI>deleteKey(文字列A,文字列B) ... AセクションのBのキーを削除します。</UL>
+<UL><LI>eraseSection(文字列) ... 文字列のセクションを削除します。</UL>
+<UL><LI>readSection(文字列) ... 文字列のセクションから全てのキーを読みStringsオブジェクトを返します。</UL>
+<UL><LI>readSections() ... 全てのセクションを読みStringsオブジェクトを返します。</UL>
+<UL><LI>sectionExists(文字列) ... 文字列のセクションが存在すれば true。</UL>
+<UL><LI>write(文字列A,文字列B,文字列C) ... AセクションのBキーにCを書き込みます。</UL>
+<UL><LI>read(文字列A,文字列B,文字列C) ... AセクションのBキーから読み込み文字列を返します。失敗した場合はCを返します。</UL>
+<UL><LI>update() ... write()した内容をファイルに書き込む。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  ini = new Ini('iria.ini');
   secs = ini.readSections();
   for(i in secs){
@@ -1003,18 +1041,18 @@ Ini�I�u�W�F�N�g�BIni�t�@�C�����������܂��BTIniFile�̃��b�p�[�ł��B
 <P>
 <A NAME="id6did15"><BR></A>
 <H3>RegIni</H3>
-���W�X�g���I�u�W�F�N�g�BTRegIniFile�̃��b�p�[�ł��B
+レジストリオブジェクト。TRegIniFileのラッパーです。
 <P>
-<UL><LI>new RegIni(������) ... HKEY_CURRENT_USER�̉��̕�����̃L�[���J���܂��B</UL>
-<UL><LI>deleteKey(������A,������B) ... A�Z�N�V������B�̃L�[���폜���܂��B</UL>
-<UL><LI>eraseSection(������) ... ������̃Z�N�V�������폜���܂��B</UL>
-<UL><LI>readSection(������) ... ������̃Z�N�V��������S�ẴL�[��ǂ�Strings�I�u�W�F�N�g��Ԃ��܂��B</UL>
-<UL><LI>readSections() ... �S�ẴZ�N�V������ǂ�Strings�I�u�W�F�N�g��Ԃ��܂��B</UL>
-<UL><LI>sectionExists(������) ... ������̃Z�N�V���������݂���� true�B</UL>
-<UL><LI>write(������A,������B,������C) ... A�Z�N�V������B�L�[��C���������݂܂��B</UL>
-<UL><LI>read(������A,������B,������C) ... A�Z�N�V������B�L�[����ǂݍ��ݕ������Ԃ��܂��B���s�����ꍇ��C��Ԃ��܂��B</UL>
+<UL><LI>new RegIni(文字列) ... HKEY_CURRENT_USERの下の文字列のキーを開きます。</UL>
+<UL><LI>deleteKey(文字列A,文字列B) ... AセクションのBのキーを削除します。</UL>
+<UL><LI>eraseSection(文字列) ... 文字列のセクションを削除します。</UL>
+<UL><LI>readSection(文字列) ... 文字列のセクションから全てのキーを読みStringsオブジェクトを返します。</UL>
+<UL><LI>readSections() ... 全てのセクションを読みStringsオブジェクトを返します。</UL>
+<UL><LI>sectionExists(文字列) ... 文字列のセクションが存在すれば true。</UL>
+<UL><LI>write(文字列A,文字列B,文字列C) ... AセクションのBキーにCを書き込みます。</UL>
+<UL><LI>read(文字列A,文字列B,文字列C) ... AセクションのBキーから読み込み文字列を返します。失敗した場合はCを返します。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  reg = new RegIni('\software\wildforce\irvine');
   println(reg.readSections().text);
 <P>
@@ -1024,40 +1062,40 @@ Ini�I�u�W�F�N�g�BIni�t�@�C�����������܂��BTIniFile�̃��b�p�[�ł��B
 <P>
 <A NAME="id6did16"><BR></A>
 <H3>CRC</H3>
-CRC�I�u�W�F�N�g�B
+CRCオブジェクト。
 <P>
-<UL><LI>calc(������) ... �������CRC���v�Z���܂��B</UL>
-<UL><LI>calcFile(������) ... ������̃t�@�C����CRC���v�Z���܂��B</UL>
-<UL><LI>CRC16 ... �����l�B�v�Z���ʂ� CRC16</UL>
-<UL><LI>CRC32 ... �����l�B�v�Z���ʂ� CRC32</UL>
+<UL><LI>calc(文字列) ... 文字列のCRCを計算します。</UL>
+<UL><LI>calcFile(文字列) ... 文字列のファイルのCRCを計算します。</UL>
+<UL><LI>CRC16 ... 整数値。計算結果の CRC16</UL>
+<UL><LI>CRC32 ... 整数値。計算結果の CRC32</UL>
 <P>
-��(1)
+例(1)
 <PRE>  crc = new CRC;
-  crc.calc('����������');
+  crc.calc('あいうえお');
   println(crc.CRC16.toString(16));
   println(crc.CRC32.toString(16));
 </PRE>
 <P>
 <A NAME="id6did17"><BR></A>
 <H3>Base64</H3>
-Base64�I�u�W�F�N�g�BBase64�G���R�[�h�A�f�R�[�h���s���܂��B
+Base64オブジェクト。Base64エンコード、デコードを行います。
 <P>
-<UL><LI>encode(������) ... �������Base64�G���R�[�h�����l��Ԃ��܂��B</UL>
-<UL><LI>decode(������) ... �������Base64�f�R�[�h�����l��Ԃ��܂��B</UL>
-<UL><LI>encodeHeader(������) ... ����������[���w�b�_�̌`���ɃG���R�[�h���܂��B</UL>
-<UL><LI>decodeHeader(������) ... ����������[���w�b�_�̌`������f�R�[�h���܂��B</UL>
+<UL><LI>encode(文字列) ... 文字列をBase64エンコードした値を返します。</UL>
+<UL><LI>decode(文字列) ... 文字列をBase64デコードした値を返します。</UL>
+<UL><LI>encodeHeader(文字列) ... 文字列をメールヘッダの形式にエンコードします。</UL>
+<UL><LI>decodeHeader(文字列) ... 文字列をメールヘッダの形式からデコードします。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  b64 = new Base64;
-  a = '����������';
+  a = 'あいうえお';
   b = b64.encode(a);
   println(b);
   println(b64.decode(b));
 </PRE>
 <P>
-��(2)
+例(2)
 <PRE>  b64 = new Base64;
-  a = '����������';
+  a = 'あいうえお';
   c = b64.encodeHeader(a);
   println(c);
   d = b64.decodeHeader(c);
@@ -1067,17 +1105,17 @@ Base64�I�u�W�F�N�g�BBase64�G���R�[�h�A�f�R�[�h���s���܂��B
 <P>
 <A NAME="id6did18"><BR></A>
 <H3>Dialog</H3>
-Dialog�I�u�W�F�N�g�B
+Dialogオブジェクト。
 <P>
-<UL><LI>new Dialog(������) ... �t�B���^�𕶎���ŏ��������܂��B</UL>
-<UL><LI>openFile(������A,������B) ... �t�@�C���I���_�C�A���O���J���܂��BA�̓^�C�g���AB�̓f�t�H���g�t�@�C�����B�Ԓl�̓t�@�C������null�B</UL>
-<UL><LI>openFiles(������A,������B) ... �����t�@�C���I���_�C�A���O���J���܂��BA�̓^�C�g���AB�̓f�t�H���g�t�@�C�����B�Ԓl�̓t�@�C�����̕����񃊃X�g�B</UL>
-<UL><LI>saveFile(������A,������B) ... �t�@�C���ۑ��I���_�C�A���O���J���܂��BA�̓^�C�g���AB�̓f�t�H���g�t�@�C�����B�Ԓl�̓t�@�C������null�B</UL>
-<UL><LI>openFolder(������A,������B) ... �t�H���_�I���_�C�A���O���J���܂��BA�̓^�C�g���AB�̓f�t�H���g�t�H���_���B�Ԓl�̓t�@�C������null�B</UL>
-<UL><LI>filters ... Strings�B�f�����b�g���q�f�`���̃t�B���^�̓����������񃊃X�g�B</UL>
+<UL><LI>new Dialog(文字列) ... フィルタを文字列で初期化します。</UL>
+<UL><LI>openFile(文字列A,文字列B) ... ファイル選択ダイアログを開きます。Aはタイトル、Bはデフォルトファイル名。返値はファイル名かnull。</UL>
+<UL><LI>openFiles(文字列A,文字列B) ... 複数ファイル選択ダイアログを開きます。Aはタイトル、Bはデフォルトファイル名。返値はファイル名の文字列リスト。</UL>
+<UL><LI>saveFile(文字列A,文字列B) ... ファイル保存選択ダイアログを開きます。Aはタイトル、Bはデフォルトファイル名。返値はファイル名かnull。</UL>
+<UL><LI>openFolder(文字列A,文字列B) ... フォルダ選択ダイアログを開きます。Aはタイトル、Bはデフォルトフォルダ名。返値はファイル名かnull。</UL>
+<UL><LI>filters ... Strings。’説明｜拡張子’形式のフィルタの入った文字列リスト。</UL>
 <P>
-��(1)
-<PRE>  d = new Dialog('�e�L�X�g�t�@�C�� *.txt|*.txt','���ׂẴt�@�C��|*.*');
+例(1)
+<PRE>  d = new Dialog('テキストファイル *.txt|*.txt','すべてのファイル|*.*');
   println(d.openFile('load'));
   println(d.saveFile('save'));
   println(d.openFolder());
@@ -1090,50 +1128,50 @@ Dialog�I�u�W�F�N�g�B
 <P>
 <A NAME="id6did19"><BR></A>
 <H3>Mutex</H3>
-�����I�u�W�F�N�g�B�X���b�h�A�v���Z�X���z���ē������Ƃ�܂��B
+同期オブジェクト。スレッド、プロセスを越えて同期をとります。
 <P>
-<UL><LI>new Mutex(������) ... ������̖��O������Mutex�I�u�W�F�N�g���쐬���܂��B</UL>
-<UL><LI>lock() ... ���b�N���܂��B����Mutex�I�u�W�F�N�g�����b�N���Ă����ꍇ�̓��b�N�����܂Œ�~���܂��B</UL>
-<UL><LI>unlock() ... ���b�N���������܂��B</UL>
-<UL><LI>tryLock() ... ���b�N���܂��B����Mutex�I�u�W�F�N�g�����b�N���Ă����ꍇ�̓^�C���A�E�g�܂Œ�~���܂��B</UL>
-<UL><LI>timeout ... ���b�N�̃^�C���A�E�g���~���b�Ŏw�肵�܂��B</UL>
-<UL><LI>existed ... ���łɓ������O��Mutex�I�u�W�F�N�g�����݂���� true�B</UL>
+<UL><LI>new Mutex(文字列) ... 文字列の名前を持つMutexオブジェクトを作成します。</UL>
+<UL><LI>lock() ... ロックします。他のMutexオブジェクトがロックしていた場合はロック解除まで停止します。</UL>
+<UL><LI>unlock() ... ロックを解除します。</UL>
+<UL><LI>tryLock() ... ロックします。他のMutexオブジェクトがロックしていた場合はタイムアウトまで停止します。</UL>
+<UL><LI>timeout ... ロックのタイムアウトをミリ秒で指定します。</UL>
+<UL><LI>existed ... すでに同じ名前のMutexオブジェクトが存在すれば true。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  mutex = new Mutex('sakura');
   if (mutex.existed)
-    println('���񂢁[');
+    println('えんいー');
 </PRE>
 <P>
 <P>
 <A NAME="id6did20"><BR></A>
 <H3>URL</H3>
-URL���I�u�W�F�N�g�B
+URL情報オブジェクト。
 <P>
-<UL><LI>new URL(������j ... �������URL���w�肵�܂��B</UL>
-<UL><LI>expand(Path) ... ���݂�URL�����Path����Path�ɕϊ����ĕԂ��B</UL>
+<UL><LI>new URL(文字列） ... 文字列にURLを指定します。</UL>
+<UL><LI>expand(Path) ... 現在のURLを基準にPathを絶対Pathに変換して返す。</UL>
 <P>
-<UL><LI>url ... ������BURL�B</UL>
-<UL><LI>uri ... url�B</UL>
-<UL><LI>href ... url�B</UL>
-<UL><LI>protocol ... ������B�v���g�R���B</UL>
-<UL><LI>scheme ... protocol�B</UL>
-<UL><LI>username ... ������B���[�U���B</UL>
-<UL><LI>user ... username�B</UL>
-<UL><LI>userid ... username�B</UL>
-<UL><LI>password ... ������B�p�X���[�h�B</UL>
-<UL><LI>pass ... password�B</UL>
-<UL><LI>host ... ������B�|�[�g���܂ރz�X�g���B</UL>
-<UL><LI>hostname ... ������B�z�X�g���B</UL>
-<UL><LI>port ... ������B�|�[�g�B</UL>
-<UL><LI>path ... ������B�p�X�B</UL>
-<UL><LI>directory ... ������B�p�X����t�@�C�������������f�B���N�g�����B</UL>
-<UL><LI>dir ... directory�B</UL>
-<UL><LI>filename ... ������B�p�X����f�B���N�g�������������t�@�C�����B</UL>
-<UL><LI>query ... ������B?�ȍ~�̕����B</UL>
-<UL><LI>search ... query�B</UL>
+<UL><LI>url ... 文字列。URL。</UL>
+<UL><LI>uri ... url。</UL>
+<UL><LI>href ... url。</UL>
+<UL><LI>protocol ... 文字列。プロトコル。</UL>
+<UL><LI>scheme ... protocol。</UL>
+<UL><LI>username ... 文字列。ユーザ名。</UL>
+<UL><LI>user ... username。</UL>
+<UL><LI>userid ... username。</UL>
+<UL><LI>password ... 文字列。パスワード。</UL>
+<UL><LI>pass ... password。</UL>
+<UL><LI>host ... 文字列。ポートを含むホスト名。</UL>
+<UL><LI>hostname ... 文字列。ホスト名。</UL>
+<UL><LI>port ... 文字列。ポート。</UL>
+<UL><LI>path ... 文字列。パス。</UL>
+<UL><LI>directory ... 文字列。パスからファイル名を除いたディレクトリ名。</UL>
+<UL><LI>dir ... directory。</UL>
+<UL><LI>filename ... 文字列。パスからディレクトリ名を除いたファイル名。</UL>
+<UL><LI>query ... 文字列。?以降の文字。</UL>
+<UL><LI>search ... query。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  u = new URL('http://127.0.0.1/dir/index.html?qqq');
   println(u.url);
   println(u.protocol);
@@ -1146,70 +1184,70 @@ URL���I�u�W�F�N�g�B
 <P>
 <A NAME="id6did21"><BR></A>
 <H3>Cookie</H3>
-HTTP��Cookie�I�u�W�F�N�g�BResponse�I�u�W�F�N�g�̈ꕔ�Ƃ��Ďg���܂��B
-�N�b�L�[�̃f�[�^(name=value)��z��A�N�Z�X�\�B
+HTTPのCookieオブジェクト。Responseオブジェクトの一部として使われます。
+クッキーのデータ(name=value)を配列アクセス可能。
 <P>
-<UL><LI>parse(URL,CookieText) ... �N�b�L�[����͂���B</UL>
-<UL><LI>domain ... ������B�h���C�����B</UL>
-<UL><LI>path ... ������B�p�X�B</UL>
-<UL><LI>expires ... Date�B�����B</UL>
-<UL><LI>data ... ������B�f�[�^�B</UL>
-<UL><LI>length ... �N�b�L�[�̃f�[�^(name=value)�̐��B</UL>
+<UL><LI>parse(URL,CookieText) ... クッキーを解析する。</UL>
+<UL><LI>domain ... 文字列。ドメイン名。</UL>
+<UL><LI>path ... 文字列。パス。</UL>
+<UL><LI>expires ... Date。期限。</UL>
+<UL><LI>data ... 文字列。データ。</UL>
+<UL><LI>length ... クッキーのデータ(name=value)の数。</UL>
 <P>
 <A NAME="id6did22"><BR></A>
 <H3>Response</H3>
-HTTP��Response�I�u�W�F�N�g�BHTTP��HTTPS�̈ꕔ�Ƃ��Ďg���܂��B
+HTTPのResponseオブジェクト。HTTPとHTTPSの一部として使われます。
 <P>
-<UL><LI>cookie ... Cookie�B</UL>
-<UL><LI>code ... �����l�B�X�e�[�^�X�R�[�h�B</UL>
-<UL><LI>text ... ������B�X�e�[�^�X���b�Z�[�W�B</UL>
-<UL><LI>version ... ������B�T�[�o��HTTP�o�[�W�����B</UL>
+<UL><LI>cookie ... Cookie。</UL>
+<UL><LI>code ... 整数値。ステータスコード。</UL>
+<UL><LI>text ... 文字列。ステータスメッセージ。</UL>
+<UL><LI>version ... 文字列。サーバのHTTPバージョン。</UL>
 <P>
 <A NAME="id6did23"><BR></A>
 <H3>HTTP</H3>
-HTTP�I�u�W�F�N�g�B
+HTTPオブジェクト。
 <P>
-<UL><LI>get(������) ... �������URL��GET���ĕ������Ԃ��܂��B</UL>
-<UL><LI>getFile(������A,������B) ... A��URL��GET����B�̃t�@�C���ɕۑ����܂��B</UL>
-<UL><LI>post(������A,������B) ... A��URL�ɐڑ����āAB��POST���܂��B</UL>
-<UL><LI>head(������) ... �������URL��HEAD���܂��B</UL>
-<UL><LI>request(������A,������B,������C) ... A�̃��\�b�h��B��URL�ɐڑ����܂��BC��POST����ꍇ�̃f�[�^�B</UL>
-<UL><LI>response() ... �T�[�o����̃��X�|���X�𓾂܂��B</UL>
-<UL><LI>disconnect() ... �T�[�o����ؒf���܂��B</UL>
+<UL><LI>get(文字列) ... 文字列のURLをGETして文字列を返します。</UL>
+<UL><LI>getFile(文字列A,文字列B) ... AのURLをGETしてBのファイルに保存します。</UL>
+<UL><LI>post(文字列A,文字列B) ... AのURLに接続して、BをPOSTします。</UL>
+<UL><LI>head(文字列) ... 文字列のURLをHEADします。</UL>
+<UL><LI>request(文字列A,文字列B,文字列C) ... AのメソッドでBのURLに接続します。CはPOSTする場合のデータ。</UL>
+<UL><LI>response() ... サーバからのレスポンスを得ます。</UL>
+<UL><LI>disconnect() ... サーバから切断します。</UL>
 <UL><LI>close() ... disconnect;</UL>
-<UL><LI>capture(������) ... ������̃t�@�C���Ƀf�[�^��ۑ����܂��B</UL>
-<UL><LI>readln() ... �f�[�^��1�s�ǂݍ���ŕ������Ԃ��܂��B</UL>
-<UL><LI>read(�����l) ... �����l���̃f�[�^��ǂݍ��݂܂��B�w�肵�Ȃ��ꍇ�͑S�ēǂݍ��݂܂��B</UL>
-<UL><LI>requestHeader ... Object�B���N�G�X�g�̃w�b�_���w�肵�܂��B</UL>
-<UL><LI>responseHeader ... Response�B���X�|���X�w�b�_������܂��B</UL>
-<UL><LI>version ... ������BHTTP�̃o�[�W����</UL>
-<UL><LI>length ... �����l�B�f�[�^�̒����B</UL>
-<UL><LI>autoRedirect ... Boolean�B�����Ń��_�C���N�g���邩�ǂ����B</UL>
-<UL><LI>proxy ... ������BProxy�� 127.0.0.1:8080�̌`���Ŏw��B</UL>
-<UL><LI>timeout ... �����l�B�^�C���A�E�g��b���Ŏw��B</UL>
-<UL><LI>debug ... Boolean�Btrue�ɂ���ƃf�o�b�O�o�͂����܂��B</UL>
-<UL><LI>bytesRead ... �ǂݍ��݃o�C�g���B</UL>
-<UL><LI>bytesWrote ... �������݃o�C�g���B</UL>
-<UL><LI>bytesTotal ... �������ݓǂݍ��݃o�C�g���B</UL>
-<UL><LI>onConnect ... �ڑ��C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onDisconnect ... �ؒf�C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onError ... �\�P�b�g�G���[�C�x���g�Bfunction(sender,errorcode,errormsg){}</UL>
-<UL><LI>onRead ... �ǂݍ��݃C�x���g�Bfunction(sender,bytes,abort){}</UL>
-<UL><LI>onWrite ... �������݃C�x���g�Bfunction(sender,bytes,abort){}</UL>
-<UL><LI>onStatus ... ���C�x���g�Bfunction(sender,msg){}</UL>
-<UL><LI>onSuccess ... �����C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onFailure ... ���s�C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onRequest ... ���N�G�X�g�C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onResponse ... ���X�|���X�C�x���g�Bfunction(sender){}</UL>
+<UL><LI>capture(文字列) ... 文字列のファイルにデータを保存します。</UL>
+<UL><LI>readln() ... データを1行読み込んで文字列を返します。</UL>
+<UL><LI>read(整数値) ... 整数値分のデータを読み込みます。指定しない場合は全て読み込みます。</UL>
+<UL><LI>requestHeader ... Object。リクエストのヘッダを指定します。</UL>
+<UL><LI>responseHeader ... Response。レスポンスヘッダが入ります。</UL>
+<UL><LI>version ... 文字列。HTTPのバージョン</UL>
+<UL><LI>length ... 整数値。データの長さ。</UL>
+<UL><LI>autoRedirect ... Boolean。自動でリダイレクトするかどうか。</UL>
+<UL><LI>proxy ... 文字列。Proxyを 127.0.0.1:8080の形式で指定。</UL>
+<UL><LI>timeout ... 整数値。タイムアウトを秒数で指定。</UL>
+<UL><LI>debug ... Boolean。trueにするとデバッグ出力をします。</UL>
+<UL><LI>bytesRead ... 読み込みバイト数。</UL>
+<UL><LI>bytesWrote ... 書き込みバイト数。</UL>
+<UL><LI>bytesTotal ... 書き込み読み込みバイト数。</UL>
+<UL><LI>onConnect ... 接続イベント。function(sender){}</UL>
+<UL><LI>onDisconnect ... 切断イベント。function(sender){}</UL>
+<UL><LI>onError ... ソケットエラーイベント。function(sender,errorcode,errormsg){}</UL>
+<UL><LI>onRead ... 読み込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onWrite ... 書き込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onStatus ... 情報イベント。function(sender,msg){}</UL>
+<UL><LI>onSuccess ... 成功イベント。function(sender){}</UL>
+<UL><LI>onFailure ... 失敗イベント。function(sender){}</UL>
+<UL><LI>onRequest ... リクエストイベント。function(sender){}</UL>
+<UL><LI>onResponse ... レスポンスイベント。function(sender){}</UL>
 <P>
-��(1)
+例(1)
 <PRE>  u = new URL('http://127.0.0.1/index.html');
   http = new HTTP;
   println(http.get(u.url));
   http.getFile(u.url,u.filename);
 </PRE>
 <P>
-��(2)
+例(2)
 <PRE>  http = new HTTP;
   http.requestHeader['User-Agent'] = 'dmonkey';
   http.requestHeader['Referer'] = 'referer';
@@ -1235,26 +1273,26 @@ HTTP�I�u�W�F�N�g�B
 <P>
 <A NAME="id6did24"><BR></A>
 <H3>HTTPS</H3>
-HTTPS�I�u�W�F�N�g�BHTTP�ƌ݊��Ȃ̂ŏȗ��B
+HTTPSオブジェクト。HTTPと互換なので省略。
 <P>
 <A NAME="id6did25"><BR></A>
 <H3>HtmlTag</H3>
-HTML�̃^�O�BHtmlParser�Ŏg�p����܂��B
+HTMLのタグ。HtmlParserで使用されます。
 <P>
-<UL><LI>name ... �^�O�̖��O�B</UL>
+<UL><LI>name ... タグの名前。</UL>
 <P>
 <A NAME="id6did26"><BR></A>
 <H3>HtmlParser</H3>
-HTML��́B��͌��ʂ͖؍\���ł͂Ȃ��P���Ȑ��\���ɂȂ�܂��B
+HTML解析。解析結果は木構造ではなく単純な線構造になります。
 <P>
-<UL><LI>parse(������) ... �������HTML����͂��܂��B</UL>
-<UL><LI>parseFile(������) ...������̃t�@�C������͂��܂��B</UL>
-<UL><LI>clear() ... �N���A���܂��B</UL>
-<UL><LI>length ... ��͂����^�O�̐��B</UL>
-<UL><LI>html ... ��͂���HTML�B</UL>
-<UL><LI>text ... ��͂����^�O���������e�L�X�g�B</UL>
+<UL><LI>parse(文字列) ... 文字列のHTMLを解析します。</UL>
+<UL><LI>parseFile(文字列) ...文字列のファイルを解析します。</UL>
+<UL><LI>clear() ... クリアします。</UL>
+<UL><LI>length ... 解析したタグの数。</UL>
+<UL><LI>html ... 解析したHTML。</UL>
+<UL><LI>text ... 解析したタグを除いたテキスト。</UL>
 <P>
-��(1)
+例(1)
 <PRE>a = new HtmlParser;
 a.parse('&lt;a href=&quot;http://host/&quot;&gt;abc&lt;/a&gt;');
 <P>
@@ -1275,69 +1313,69 @@ for(i in a){
 <P>
 <A NAME="id6did27"><BR></A>
 <H3>FileProperty</H3>
-�t�@�C���v���p�e�B�I�u�W�F�N�g�B
+ファイルプロパティオブジェクト。
 <P>
-<UL><LI>toString() ... ������ɂ��܂��B</UL>
+<UL><LI>toString() ... 文字列にします。</UL>
 <P>
-<UL><LI>attribute ... �����l�BUNIX�`���̃t�@�C������(777,655���̌`��)</UL>
-<UL><LI>fileType ... �����B[d]���f�B���N�g���A[-]���t�@�C���A[l]�������N�B</UL>
-<UL><LI>lastModified ... Date�B�X�V���B</UL>
-<UL><LI>length ... �����l�B�t�@�C���T�C�Y�B</UL>
-<UL><LI>size ... length�B</UL>
-<UL><LI>name ... ������B�t�@�C�����B</UL>
+<UL><LI>attribute ... 整数値。UNIX形式のファイル権限(777,655等の形式)</UL>
+<UL><LI>fileType ... 文字。[d]がディレクトリ、[-]がファイル、[l]がリンク。</UL>
+<UL><LI>lastModified ... Date。更新日。</UL>
+<UL><LI>length ... 整数値。ファイルサイズ。</UL>
+<UL><LI>size ... length。</UL>
+<UL><LI>name ... 文字列。ファイル名。</UL>
 <P>
 <P>
 <A NAME="id6did28"><BR></A>
-<H3>FTP</H3>
-FTP�I�u�W�F�N�g�B
+<H3>FTP&nbsp;&nbsp;<b><font color="red" size="-2">未サポートクラス</font></b></H3>
+FTPオブジェクト。
 <P>
-<UL><LI>connect() ... �ڑ����܂��B</UL>
-<UL><LI>disconnect() ... �ؒf���܂��B</UL>
-<UL><LI>login(������A,������B) ... A��UserId�AB��Password���w�肵�Đڑ����܂��B</UL>
-<UL><LI>quit() ... disconnect�B</UL>
-<UL><LI>abort() ... ���~���܂��B</UL>
-<UL><LI>printWorkDir() ... ���݂̃f�B���N�g�����擾���܂��B</UL>
-<UL><LI>changeDir(������) ... �J�����g�f�B���N�g����ύX���܂��B</UL>
-<UL><LI>makeDir(������) ... �f�B���N�g�����쐬���܂��B</UL>
-<UL><LI>removeDir(������) ... �f�B���N�g�����폜���܂��B</UL>
-<UL><LI>list() ... �t�@�C�����X�g�Ƃ���FileProperty�̔z����擾���܂��B</UL>
-<UL><LI>nlist() ... �t�@�C�����X�g�Ƃ���FileProperty�̔z����擾���܂��B</UL>
-<UL><LI>delete(������) ... �t�@�C�����폜���܂��B</UL>
-<UL><LI>rename(������A,������B) ... �t�@�C������A����B�ɕύX���܂��B</UL>
-<UL><LI>findFiles(������A,������B,Bool�l) ... A�̃f�B���N�g���̒�����B�̃��C���h�J�[�h�Ŏw�肵���t�@�C������Strings�Ŏ擾���܂��BBool�l�͍ċA���邩�ǂ����B</UL>
-<UL><LI>download(������A,������B) ... A�̃����[�g�t�@�C����B�̃��[�J���t�@�C���ɕۑ����܂��B</UL>
-<UL><LI>downloadRestore(������A,������B) ... A�̃����[�g�t�@�C����B�̃��[�J���t�@�C���Ƀ��W���[�����܂��B</UL>
-<UL><LI>upload(������A,������B) ... A�̃��[�J���t�@�C����B�̃t�@�C�����ŃA�b�v���[�h���܂��B</UL>
-<UL><LI>uploadAppend(������A,������B) ... A�̃��[�J���t�@�C����B�̃t�@�C���ɒǋL�A�b�v���[�h���܂��B</UL>
-<UL><LI>uploadRestore(������A,������B,�����l) ... A�̃��[�J���t�@�C���̐����l�̈ʒu����B�̃t�@�C���ɒǋL���܂��B</UL>
-<UL><LI>uploadUnique(������) ... ���[�J���t�@�C�����m���ɃA�b�v���[�h���܂��B</UL>
-<UL><LI>type(['I','A','B']) ... �]�����[�h�؂�ւ��BI(�C���[�W�jA�i�A�X�L�[�jB�i�o�C�g�j</UL>
-<UL><LI>command(������) ... �R�}���h�𑗂�B</UL>
+<UL><LI>connect() ... 接続します。</UL>
+<UL><LI>disconnect() ... 切断します。</UL>
+<UL><LI>login(文字列A,文字列B) ... AがUserId、BがPasswordを指定して接続します。</UL>
+<UL><LI>quit() ... disconnect。</UL>
+<UL><LI>abort() ... 中止します。</UL>
+<UL><LI>printWorkDir() ... 現在のディレクトリを取得します。</UL>
+<UL><LI>changeDir(文字列) ... カレントディレクトリを変更します。</UL>
+<UL><LI>makeDir(文字列) ... ディレクトリを作成します。</UL>
+<UL><LI>removeDir(文字列) ... ディレクトリを削除します。</UL>
+<UL><LI>list() ... ファイルリストとしてFilePropertyの配列を取得します。</UL>
+<UL><LI>nlist() ... ファイルリストとしてFilePropertyの配列を取得します。</UL>
+<UL><LI>delete(文字列) ... ファイルを削除します。</UL>
+<UL><LI>rename(文字列A,文字列B) ... ファイル名をAからBに変更します。</UL>
+<UL><LI>findFiles(文字列A,文字列B,Bool値) ... Aのディレクトリの中からBのワイルドカードで指定したファイル名をStringsで取得します。Bool値は再帰するかどうか。</UL>
+<UL><LI>download(文字列A,文字列B) ... AのリモートファイルをBのローカルファイルに保存します。</UL>
+<UL><LI>downloadRestore(文字列A,文字列B) ... AのリモートファイルをBのローカルファイルにリジュームします。</UL>
+<UL><LI>upload(文字列A,文字列B) ... AのローカルファイルをBのファイル名でアップロードします。</UL>
+<UL><LI>uploadAppend(文字列A,文字列B) ... AのローカルファイルをBのファイルに追記アップロードします。</UL>
+<UL><LI>uploadRestore(文字列A,文字列B,整数値) ... Aのローカルファイルの整数値の位置からBのファイルに追記します。</UL>
+<UL><LI>uploadUnique(文字列) ... ローカルファイルを確実にアップロードします。</UL>
+<UL><LI>type(['I','A','B']) ... 転送モード切り替え。I(イメージ）A（アスキー）B（バイト）</UL>
+<UL><LI>command(文字列) ... コマンドを送る。</UL>
 <P>
-<UL><LI>host ... ������B�z�X�g�����w��B</UL>
-<UL><LI>port ... �����l�B�|�[�Ɣԍ����w��B</UL>
-<UL><LI>timeout ... �����l�B�^�C���A�E�g��b���Ŏw��B</UL>
-<UL><LI>debug ... Boolean�Btrue�ɂ���ƃf�o�b�O�o�͂����܂��B</UL>
-<UL><LI>password ... ������B�p�X���[�h�B</UL>
-<UL><LI>userid ... ������B���[�U���B</UL>
-<UL><LI>currentDir ... ������B���݂̃J�����g�f�B���N�g���B</UL>
-<UL><LI>passiveMode ... Boolean�B�p�b�V�u���[�h���g�p����B</UL>
-<UL><LI>proxy ... ������B�v���L�V����host:port�̌`���Ŏw�肷��B</UL>
-<UL><LI>bytesRead ... �ǂݍ��݃o�C�g���B</UL>
-<UL><LI>bytesWrote ... �������݃o�C�g���B</UL>
-<UL><LI>bytesTotal ... �������ݓǂݍ��݃o�C�g���B</UL>
-<UL><LI>onConnect ... �ڑ��C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onDisconnect ... �ؒf�C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onError ... �\�P�b�g�G���[�C�x���g�Bfunction(sender,errorcode,errormsg){}</UL>
-<UL><LI>onRead ... �ǂݍ��݃C�x���g�Bfunction(sender,bytes,abort){}</UL>
-<UL><LI>onWrite ... �������݃C�x���g�Bfunction(sender,bytes,abort){}</UL>
-<UL><LI>onStatus ... ���C�x���g�Bfunction(sender,msg){}</UL>
-<UL><LI>onSuccess ... �����C�x���g�Bfunction(sender,kind){}</UL>
-<UL><LI>onFailure ... ���s�C�x���g�Bfunction(sender,notthrow,kind){}</UL>
+<UL><LI>host ... 文字列。ホスト名を指定。</UL>
+<UL><LI>port ... 整数値。ポーと番号を指定。</UL>
+<UL><LI>timeout ... 整数値。タイムアウトを秒数で指定。</UL>
+<UL><LI>debug ... Boolean。trueにするとデバッグ出力をします。</UL>
+<UL><LI>password ... 文字列。パスワード。</UL>
+<UL><LI>userid ... 文字列。ユーザ名。</UL>
+<UL><LI>currentDir ... 文字列。現在のカレントディレクトリ。</UL>
+<UL><LI>passiveMode ... Boolean。パッシブモードを使用する。</UL>
+<UL><LI>proxy ... 文字列。プロキシ名をhost:portの形式で指定する。</UL>
+<UL><LI>bytesRead ... 読み込みバイト数。</UL>
+<UL><LI>bytesWrote ... 書き込みバイト数。</UL>
+<UL><LI>bytesTotal ... 書き込み読み込みバイト数。</UL>
+<UL><LI>onConnect ... 接続イベント。function(sender){}</UL>
+<UL><LI>onDisconnect ... 切断イベント。function(sender){}</UL>
+<UL><LI>onError ... ソケットエラーイベント。function(sender,errorcode,errormsg){}</UL>
+<UL><LI>onRead ... 読み込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onWrite ... 書き込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onStatus ... 情報イベント。function(sender,msg){}</UL>
+<UL><LI>onSuccess ... 成功イベント。function(sender,kind){}</UL>
+<UL><LI>onFailure ... 失敗イベント。function(sender,notthrow,kind){}</UL>
 <P>
 <P>
 <P>
-��(1)
+例(1)
 <PRE>  ftp = new FTP;
   ftp.debug = true;
   ftp.host = '127.0.0.1';
@@ -1380,39 +1418,39 @@ FTP�I�u�W�F�N�g�B
 </PRE>
 <P>
 <A NAME="id6did29"><BR></A>
-<H3>TCPSocket</H3>
-TCP Socket�I�u�W�F�N�g�B
+<H3>TCPSocket&nbsp;&nbsp;<b><font color="red" size="-2">未サポートクラス</font></b></H3>
+TCP Socketオブジェクト。
 <P>
-<UL><LI>connect() ... �ڑ����܂��B</UL>
-<UL><LI>disconnect() ... �ؒf���܂��B</UL>
-<UL><LI>open() ... connect�B</UL>
-<UL><LI>close() ... disconnect�B</UL>
-<UL><LI>abort() ... ���~���܂��B</UL>
-<UL><LI>read(�����l) ... �����l���ǂݍ��ݕ������Ԃ��܂��B�w�肵�Ȃ������ꍇ�͂��ׂēǂݍ��݂܂��B</UL>
-<UL><LI>readln() ... 1�s�ǂݍ��݂܂��B</UL>
-<UL><LI>write(������) ... ��������������݂܂��B</UL>
-<UL><LI>writeln(������) ... ����������s�t���ŏ������݂܂��B</UL>
-<UL><LI>capture(������) ... �f�[�^��ǂݍ��ݕ�����̃t�@�C���ɏ������݂܂��B</UL>
-<UL><LI>sendFile(������) ... ������̃t�@�C����Socket�ɏ������݂܂��B</UL>
-<UL><LI>bind() ... Bind���܂��B</UL>
-<UL><LI>accept() ... Accept���ĐV����TCPSocket�I�u�W�F�N�g��Ԃ��܂��B</UL>
-<UL><LI>isConnected() ... �ڑ����Ă���� true�B</UL>
-<UL><LI>host ... ������B�z�X�g�����w��B</UL>
-<UL><LI>port ... �����l�B�|�[�Ɣԍ����w��B</UL>
-<UL><LI>timeout ... �����l�B�^�C���A�E�g��b���Ŏw��B</UL>
-<UL><LI>debug ... Boolean�Btrue�ɂ���ƃf�o�b�O�o�͂����܂��B</UL>
-<UL><LI>bytesRead ... �ǂݍ��݃o�C�g���B</UL>
-<UL><LI>bytesWrote ... �������݃o�C�g���B</UL>
-<UL><LI>bytesTotal ... �������ݓǂݍ��݃o�C�g���B</UL>
-<UL><LI>onConnect ... �ڑ��C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onDisconnect ... �ؒf�C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onError ... �\�P�b�g�G���[�C�x���g�Bfunction(sender,errorcode,errormsg){}</UL>
-<UL><LI>onRead ... �ǂݍ��݃C�x���g�Bfunction(sender,bytes,abort){}</UL>
-<UL><LI>onWrite ... �������݃C�x���g�Bfunction(sender,bytes,abort){}</UL>
-<UL><LI>onStatus ... ���C�x���g�Bfunction(sender,msg){}</UL>
+<UL><LI>connect() ... 接続します。</UL>
+<UL><LI>disconnect() ... 切断します。</UL>
+<UL><LI>open() ... connect。</UL>
+<UL><LI>close() ... disconnect。</UL>
+<UL><LI>abort() ... 中止します。</UL>
+<UL><LI>read(整数値) ... 整数値分読み込み文字列を返します。指定しなかった場合はすべて読み込みます。</UL>
+<UL><LI>readln() ... 1行読み込みます。</UL>
+<UL><LI>write(文字列) ... 文字列を書き込みます。</UL>
+<UL><LI>writeln(文字列) ... 文字列を改行付きで書き込みます。</UL>
+<UL><LI>capture(文字列) ... データを読み込み文字列のファイルに書き込みます。</UL>
+<UL><LI>sendFile(文字列) ... 文字列のファイルをSocketに書き込みます。</UL>
+<UL><LI>bind() ... Bindします。</UL>
+<UL><LI>accept() ... Acceptして新しいTCPSocketオブジェクトを返します。</UL>
+<UL><LI>isConnected() ... 接続していれば true。</UL>
+<UL><LI>host ... 文字列。ホスト名を指定。</UL>
+<UL><LI>port ... 整数値。ポーと番号を指定。</UL>
+<UL><LI>timeout ... 整数値。タイムアウトを秒数で指定。</UL>
+<UL><LI>debug ... Boolean。trueにするとデバッグ出力をします。</UL>
+<UL><LI>bytesRead ... 読み込みバイト数。</UL>
+<UL><LI>bytesWrote ... 書き込みバイト数。</UL>
+<UL><LI>bytesTotal ... 書き込み読み込みバイト数。</UL>
+<UL><LI>onConnect ... 接続イベント。function(sender){}</UL>
+<UL><LI>onDisconnect ... 切断イベント。function(sender){}</UL>
+<UL><LI>onError ... ソケットエラーイベント。function(sender,errorcode,errormsg){}</UL>
+<UL><LI>onRead ... 読み込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onWrite ... 書き込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onStatus ... 情報イベント。function(sender,msg){}</UL>
 <P>
 <P>
-��(1)
+例(1)
 <PRE>  s = new TCPSocket;
   s.host = '127.0.0.1';
   s.port = 9801;
@@ -1420,7 +1458,7 @@ TCP Socket�I�u�W�F�N�g�B
     s.connect();
     s.writeln('SEND SSTP/1.1');
     s.writeln('Sender: DMonkey');
-    s.writeln('Script: \h\s0���񂢁[�B\e');
+    s.writeln('Script: \h\s0えんいー。\e');
     s.writeln('Charset: Shift_JIS');
     s.writeln('');
   }
@@ -1430,54 +1468,54 @@ TCP Socket�I�u�W�F�N�g�B
 </PRE>
 <P>
 <A NAME="id6did30"><BR></A>
-<H3>Mail</H3>
-Mail�f�[�^�I�u�W�F�N�g�BSTMP��POP3�Ŏg�p���܂��B
+<H3>Mail&nbsp;&nbsp;<b><font color="red" size="-2">未サポートクラス</font></b></H3>
+Mailデータオブジェクト。STMPとPOP3で使用します。
 <P>
-<UL><LI>clear() ... �N���A���܂��B</UL>
-<UL><LI>number ... �����l�BPOP3�ł̃��[���ԍ��B</UL>
-<UL><LI>length ... �����l�B���[���T�C�Y�B</UL>
-<UL><LI>attachments ... Strings�B�Y�t�t�@�C���̕����񃊃X�g�B</UL>
-<UL><LI>header ... ������B�ǂݍ��ݐ�p�̃��[���w�b�_�B</UL>
-<UL><LI>body ... ������B�ǂݍ��ݐ�p�̃��[���̃{�f�B�B</UL>
-<UL><LI>message ... ������B���[���̓��e�B</UL>
+<UL><LI>clear() ... クリアします。</UL>
+<UL><LI>number ... 整数値。POP3でのメール番号。</UL>
+<UL><LI>length ... 整数値。メールサイズ。</UL>
+<UL><LI>attachments ... Strings。添付ファイルの文字列リスト。</UL>
+<UL><LI>header ... 文字列。読み込み専用のメールヘッダ。</UL>
+<UL><LI>body ... 文字列。読み込み専用のメールのボディ。</UL>
+<UL><LI>message ... 文字列。メールの内容。</UL>
 <P>
 <A NAME="id6did31"><BR></A>
-<H3>POP3</H3>
-POP3�I�u�W�F�N�g�B���[���̎�M�Ɏg�p���܂��B
+<H3>POP3&nbsp;&nbsp;<b><font color="red" size="-2">未サポートクラス</font></b></H3>
+POP3オブジェクト。メールの受信に使用します。
 <P>
-<UL><LI>connect() ... �ڑ����܂��B</UL>
-<UL><LI>disconnect() ... �ؒf���܂��B</UL>
-<UL><LI>open() ... connect�B</UL>
-<UL><LI>close() ... disconnect�B</UL>
-<UL><LI>getMail(�����l) ... �����l�̔ԍ��̃��[�����擾���܂��B�ŏ��̔ԍ��� 1�Ȃ̂Œ��ӁB</UL>
-<UL><LI>getSummary(�����l) ... �����l�̔ԍ��̃��[���w�b�_���擾���܂��B�ŏ��̔ԍ��� 1�Ȃ̂Œ��ӁB</UL>
-<UL><LI>delete(�����l) ... �����l�̔ԍ��̃��[�����폜���܂��B�ŏ��̔ԍ��� 1�Ȃ̂Œ��ӁB�B</UL>
+<UL><LI>connect() ... 接続します。</UL>
+<UL><LI>disconnect() ... 切断します。</UL>
+<UL><LI>open() ... connect。</UL>
+<UL><LI>close() ... disconnect。</UL>
+<UL><LI>getMail(整数値) ... 整数値の番号のメールを取得します。最初の番号は 1なので注意。</UL>
+<UL><LI>getSummary(整数値) ... 整数値の番号のメールヘッダを取得します。最初の番号は 1なので注意。</UL>
+<UL><LI>delete(整数値) ... 整数値の番号のメールを削除します。最初の番号は 1なので注意。。</UL>
 <P>
-<UL><LI>attachPath ... ������B�Y�t�t�@�C���̕ۑ��ꏊ���w��B</UL>
-<UL><LI>deleteOnRead ... Boolean�B���[�����擾������ɍ폜���邩�ǂ����B</UL>
-<UL><LI>mailCount ... �����l�B���[�����B</UL>
-<UL><LI>length ... mailCount�B</UL>
-<UL><LI>password ... ������B�p�X���[�h�B</UL>
-<UL><LI>userid ... ������B���[�U���B</UL>
-<UL><LI>mail ... Mail�B��M�������[���B</UL>
-<UL><LI>host ... ������B�z�X�g�����w��B</UL>
-<UL><LI>port ... �����l�B�|�[�Ɣԍ����w��B</UL>
-<UL><LI>timeout ... �����l�B�^�C���A�E�g��b���Ŏw��B</UL>
-<UL><LI>debug ... Boolean�Btrue�ɂ���ƃf�o�b�O�o�͂����܂��B</UL>
-<UL><LI>bytesRead ... �ǂݍ��݃o�C�g���B</UL>
-<UL><LI>bytesWrote ... �������݃o�C�g���B</UL>
-<UL><LI>bytesTotal ... �������ݓǂݍ��݃o�C�g���B</UL>
-<UL><LI>onConnect ... �ڑ��C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onDisconnect ... �ؒf�C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onError ... �\�P�b�g�G���[�C�x���g�Bfunction(sender,errorcode,errormsg){}</UL>
-<UL><LI>onRead ... �ǂݍ��݃C�x���g�Bfunction(sender,bytes,abort){}</UL>
-<UL><LI>onWrite ... �������݃C�x���g�Bfunction(sender,bytes,abort){}</UL>
-<UL><LI>onStatus ... ���C�x���g�Bfunction(sender,msg){}</UL>
-<UL><LI>onSuccess ... �����C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onFailure ... ���s�C�x���g�Bfunction(sender){}</UL>
+<UL><LI>attachPath ... 文字列。添付ファイルの保存場所を指定。</UL>
+<UL><LI>deleteOnRead ... Boolean。メールを取得した後に削除するかどうか。</UL>
+<UL><LI>mailCount ... 整数値。メール数。</UL>
+<UL><LI>length ... mailCount。</UL>
+<UL><LI>password ... 文字列。パスワード。</UL>
+<UL><LI>userid ... 文字列。ユーザ名。</UL>
+<UL><LI>mail ... Mail。受信したメール。</UL>
+<UL><LI>host ... 文字列。ホスト名を指定。</UL>
+<UL><LI>port ... 整数値。ポーと番号を指定。</UL>
+<UL><LI>timeout ... 整数値。タイムアウトを秒数で指定。</UL>
+<UL><LI>debug ... Boolean。trueにするとデバッグ出力をします。</UL>
+<UL><LI>bytesRead ... 読み込みバイト数。</UL>
+<UL><LI>bytesWrote ... 書き込みバイト数。</UL>
+<UL><LI>bytesTotal ... 書き込み読み込みバイト数。</UL>
+<UL><LI>onConnect ... 接続イベント。function(sender){}</UL>
+<UL><LI>onDisconnect ... 切断イベント。function(sender){}</UL>
+<UL><LI>onError ... ソケットエラーイベント。function(sender,errorcode,errormsg){}</UL>
+<UL><LI>onRead ... 読み込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onWrite ... 書き込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onStatus ... 情報イベント。function(sender,msg){}</UL>
+<UL><LI>onSuccess ... 成功イベント。function(sender){}</UL>
+<UL><LI>onFailure ... 失敗イベント。function(sender){}</UL>
 <P>
 <P>
-��(1)
+例(1)
 <PRE>  p = new POP3;
   p.host = '127.0.0.1';
   p.port = 110;
@@ -1485,7 +1523,7 @@ POP3�I�u�W�F�N�g�B���[���̎�M�Ɏg�p���܂��B
   p.password = 'test';
   try{
     p.connect();
-    for(i = 1;i <= p.length; i++){ //���[���ԍ���1����
+    for(i = 1;i <= p.length; i++){ //メール番号は1から
       p.getMail(i);
       println(p.mail.header);
       println(p.mail.body);
@@ -1497,38 +1535,38 @@ POP3�I�u�W�F�N�g�B���[���̎�M�Ɏg�p���܂��B
 </PRE>
 <P>
 <A NAME="id6did32"><BR></A>
-<H3>SMTP</H3>
-SMTP�I�u�W�F�N�g�B���[�����M�Ɏg�p���܂��B
+<H3>SMTP&nbsp;&nbsp;<b><font color="red" size="-2">未サポートクラス</font></b></H3>
+SMTPオブジェクト。メール送信に使用します。
 <P>
-<UL><LI>connect() ... �ڑ����܂��B</UL>
-<UL><LI>disconnect() ... �ؒf���܂��B</UL>
-<UL><LI>open() ... connect�B</UL>
-<UL><LI>close() ... disconnect�B</UL>
-<UL><LI>sendMail() ... ���[���𑗐M���܂��B</UL>
-<UL><LI>mail ... Mail�B���M���郁�[���B</UL>
-<UL><LI>host ... ������B�z�X�g�����w��B</UL>
-<UL><LI>port ... �����l�B�|�[�Ɣԍ����w��B</UL>
-<UL><LI>timeout ... �����l�B�^�C���A�E�g��b���Ŏw��B</UL>
-<UL><LI>debug ... Boolean�Btrue�ɂ���ƃf�o�b�O�o�͂����܂��B</UL>
-<UL><LI>bytesRead ... �ǂݍ��݃o�C�g���B</UL>
-<UL><LI>bytesWrote ... �������݃o�C�g���B</UL>
-<UL><LI>bytesTotal ... �������ݓǂݍ��݃o�C�g���B</UL>
-<UL><LI>onConnect ... �ڑ��C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onDisconnect ... �ؒf�C�x���g�Bfunction(sender){}</UL>
-<UL><LI>onError ... �\�P�b�g�G���[�C�x���g�Bfunction(sender,errorcode,errormsg){}</UL>
-<UL><LI>onRead ... �ǂݍ��݃C�x���g�Bfunction(sender,bytes,abort){}</UL>
-<UL><LI>onWrite ... �������݃C�x���g�Bfunction(sender,bytes,abort){}</UL>
-<UL><LI>onStatus ... ���C�x���g�Bfunction(sender,msg){}</UL>
+<UL><LI>connect() ... 接続します。</UL>
+<UL><LI>disconnect() ... 切断します。</UL>
+<UL><LI>open() ... connect。</UL>
+<UL><LI>close() ... disconnect。</UL>
+<UL><LI>sendMail() ... メールを送信します。</UL>
+<UL><LI>mail ... Mail。送信するメール。</UL>
+<UL><LI>host ... 文字列。ホスト名を指定。</UL>
+<UL><LI>port ... 整数値。ポーと番号を指定。</UL>
+<UL><LI>timeout ... 整数値。タイムアウトを秒数で指定。</UL>
+<UL><LI>debug ... Boolean。trueにするとデバッグ出力をします。</UL>
+<UL><LI>bytesRead ... 読み込みバイト数。</UL>
+<UL><LI>bytesWrote ... 書き込みバイト数。</UL>
+<UL><LI>bytesTotal ... 書き込み読み込みバイト数。</UL>
+<UL><LI>onConnect ... 接続イベント。function(sender){}</UL>
+<UL><LI>onDisconnect ... 切断イベント。function(sender){}</UL>
+<UL><LI>onError ... ソケットエラーイベント。function(sender,errorcode,errormsg){}</UL>
+<UL><LI>onRead ... 読み込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onWrite ... 書き込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onStatus ... 情報イベント。function(sender,msg){}</UL>
 <P>
 <P>
-��(1)
+例(1)
 <PRE>  s = new SMTP;
   s.host = '127.0.0.1';
   s.port = 25;
   s.mail['To'] = 'gaogao@moemoe.gr.jp';
   s.mail['From'] = 'gaogao@moemoe.gr.jp';
   s.mail['Subject'] = 'DMonkey SMTP';
-  s.mail.message = '�e�X�g';
+  s.mail.message = 'テスト';
   try{
     s.connect();
     s.sendMail();
@@ -1541,30 +1579,30 @@ SMTP�I�u�W�F�N�g�B���[�����M�Ɏg�p���܂��B
 <P>
 <A NAME="id6did33"><BR></A>
 <H3>ActiveXObject</H3>
-ActiveX�I�[�g���[�V�����I�u�W�F�N�g�B
+ActiveXオートメーションオブジェクト。
 <P>
-<UL><LI>new ActiveXObject(������) ... ������̓I�[�g���[�V�����T�[�o�̖��O�B</UL>
-<UL><LI>disp ... IDispatch�B�f�B�X�p�b�`�C���^�[�t�F�[�X�B</UL>
+<UL><LI>new ActiveXObject(文字列) ... 文字列はオートメーションサーバの名前。</UL>
+<UL><LI>disp ... IDispatch。ディスパッチインターフェース。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  ie = new ActiveXObject('InternetExplorer.Application');
   ie.Visible = true;
   ie.Navigate('http://gaogao.moemoe.gr.jp');
 </PRE>
-��(2)
+例(2)
 <PRE>  iria = new ActiveXObject('Iria.IriaApi');
   iria.Download('http://127.0.0.1/',1);
 </PRE>
-��(3) JScript�h�L�������g����
+例(3) JScriptドキュメントから
 <PRE>function ShowDriveInfo1(drvPath){
   s = '';
   fso = new ActiveXObject("Scripting.FileSystemObject");
   drv = fso.GetDrive(fso.GetDriveName(drvPath));
-  s += "�h���C�u " + drvPath.toUpperCase()+ " - ";
+  s += "ドライブ " + drvPath.toUpperCase()+ " - ";
   s += drv.VolumeName + "\n";
-  s += "���v�T�C�Y: " + drv.TotalSize / 1024;
+  s += "合計サイズ: " + drv.TotalSize / 1024;
   s += " KB" + "\n";
-  s += "�󂫗̈�: " + drv.FreeSpace / 1024;
+  s += "空き領域: " + drv.FreeSpace / 1024;
   s += " KB" + "\n";
   println(s);
 }
@@ -1574,89 +1612,89 @@ ShowDriveInfo1('c:\');
 <P>
 <A NAME="id6did34"><BR></A>
 <H3>Keyboard</H3>
-�L�[�{�[�h��ԃI�u�W�F�N�g�B
+キーボード状態オブジェクト。
 <P>
-<UL><LI>isDown(����) ... �����̃L�[��������Ă��邩�B������Ă����true�B</UL>
-<UL><LI>shift ... Boolean�Bshift��������Ă��邩�B</UL>
-<UL><LI>alt ... Boolean�Balt��������Ă��邩�B</UL>
-<UL><LI>ctrl ... Boolean�Bctrl��������Ă��邩�B</UL>
+<UL><LI>isDown(文字) ... 文字のキーが押されているか。押されていればtrue。</UL>
+<UL><LI>shift ... Boolean。shiftが押されているか。</UL>
+<UL><LI>alt ... Boolean。altが押されているか。</UL>
+<UL><LI>ctrl ... Boolean。ctrlが押されているか。</UL>
 <P>
 <A NAME="id6did35"><BR></A>
 <H3>Mouse</H3>
-�}�E�X��ԃI�u�W�F�N�g�B
+マウス状態オブジェクト。
 <P>
-<UL><LI>x ... �����B�}�E�X��X���W�B</UL>
-<UL><LI>y ... �����B�}�E�X��Y���W�B</UL>
-<UL><LI>lbutton ... Boolean�B�}�E�X�̍��{�^����������Ă��邩�B</UL>
-<UL><LI>mbutton ... Boolean�B�}�E�X�̒��{�^����������Ă��邩�B</UL>
-<UL><LI>rbutton ... Boolean�B�}�E�X�̉E�{�^����������Ă��邩�B</UL>
+<UL><LI>x ... 整数。マウスのX座標。</UL>
+<UL><LI>y ... 整数。マウスのY座標。</UL>
+<UL><LI>lbutton ... Boolean。マウスの左ボタンが押されているか。</UL>
+<UL><LI>mbutton ... Boolean。マウスの中ボタンが押されているか。</UL>
+<UL><LI>rbutton ... Boolean。マウスの右ボタンが押されているか。</UL>
 <P>
 <A NAME="id6did36"><BR></A>
 <H3>Clipboard</H3>
-�N���b�v�{�[�h�I�u�W�F�N�g�B
+クリップボードオブジェクト。
 <P>
-<UL><LI>hasText() ... �N���b�v�{�[�h�Ƀe�L�X�g�������Ă��邩�B�����Ă����true�B</UL>
-<UL><LI>asText ... ������B�N���b�v�{�[�h�̕�����B</UL>
+<UL><LI>hasText() ... クリップボードにテキストが入っているか。入っていればtrue。</UL>
+<UL><LI>asText ... 文字列。クリップボードの文字列。</UL>
 <P>
 <A NAME="id6did37"><BR></A>
 <H3>DynaCall</H3>
-DLL�Ăяo���I�u�W�F�N�g�B
+DLL呼び出しオブジェクト。
 <P>
-<UL><LI>register(DLL��,�֐���,�t���O1,�t���O2,�t���O3) ... DLL�֐���o�^����B</UL>
-<UL><LI>sendMessage(���lA,���lB,�lC,�lD,������) ... ���b�Z�[�W�𑗂�܂��BA �̓n���h���AB �̓��b�Z�[�W�AC�AD �� �ǉ��p�����[�^�A������͒ǉ��p�����[�^�̌^�B�Ԓl�͐����l�B</UL>
-<UL><LI>postMessage(���lA,���lB,�lC,�lD,������) ... ���b�Z�[�W���|�X�g���܂��BA �̓n���h���AB �̓��b�Z�[�W�AC�AD �� �ǉ��p�����[�^�A������͒ǉ��p�����[�^�̌^�B�Ԓl�̓u�[���l�B</UL>
+<UL><LI>register(DLL名,関数名,フラグ1,フラグ2,フラグ3) ... DLL関数を登録する。</UL>
+<UL><LI>sendMessage(数値A,数値B,値C,値D,文字列) ... メッセージを送ります。A はハンドル、B はメッセージ、C、D は 追加パラメータ、文字列は追加パラメータの型。返値は整数値。</UL>
+<UL><LI>postMessage(数値A,数値B,値C,値D,文字列) ... メッセージをポストします。A はハンドル、B はメッセージ、C、D は 追加パラメータ、文字列は追加パラメータの型。返値はブール値。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  dcall = new DynaCall;
   /*
   DynaCall.register()
-  ��1����
-    DLL�̖��O
-  ��2����
-    �֐��̖��O
-  ��3�����`��5����
-    ����3�͔C�ӂ̏��Ԃŕ��ׂ鎖���ł���
+  第1引数
+    DLLの名前
+  第2引数
+    関数の名前
+  第3引数～第5引数
+    この3つは任意の順番で並べる事ができる
     i=[flag]*
-      �������w�肷��(�Q�Ƃ��w�肵�������ɂ͐��l�I�u�W�F�N�g��n���Ȃ��ƒl�����f����Ȃ�)
-        c  char(1�o�C�g)
-        1  char�Q��(4�o�C�g)
-        t  short(2�o�C�g)
-        2  short�Q��(4�o�C�g)
-        l  long(4�o�C�g)
-        4  long�Q��(4�o�C�g)
-        i  int64(8�o�C�g)
-        8  int64�Q��(4�o�C�g)
-        p  �|�C���^(4�o�C�g)
-        h  �n���h��(4�o�C�g)
-        u  unsigned int(4�o�C�g)
-        b  boolean(4�o�C�g)
-        s  ������(4�o�C�g)
-        w  ���C�h������(4�o�C�g)
-        f  4�o�C�g����(4�o�C�g)
-        d  8�o�C�g����(8�o�C�g)
-        a  IDispatch(4�o�C�g)
-        k  IUnknown(4�o�C�g)
+      引数を指定する(参照を指定した引数には数値オブジェクトを渡さないと値が反映されない)
+        c  char(1バイト)
+        1  char参照(4バイト)
+        t  short(2バイト)
+        2  short参照(4バイト)
+        l  long(4バイト)
+        4  long参照(4バイト)
+        i  int64(8バイト)
+        8  int64参照(4バイト)
+        p  ポインタ(4バイト)
+        h  ハンドル(4バイト)
+        u  unsigned int(4バイト)
+        b  boolean(4バイト)
+        s  文字列(4バイト)
+        w  ワイド文字列(4バイト)
+        f  4バイト実数(4バイト)
+        d  8バイト実数(8バイト)
+        a  IDispatch(4バイト)
+        k  IUnknown(4バイト)
 <P>
     f=[flag]*
-      �Ăяo���K����w�肷��
-        m  Microsoft�݊�
-        b  Borland�݊�
-        s  stdcall�Ăяo��(�W��)
-        c  cdecl�Ăяo��
-        4  �߂�l��4�o�C�g����
-        8  �߂�l��8�o�C�g����
+      呼び出し規約を指定する
+        m  Microsoft互換
+        b  Borland互換
+        s  stdcall呼び出し(標準)
+        c  cdecl呼び出し
+        4  戻り値が4バイト実数
+        8  戻り値が8バイト実数
 <P>
     r=[flag]
-      �߂�l���w�肷��
-        �����̃t���O�Ɠ���
+      戻り値を指定する
+        引数のフラグと同じ
   */
   dcall.register('user32.dll','MessageBox','i=hssu','f=s','r=l');
 <P>
-  //�o�^�����֐��͂��̂܂܌Ăяo�����Ƃ��ł��܂�
-  print(dcall.MessageBox(applicationHandle,'�����DynaCall�ŌĂяo���Ă��܂��B','DynaCall',1));
+  //登録した関数はそのまま呼び出すことができます
+  print(dcall.MessageBox(applicationHandle,'これはDynaCallで呼び出しています。','DynaCall',1));
 </PRE>
 <P>
-��(2)
+例(2)
 <PRE>  dcall = new DynaCall;
   s = new StringBuffer(256);
   n = new Number(s.length);
@@ -1668,7 +1706,7 @@ DLL�Ăяo���I�u�W�F�N�g�B
   println(s.length);
 </PRE>
 <P>
-��(3)
+例(3)
 <PRE>  dcall = new DynaCall;
   dcall.register('kernel32','GetTickCount','f=s','r=l');
   println(dcall.GetTickCount());
@@ -1676,50 +1714,50 @@ DLL�Ăяo���I�u�W�F�N�g�B
 <P>
 <A NAME="id6did38"><BR></A>
 <H3>Struct</H3>
-�\���̃I�u�W�F�N�g�BDynaCall �ɓo�^�����֐��̈����ȂǂɎg���܂��B
+構造体オブジェクト。DynaCall に登録した関数の引数などに使われます。
 <P>
-<UL><LI>new Struct(������1[,������2,�c]) ... �����o���ƌ^�� : �ŋ�؂���������Ŏw�肵�܂��B</UL>
-<UL><LI>clear() ... �N���A���܂��B�����o�Ƃ��̒l�͂��ׂĎ����܂��B</UL>
-<UL><LI>define(������1[,������2,�c]) ... �Ē�`���܂��B���̍ہA���݂̃����o�Ƃ��̒l�͂��ׂĎ����܂��B</UL>
-<UL><LI>sizeOf() ... �\���̂̃T�C�Y(�o�C�g��)��Ԃ��܂��B</UL>
-<UL><LI>length ... �����l�B�����o���B</UL>
+<UL><LI>new Struct(文字列1[,文字列2,…]) ... メンバ名と型を : で区切った文字列で指定します。</UL>
+<UL><LI>clear() ... クリアします。メンバとその値はすべて失われます。</UL>
+<UL><LI>define(文字列1[,文字列2,…]) ... 再定義します。その際、現在のメンバとその値はすべて失われます。</UL>
+<UL><LI>sizeOf() ... 構造体のサイズ(バイト数)を返します。</UL>
+<UL><LI>length ... 整数値。メンバ数。</UL>
 <P>
-��(1)
+例(1)
 <PRE>  d = new DynaCall;
 <P>
-  //�\���̂�n���p�����[�^�ɂ� 's' ���w�聫���܂�
+  //構造体を渡すパラメータには 's' を指定↓します
   d.register('user32','GetCursorPos','i=s','r=b');
   /*
-  new Struct('�����o��:�^'[,'�����o��:�^',...])
-  �����o��
-    �����o�̖��O�B���̂܂܃I�u�W�F�N�g�̃����o(�v���p�e�B)�ƂȂ�
-  �^
-    �����o�̌^���w�肷��
-      c   char(1�o�C�g)
-      t   short(2�o�C�g)
-      l   long(4�o�C�g)
-      i   int64(8�o�C�g)
-      p   �|�C���^(4�o�C�g)
-      h   �n���h��(4�o�C�g)
+  new Struct('メンバ名:型'[,'メンバ名:型',...])
+  メンバ名
+    メンバの名前。そのままオブジェクトのメンバ(プロパティ)となる
+  型
+    メンバの型を指定する
+      c   char(1バイト)
+      t   short(2バイト)
+      l   long(4バイト)
+      i   int64(8バイト)
+      p   ポインタ(4バイト)
+      h   ハンドル(4バイト)
 <P>
-      u   unsigned int(4�o�C�g)
-      b   bool(4�o�C�g)
-      s   ������,Struct�I�u�W�F�N�g(4�o�C�g)
-      w   ���C�h������(4�o�C�g)
-      f   4�o�C�g����(4�o�C�g)
-      d   8�o�C�g����(8�o�C�g)
-     ���l �����z��(���l�o�C�g)
+      u   unsigned int(4バイト)
+      b   bool(4バイト)
+      s   文字列,Structオブジェクト(4バイト)
+      w   ワイド文字列(4バイト)
+      f   4バイト実数(4バイト)
+      d   8バイト実数(8バイト)
+     数値 文字配列(数値バイト)
 <P>
-  �������̏��������̂܂܍\���̂̃����o�̕��я��ƂȂ�܂�
+  ※引数の順序がそのまま構造体のメンバの並び順となります
   */
-  point = new Struct('x:l','y:l'); //POINT�\����
+  point = new Struct('x:l','y:l'); //POINT構造体
 <P>
-  //�Ăяo��
+  //呼び出し
   d.GetCursorPos(point);
-  printfln('�}�E�X�J�[�\���̈ʒu�� X = %d, Y = %d �ł�.',point.x,point.y);
+  printfln('マウスカーソルの位置は X = %d, Y = %d です.',point.x,point.y);
 </PRE>
 <P>
-��(2)
+例(2)
 <PRE>  NIM_ADD     = 0x00;
   NIM_MODIFY  = 0x01;
   NIM_DELETE  = 0x02;
@@ -1741,7 +1779,7 @@ DLL�Ăяo���I�u�W�F�N�g�B
 <P>
   icon = new Struct;
 <P>
-  //NOTIFYICONDATA�\����
+  //NOTIFYICONDATA構造体
   icon.define(
     'cbSize:u',
     'hWnd:h',
@@ -1749,89 +1787,142 @@ DLL�Ăяo���I�u�W�F�N�g�B
     'uFlag:u',
     'uCallbackMessage:u',
     'hIcon:h',
-    'szTip:64'); //64�o�C�g�̕����z��
+    'szTip:64'); //64バイトの文字配列
 <P>
-  icon.cbSize = icon.sizeOf(); //�\���̂̃T�C�Y��sizeOf()�Ŏ擾�ł��܂�
+  icon.cbSize = icon.sizeOf(); //構造体のサイズはsizeOf()で取得できます
   icon.hWnd = applicationHandle;
   icon.uID = 1;
   icon.uFlag = NIF_ICON | NIF_TIP;
   icon.hIcon = d.LoadIcon(null,IDI_EXCLAMATION);
-  icon.szTip = '�`�b�v�q���g';
+  icon.szTip = 'チップヒント';
 <P>
   d.Shell_NotifyIcon(NIM_ADD,icon);
 <P>
-  alert('�^�X�N�g���C�ɃA�C�R�����쐬���܂���');
+  alert('タスクトレイにアイコンを作成しました');
 <P>
   d.Shell_NotifyIcon(NIM_DELETE,icon);
-  alert('�^�X�N�g���C�̃A�C�R�����폜���܂���');
+  alert('タスクトレイのアイコンを削除しました');
 </PRE>
 <P>
 <A NAME="id6did39"><BR></A>
 <H3>StringBuffer</H3>
-�ύX�\�ȕ�����I�u�W�F�N�g�B
+変更可能な文字列オブジェクト。
 <P>
-<UL><LI>new StringBuffer(������) ... ������ŏ��������܂��B</UL>
-<UL><LI>new StringBuffer(���l) ... ���l�̃o�b�t�@�T�C�Y���m�ۂ��܂��B</UL>
-<UL><LI>append(�l) ... �l�𕶎���Ƃ��ĉ�����B�Ԓl�͎��g�B</UL>
-<UL><LI>delete(���lA,���lB) ... �C���f�b�N�XA����B-1�܂ō폜����B�Ԓl�͎��g�B</UL>
-<UL><LI>insert(���l,�l) ... ���l�̈ʒu�ɒl�𕶎���ɂ��đ}������B�Ԓl�͎��g�B</UL>
-<UL><LI>substring(���lA,���lB) ... �C���f�b�N�XA����B-1�܂ł̕������Ԃ��B</UL>
-<UL><LI>replace(���lA,���lB,�l) ... �C���f�b�N�XA����B-1�܂ō폜���l��}������B�Ԓl�͎��g�B</UL>
-<UL><LI>toString() ... ������𓾂�B</UL>
-<UL><LI>indexOf(������[,����]) ... ��������w��ʒu����E�ɒT���āA���̈ʒu��Ԃ��܂��B</UL>
-<UL><LI>lastIndexOf(������[,����]) ... ��������w��ʒu���獶�ɒT���āA���̈ʒu��Ԃ��܂��B</UL>
-<UL><LI>slice(����1[,����2]) ... ������̈ꕔ����Ԃ��܂��B</UL>
-<UL><LI>substr(����A[,����B]) ... ��������� A �̈ʒu���� B �������̕������Ԃ��܂��B</UL>
-<UL><LI>fill([�l]) ... �o�b�t�@��l�Ŗ��߂܂��B</UL>
-<UL><LI>length ... ����</UL>
-<UL><LI>text ... ������B</UL>
+<UL><LI>new StringBuffer(文字列) ... 文字列で初期化します。</UL>
+<UL><LI>new StringBuffer(数値) ... 数値のバッファサイズを確保します。</UL>
+<UL><LI>append(値) ... 値を文字列として加える。返値は自身。</UL>
+<UL><LI>delete(数値A,数値B) ... インデックスAからB-1まで削除する。返値は自身。</UL>
+<UL><LI>insert(数値,値) ... 数値の位置に値を文字列にして挿入する。返値は自身。</UL>
+<UL><LI>substring(数値A,数値B) ... インデックスAからB-1までの文字列を返す。</UL>
+<UL><LI>replace(数値A,数値B,値) ... インデックスAからB-1まで削除し値を挿入する。返値は自身。</UL>
+<UL><LI>toString() ... 文字列を得る。</UL>
+<UL><LI>indexOf(文字列[,整数]) ... 文字列を指定位置から右に探して、その位置を返します。</UL>
+<UL><LI>lastIndexOf(文字列[,整数]) ... 文字列を指定位置から左に探して、その位置を返します。</UL>
+<UL><LI>slice(整数1[,整数2]) ... 文字列の一部分を返します。</UL>
+<UL><LI>substr(整数A[,整数B]) ... 文字列内の A の位置から B 文字分の文字列を返します。</UL>
+<UL><LI>fill([値]) ... バッファを値で埋めます。</UL>
+<UL><LI>length ... 長さ</UL>
+<UL><LI>text ... 文字列。</UL>
 <P>
 <A NAME="id6did40"><BR></A>
 <H3>WScript</H3>
-WScript�I�u�W�F�N�g�B
-�O���[�o���I�u�W�F�N�gWScript���ŏ����瑶�݂��܂��B
-�i�ȉ��ȗ��j
+WScriptオブジェクト。
+グローバルオブジェクトWScriptが最初から存在します。
+（以下省略）
 <P>
 <A NAME="id6did41"><BR></A>
 <H3>Enumerator</H3>
-Enumerator�I�u�W�F�N�g�B�R���N�V������񋓂��܂��B
+Enumeratorオブジェクト。コレクションを列挙します。
 <P>
-<UL><LI>new Enumerator(�R���N�V����) ... �R���N�V������ActiveXObject�܂���IDispatch</UL>
-<UL><LI>item() ... ���݂̒l�𓾂�B</UL>
-<UL><LI>atEnd() ... �Ō�ɒB�����true�B</UL>
-<UL><LI>moveFirst() ... �ŏ��ɖ߂�B</UL>
-<UL><LI>moveNext() ... ���֐i�ށB</UL>
+<UL><LI>new Enumerator(コレクション) ... コレクションはActiveXObjectまたはIDispatch</UL>
+<UL><LI>item() ... 現在の値を得る。</UL>
+<UL><LI>atEnd() ... 最後に達するとtrue。</UL>
+<UL><LI>moveFirst() ... 最初に戻る。</UL>
+<UL><LI>moveNext() ... 次へ進む。</UL>
 <P>
 <A NAME="id6did42"><BR></A>
 <H3>CheckListBox</H3>
-GUI �I�u�W�F�N�g�B�`�F�b�N�{�b�N�X�t�����X�g�{�b�N�X��\�����܂��B
+GUI オブジェクト。チェックボックス付きリストボックスを表示します。
 <P>
-<UL><LI>getChecked(���l) ... Boolean�B���l�Ԗڂ̍��ڂ��`�F�b�N����Ă��邩�ǂ����B</UL>
-<UL><LI>setChecked(���l,�u�[���l) ... ���l�Ԗڂ̍��ڂ̃`�F�b�N��Ԃ��u�[���l�ɐݒ肵�܂��B</UL>
-<UL><LI>execute(������A,������B[,���l]) ... �_�C�A���O��\�����܂��BA �̓L���v�V�����AB �̓��x���ɕ\�����镶����A���l�̓f�t�H���g�̑I�����ځB�Ԓl��OK�{�^������������ true�B</UL>
-<UL><LI>count ... ���X�g�̍��ڐ��B</UL>
-<UL><LI>items ... Strings�B���X�g�{�b�N�X�ɕ\�����镶����̃��X�g�B</UL>
-<UL><LI>index ... �I�����ڂ̃C���f�b�N�X�B���I���̂Ƃ��� -1�B</UL>
+<UL><LI>getChecked(数値) ... Boolean。数値番目の項目がチェックされているかどうか。</UL>
+<UL><LI>setChecked(数値,ブール値) ... 数値番目の項目のチェック状態をブール値に設定します。</UL>
+<UL><LI>execute(文字列A,文字列B[,数値]) ... ダイアログを表示します。A はキャプション、B はラベルに表示する文字列、数値はデフォルトの選択項目。返値はOKボタンが押されれば true。</UL>
+<UL><LI>count ... リストの項目数。</UL>
+<UL><LI>items ... Strings。リストボックスに表示する文字列のリスト。</UL>
+<UL><LI>index ... 選択項目のインデックス。未選択のときは -1。</UL>
+<P>
+
+<A NAME="id6did43"><BR></A>
+<H3>Bytes&nbsp;&nbsp;<b><font color="red" size="-2">追加クラス</font></b></H3>
+Byte配列オブジェクト。バイナリデータを扱うために利用します。Arrayオブジェクトの一種です。<br>
+添え字やlengthプロパティを利用してアクセスを行います。独自のメソッド・プロパティは持ちません。
+<P>
+<P>
+<A NAME="id6did44"><BR></A>
+<H3>Encoding&nbsp;&nbsp;<b><font color="red" size="-2">追加クラス</font></b></H3>
+エンコーディングオブジェクト。様々なEncodingを扱い、相互変換を行います。
+<P>
+<UL><LI>getBytes(文字列) ... Bytes。文字列をバイト配列に変換します。</UL>
+<UL><LI>getString(Bytes) ... 文字列。バイト配列を文字列に変換します。</UL>
+<UL><LI>getByteCount(文字列) ... 整数値。文字列のバイト数を得ます。</UL>
+<UL><LI>getCharCount(Bytes) ... 整数値。バイト列を文字列に変換した時の文字数を得ます。サロゲートペア文字は２文字として計算されます。</UL>
+<UL><LI>getPreamble() ... Bytes。ファイル保存時のバイトオーダーマークがある場合に取得します。</UL>
+<UL><LI>ASCII ... Encoding。ASCIIエンコーディングを返します。</UL>
+<UL><LI>BigEndianUnicode ... Encoding。ビッグエンディアン形式のUNICODEエンコーディングを返します。</UL>
+<UL><LI>Default ... Encoding。システムデフォルトのエンコーディングを返します。</UL>
+<UL><LI>Unicode ... Encoding。リトルエンディアン形式のUNICODEエンコーディングを返します。</UL>
+<UL><LI>UTF7 ... Encoding。UTF7形式のエンコーディングを返します。</UL>
+<UL><LI>UTF8 ... Encoding。UTF8形式のUNICODEエンコーディングを返します。</UL>
+<UL><LI>IsSingleByte ... Boolean。１バイトで１文字を表せるエンコーディングの場合 true を返します。</UL>
+<P>
+<A NAME="id6did45"><BR></A>
+<H3>FileReader&nbsp;&nbsp;<b><font color="red" size="-2">追加クラス</font></b></H3>
+ファイル読み出しオブジェクト。テキスト形式のファイルを読み出します。
+<P>
+<UL><LI>open() ... ファイルを開きます。</UL>
+<UL><LI>close() ... ファイルを閉じます。</UL>
+<UL><LI>isOpened() ... ファイルを開いているか表します。ファイルが開いている場合、true を返します。</UL>
+<UL><LI>readln() ... 文字列。１行読み取ってその文字列を返します。</UL>
+<UL><LI>eof() ... Boolean。ファイルの終わりを検査します。ファイルの終わりに達している場合は true を返します。</UL>
+<UL><LI>length ... 整数値。ファイルの長さを取得します。</UL>
+<UL><LI>lastModified ... 日付時刻。ファイルの最終更新日付を取得します。</UL>
+<UL><LI>filename ... 文字列。ファイル名をフルパスで指定します。penメソッドを呼び出す前に指定します。</UL>
+<UL><LI>encoding ... Encoding。エンコーディングを指定します。Openメソッドを呼び出す前に指定します。指定しない場合はシステムデフォルトのエンコーディングとなります。</UL>
+<P>
+<A NAME="id6did46"><BR></A>
+<H3>FileWriter&nbsp;&nbsp;<b><font color="red" size="-2">追加クラス</font></b></H3>
+ファイル書き出しオブジェクト。テキスト形式のファイルを書き出します。
+<P>
+<UL><LI>open() ... ファイルを開きます。</UL>
+<UL><LI>close() ... ファイルを閉じます。</UL>
+<UL><LI>isOpened() ... ファイルを開いているか表します。ファイルが開いている場合、true を返します。</UL>
+<UL><LI>write(文字列) ... 文字列を書き込みます。</UL>
+<UL><LI>writeln(文字列) ... 文字列を書き込み、その後に改行記号も書き込みます。</UL>
+<UL><LI>eof() ... Boolean。ファイルの終わりを検査します。ファイルの終わりに達している場合は true を返します。</UL>
+<UL><LI>length ... 整数値。ファイルの長さを取得します。</UL>
+<UL><LI>lastModified ... 日付時刻。ファイルの最終更新日付を取得します。</UL>
+<UL><LI>filename ... 文字列。ファイル名をフルパスで指定します。penメソッドを呼び出す前に指定します。</UL>
+<UL><LI>encoding ... Encoding。エンコーディングを指定します。Openメソッドを呼び出す前に指定します。指定しない場合はシステムデフォルトのエンコーディングとなります。</UL>
 <P>
 <P>
 <A NAME="id7"><BR></A>
 <HR>
-<H2>�g���g���݃I�u�W�F�N�g</H2>
-�g���g���݃I�u�W�F�N�g�͊ȒP�ɍ쐬���邱�Ƃ��ł��܂��B<br>
+<H2>拡張組込みオブジェクト</H2>
+拡張組込みオブジェクトは簡単に作成することができます。<br>
 <p>
-1.���\�b�h�ɑ����Z�A�v���p�e�B�ɃA�v���P�[�V�����t�@�C�����Ɠ��t�I�u�W�F�N�g�����I�u�W�F�N�g���쐬���܂��B
+1.メソッドに足し算、プロパティにアプリケーションファイル名と日付オブジェクトを持つオブジェクトを作成します。
 <PRE>interface
 uses
   ecma_type,ecma_object;
 <P>
 type
-  //TJObject���p�����܂�
+  //TJObjectを継承します
   TTestObject = class(TJObject)
   private
     FCells: array[0..10] of array[0..10] of String;
     FDate: TJDateObject;
     function GetApplicationFilename: String;
-    //���\�b�h�� TJMethod�^�ł���K�v������܂�
+    //メソッドは TJMethod型である必要があります
     function DoAdd(Param: TJValueList): TJValue;
     function DoCells(Param: TJValueList): TJValue;
   protected
@@ -1840,7 +1931,7 @@ type
     constructor Create(AEngine: TJBaseEngine; Param: TJValueList; RegisteringFactory: Boolean = True); override;
     destructor Destroy; override;
   published
-    //property��published�ɐݒ肵�܂�
+    //propertyはpublishedに設定します
     property applicationFilename: String read GetApplicationFilename;
     property date: TJDateObject read FDate;
   end;
@@ -1853,28 +1944,28 @@ constructor TTestObject.Create(AEngine: TJBaseEngine;
   Param: TJValueList; RegisteringFactory: Boolean);
 begin
   inherited;
-  //object�̖��O��ݒ肵�܂�
+  //objectの名前を設定します
   RegistName('Test');
-  //���\�b�h��o�^���܂�
+  //メソッドを登録します
   RegistMethod('add',DoAdd);
   RegistMethod('Cells',DoCells);
 <P>
-  //Date Object���쐬���܂�
-  //��RegisteringFactory��False�ɂ���Factory�ɓo�^���Ȃ�
+  //Date Objectを作成します
+  //※RegisteringFactoryはFalseにしてFactoryに登録しない
   FDate := TJDateObject.Create(AEngine,nil,False);
-  {�܂��́A�o�^����ꍇ�ɂ͏I���ʒm���󂯂�
+  {または、登録する場合には終了通知を受ける
   FDate := TJDateObject.Create(AEngine);
   FDate.FreeNotification(Self);
   }
-  //�Q�ƃJ�E���g�𑝂₷
+  //参照カウントを増やす
   FDate.IncRef;
 end;
 <P>
 procedure TTestObject.Notification(AObject: TJNotify);
-//�I���ʒm���󂯂�
+//終了通知を受ける
 begin
   inherited;
-  {�I���ʒm���󂯂��ꍇ��FDate��nil�ɂ���
+  {終了通知を受けた場合はFDateをnilにする
   if AObject = FDate then
     FDate := nil;
   }
@@ -1882,9 +1973,9 @@ end;
 <P>
 destructor TTestObject.Destroy;
 begin
-  //�Q�ƃJ�E���g�����炷(����͂��Ȃ�)
+  //参照カウントを減らす(解放はしない)
   FDate.DecRef;
-  {�I���ʒm���󂯂��ꍇ��FDate��nil�ɂȂ��Ă���\��������
+  {終了通知を受けた場合はFDateがnilになっている可能性がある
   if Assigned(FDate) then
     FDate.DecRef;
   }
@@ -1896,16 +1987,16 @@ var
   v: TJValue;
   i,ret: Integer;
 begin
-  //�S�Ă̈��������Z����
+  //全ての引数を加算する
   ret := 0;
   if IsParam1(Param) then
     for i := 0 to Param.Count - 1 do
     begin
       v := Param[i];
-      //TJValue�𐮐��ɕϊ����ĉ��Z
+      //TJValueを整数に変換して加算
       Inc(ret,AsInteger(@v));
     end;
-  //������TJValue�ɕϊ�����
+  //整数をTJValueに変換する
   Result := BuildInteger(ret);
 end;
 <P>
@@ -1915,14 +2006,14 @@ var
   v: TJValue;
 begin
   EmptyValue(Result);
-  //�������`�F�b�N
+  //引数をチェック
   if IsParam2(Param) then
   begin
     v := Param[0];
     row := AsInteger(@v);
     v := Param[1];
     col := AsInteger(@v);
-    //���������΃Z�b�g����
+    //もう一つあればセットする
     if IsParam3(Param) then
     begin
       //setter
@@ -1939,7 +2030,7 @@ end;
 <P>
 function TTestObject.GetApplicationFilename: String;
 begin
-  //���ʂɕ������Ԃ���TJValue�ɕϊ�����܂�
+  //普通に文字列を返すとTJValueに変換されます
   Result := ParamStr(0);
 end;
 <P>
@@ -1949,12 +2040,12 @@ end;
 <P>
 </p>
 <p>
-2.TDMonkey.ImportObject���\�b�h�œo�^���܂��B
+2.TDMonkey.ImportObjectメソッドで登録します。
 <PRE>  DMonkey1.ImportObject('Test',TTestObject);
 </PRE>
 </p>
 <p>
-3.���s
+3.実行
 <PRE>  a = new Test;
   println(a.add(1,2,3,4,5));
   println(a.applicationFilename);
@@ -1972,3 +2063,4 @@ Author: Project DMonkey<br>
 <br>
 <A HREF="http://hp.vector.co.jp/authors/VA024591/" target="_top">http://hp.vector.co.jp/authors/VA024591/</A>
 <P>
+</body>

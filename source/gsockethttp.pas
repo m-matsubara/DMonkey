@@ -229,7 +229,11 @@ type
     procedure Request(Method, Url: String; SendData: String = ''); virtual;
     procedure Response; virtual;
     procedure Head(Url: String);
+{$ifdef UNICODE}
+    function Get(Url: String): TBytes;
+{$else}
     function Get(Url: String): String;
+{$endif}
     procedure GetFile(Url,Filename: String);
     procedure GetStream(Url: String; Stream: TStream);
     function Post(Url,PostData: String): String;
@@ -281,6 +285,70 @@ begin
   inherited Destroy;
 end;
 
+{$ifdef UNICODE}
+function TgHTTP.Get(Url: String): TBytes;
+//GETメソッド
+var
+  Handled: Boolean;
+  S: String;
+  BytesStream: TBytesStream;
+  Ret: String;
+begin
+  BytesStream := TBytesStream.Create;
+  try
+    S := Url;
+    Report('nfo>' + S + 'をgetします',Status_Informational);
+    try
+      repeat
+        try
+          Handled := True;
+          Request('GET',S,'');
+          Response;
+          //redirectチェック
+          if (FRedirectUrl <> '') then
+          begin
+            if FAutoRedirect then
+              Handled := False
+            else if Assigned(FOnRedirect) then
+              FOnRedirect(Self,Handled,FRedirectUrl);
+
+            //h = falseが返ってきたら redirct
+            if not Handled then
+            begin
+              S := FRedirectUrl;
+              Report('nfo>' + S + 'にredirectします',Status_Informational);
+              Continue;
+            end;
+          end;
+
+          CaptureString(Ret,-1);
+          BytesStream.Write(TEncoding.Unicode.GetBytes(Ret)[0], Length(Ret) * 2);
+          //CaptureStream(BytesStream, -1);
+          //if LowerCase(EntHeaderInfo.ContentEncoding) = 'gzip' then
+          //  DecompressGzFile(FBody,'');
+        finally
+          Disconnect;
+        end;
+      until Handled;
+    except
+      //失敗
+      Report('nfo>' + S + 'のget異常終了',Status_Informational);
+      if Assigned(FOnFailure) then
+        FOnFailure(cmdGET);
+      //再生成
+      raise
+    end;
+    //成功
+    if Assigned(FOnSuccess) then
+      FOnSuccess(cmdGET);
+
+    Report('nfo>' + S + 'のget正常終了',Status_Informational);
+  finally
+    Result := BytesStream.Bytes;
+    FreeAndNil(BytesStream);
+  end;
+end;
+{$else}
 function TgHTTP.Get(Url: String): String;
 //GETメソッド
 var
@@ -333,6 +401,7 @@ begin
 
   Report('nfo>' + S + 'のget正常終了',Status_Informational);
 end;
+{$endif}
 
 function TgHTTP.GetBodyDosTime: Integer;
 begin

@@ -4,6 +4,14 @@ unit ecma_extobject;
 //2001/4/26 ~
 //by Wolfy
 
+//Unicode対応による仕様変更
+//2010/4/29
+//by m.matsubara
+//  文字列型とバイナリを明確に分けるために、Bytes型とEncoding型を用意しています。
+//  File型はバイナリのみを扱う仕様に縮小されました。
+//  テキストファイルを扱うにはFileReader型とFileWriter型を利用します。
+//  このUnicode対応版ではString型が特定の文字コードであることに依存するようなコードを書くことは推奨されません。
+
 {$IFDEF VER140}
   {$WARN SYMBOL_PLATFORM OFF}
   {$WARN UNIT_PLATFORM OFF}
@@ -29,6 +37,127 @@ uses
 type
   TJStringsObject = class;
 
+{$ifdef UNICODE}
+  TJBytesObject = class(TJObject)
+  private
+    FBytes: TBytes;
+  public
+    property Bytes: TBytes read FBytes write FBytes;
+
+    constructor Create(AEngine: TJBaseEngine; Param: TJValueList = nil; RegisteringFactory: Boolean = True); override;
+    destructor Destroy; override;
+    function GetValue(S: String; ArrayStyle: Boolean; Param: TJValueList = nil): TJValue; override;
+    procedure SetValue(S: String; Value: TJValue; ArrayStyle: Boolean; Param: TJValueList = nil); override;
+    function ToString(Value: PJValue = nil): String; override;
+
+    class function IsArray: Boolean; override;
+    function GetCount: Integer; override;
+  protected
+    procedure SetLength(const Value: Integer);
+  published
+    property length: Integer read GetCount write SetLength;
+  end;
+
+  TNonPreambleEncoding = class(TMBCSEncoding)
+    function GetPreamble: TBytes; override;
+  end;
+
+  TJEncodingObject = class(TJObject)
+  private
+    FEncoding: TEncoding;   //  エンコーディング
+    FIsCreate: Boolean;     //  GetEncodingした場合はデストラクタで解放する必要がある。
+  public
+    constructor Create(AEngine: TJBaseEngine; Param: TJValueList = nil; RegisteringFactory: Boolean = True); override;
+    destructor Destroy; override;
+//    function ToString(Value: PJValue = nil): String; override;
+
+    function GetASCII: TJEncodingObject;
+    function GetBigEndianUnicode: TJEncodingObject;
+    function GetDefault: TJEncodingObject;
+    function GetUnicode: TJEncodingObject;
+    function GetUTF7: TJEncodingObject;
+    function GetUTF8: TJEncodingObject;
+    function GetIsSingleByte: Boolean;
+
+    function DoGetBytes(Param: TJValueList): TJValue;
+    function DoGetString(Param: TJValueList): TJValue;
+    function DoGetByteCount(Param: TJValueList): TJValue;
+    function DoGetCharCount(Param: TJValueList): TJValue;
+    function DoGetPreamble(Param: TJValueList): TJValue;
+  published
+    property ASCII: TJEncodingObject read GetASCII;
+    property BigEndianUnicode: TJEncodingObject read GetBigEndianUnicode;
+    property Default: TJEncodingObject read GetDefault;
+    property Unicode: TJEncodingObject read GetUnicode;
+    property UTF7: TJEncodingObject read GetUTF7;
+    property UTF8: TJEncodingObject read GetUTF8;
+    property IsSingleByte: Boolean read GetIsSingleByte;
+  end;
+
+  //テキストファイル読み取り
+  TJFileReaderObject = class(TJObject)
+  private
+    FFileStream: TFileStream;
+    FFileReader: TStreamReader;
+    FFileName: String;
+    FEncoding: TJEncodingObject;
+
+    function DoOpen(Param: TJValueList): TJValue;
+    function DoClose(Param: TJValueList): TJValue;
+    function DoIsOpened(Param: TJValueList): TJValue;
+    function DoReadln(Param: TJValueList): TJValue;
+    function DoEof(Param: TJValueList): TJValue;
+
+    function GetLength: Integer;
+    function GetLastModified: TJDateObject;
+    procedure SetEncoding(Value: TJEncodingObject);
+  public
+    constructor Create(AEngine: TJBaseEngine; Param: TJValueList = nil; RegisteringFactory: Boolean = True); override;
+    destructor Destroy; override;
+    function ToString(Value: PJValue = nil): String; override;
+  published
+    property length: Integer read GetLength;
+    property lastModified : TJDateObject read GetLastModified;
+    property filename: String read FFilename write FFilename;
+    property path: String read FFilename write FFilename;
+    property encoding: TJEncodingObject read FEncoding write SetEncoding;
+  end;
+
+  //テキストファイル読み取り
+  TJFileWriterObject = class(TJObject)
+  private
+    FFileStream: TFileStream;
+    FFileWriter: TStreamWriter;
+    FFileName: String;
+    FEncoding: TJEncodingObject;
+    FAppend: Boolean;
+
+    function DoOpen(Param: TJValueList): TJValue;
+    function DoClose(Param: TJValueList): TJValue;
+    function DoIsOpened(Param: TJValueList): TJValue;
+    function DoWrite(Param: TJValueList): TJValue;
+    function DoWriteln(Param: TJValueList): TJValue;
+    function DoFlush(Param: TJValueList): TJValue;
+
+    function GetLength: Integer;
+    function GetLastModified: TJDateObject;
+    procedure SetEncoding(Value: TJEncodingObject);
+  public
+    constructor Create(AEngine: TJBaseEngine; Param: TJValueList = nil; RegisteringFactory: Boolean = True); override;
+    destructor Destroy; override;
+    function ToString(Value: PJValue = nil): String; override;
+  published
+    property length: Integer read GetLength;
+    property lastModified : TJDateObject read GetLastModified;
+    property filename: String read FFilename write FFilename;
+    property path: String read FFilename write FFilename;
+    property encoding: TJEncodingObject read FEncoding write SetEncoding;
+    property append: Boolean read FAppend write FAppend;
+  end;
+
+
+{$endif}
+
   //ファイルobject
   TJFileObject = class(TJObject)
   private
@@ -40,9 +169,13 @@ type
     function DoClose(Param: TJValueList): TJValue;
     function DoIsOpened(Param: TJValueList): TJValue;
     function DoWrite(Param: TJValueList): TJValue;
+{$ifndef UNICODE}
     function DoWriteln(Param: TJValueList): TJValue;
+{$endif}
     function DoFlush(Param: TJValueList): TJValue;
+{$ifndef UNICODE}
     function DoReadln(Param: TJValueList): TJValue;
+{$endif}
     function DoEof(Param: TJValueList): TJValue;
     function DoExists(Param: TJValueList): TJValue;
     function DoRemove(Param: TJValueList): TJValue;
@@ -118,7 +251,6 @@ type
   TJBaseStringsObject = class(TJObject)
   private
     FStrings: TStrings;
-
     function DoAdd(Param: TJValueList): TJValue;
     function DoInsert(Param: TJValueList): TJValue;
     function DoDelete(Param: TJValueList): TJValue;
@@ -431,6 +563,12 @@ implementation
 
 procedure RegisterDMS(Engine: TJBaseEngine);
 begin
+{$ifdef UNICODE}
+  Engine.ImportObject('Bytes', TJBytesObject);
+  Engine.ImportObject('Encoding', TJEncodingObject);
+  Engine.ImportObject('FileReader', TJFileReaderObject);
+  Engine.ImportObject('FileWriter', TJFileWriterObject);
+{$endif}
   Engine.ImportObject('File',TJFileObject);
   Engine.ImportObject('Directory',TJDirectoryObject);
   Engine.ImportObject('Strings',TJStringsObject);
@@ -452,6 +590,527 @@ begin
   Result := IsObject(P) and (P^.vObject is TJStringBufferObject);
 end;
 
+
+{$ifdef UNICODE}
+function IsIntegerStr(const sStr:string): Boolean;
+var
+  nIdx: Integer;
+  nLength: Integer;
+begin
+  nLength := Length(sStr);
+  for nIdx :=1 to nLength do
+  begin
+    if not (sStr[nIdx] in ['0'..'9']) then
+    begin
+      Result:= False;
+      exit;
+    end;
+  end;
+  Result:= True;
+end;
+
+constructor TJBytesObject.Create(AEngine: TJBaseEngine; Param: TJValueList = nil; RegisteringFactory: Boolean = True);
+begin
+  inherited;
+  Length := 0;
+end;
+
+destructor TJBytesObject.Destroy;
+begin
+  inherited;
+end;
+
+function TJBytesObject.GetValue(S: String; ArrayStyle: Boolean; Param: TJValueList = nil): TJValue;
+var
+  nIdx: Integer;
+begin
+  if (IsIntegerStr(S)) then
+  begin
+    nIdx := StrToInt(S);
+    if (nIdx >= System.Length(FBytes)) then
+      Result := BuildNaN
+    else
+      Result := BuildInteger(FBytes[nIdx]);
+  end
+  else
+    Result := inherited GetValue(S, ArrayStyle, Param);
+end;
+
+procedure TJBytesObject.SetValue(S: String; Value: TJValue; ArrayStyle: Boolean; Param: TJValueList = nil);
+var
+  nIdx: Integer;
+begin
+  if (IsIntegerStr(S)) then
+  begin
+    nIdx := StrToInt(S);
+    if (nIdx >= System.Length(FBytes)) then
+      System.SetLength(FBytes, nIdx + 1);
+    FBytes[nIdx] := AsInteger(@Value);
+  end
+  else
+    inherited SetValue(S, Value, ArrayStyle, Param);
+end;
+
+function TJBytesObject.ToString(Value: PJValue = nil): String;
+begin
+  Result := TEncoding.Unicode.GetString(FBytes);
+end;
+
+class function TJBytesObject.IsArray: Boolean;
+begin
+  Result := True;
+end;
+
+function TJBytesObject.GetCount: Integer;
+begin
+  Result := System.Length(FBytes);
+end;
+
+procedure TJBytesObject.SetLength(const Value: Integer);
+begin
+  System.SetLength(FBytes, Value);
+end;
+
+function TNonPreambleEncoding.GetPreamble: TBytes;
+begin
+  Result := TBytes.Create();
+end;
+
+constructor TJEncodingObject.Create(AEngine: TJBaseEngine; Param: TJValueList = nil; RegisteringFactory: Boolean = True);
+var
+  v: TJValue;
+  nCodePage: Integer;
+begin
+  inherited;
+  RegistName('Encoding');
+
+  RegistMethod('GetBytes', DoGetBytes);
+  RegistMethod('GetBytes', DoGetBytes);
+  RegistMethod('GetString', DoGetString);
+  RegistMethod('GetByteCount', DoGetByteCount);
+  RegistMethod('GetCharCount', DoGetCharCount);
+  RegistMethod('GetPreamble', DoGetPreamble);
+  RegistMethod('getBytes', DoGetBytes);
+  RegistMethod('getString', DoGetString);
+  RegistMethod('getByteCount', DoGetByteCount);
+  RegistMethod('getCharCount', DoGetCharCount);
+  RegistMethod('getPreamble', DoGetPreamble);
+
+  FEncoding := nil;
+  if (Param <> nil) then
+  begin
+    if (Param.Count >= 1) then
+    begin
+      v := Param[0];
+      nCodePage := AsInteger(@v);
+      FEncoding := TNonPreambleEncoding.Create(nCodePage);
+      FIsCreate := True;
+    end;
+  end;
+  if (FEncoding = nil) then
+  begin
+    FEncoding := TEncoding.Default;
+    FIsCreate := False;
+  end;
+end;
+
+destructor TJEncodingObject.Destroy;
+begin
+  if (FIsCreate) then
+    FreeAndNil(FEncoding);
+
+  inherited;
+end;
+
+{
+function TJEncodingObject.ToString(Value: PJValue = nil): String;
+begin
+
+end;
+}
+
+function TJEncodingObject.GetASCII: TJEncodingObject;
+begin
+  Result := TJEncodingObject.Create(Self.FEngine);
+  Result.FEncoding := TEncoding.ASCII;
+  Result.FIsCreate := False;  //  いらないけど一応
+end;
+
+function TJEncodingObject.GetBigEndianUnicode: TJEncodingObject;
+begin
+  Result := TJEncodingObject.Create(Self.FEngine);
+  Result.FEncoding := TEncoding.BigEndianUnicode;
+  Result.FIsCreate := False;  //  いらないけど一応
+end;
+
+function TJEncodingObject.GetDefault: TJEncodingObject;
+begin
+  Result := TJEncodingObject.Create(Self.FEngine);
+  Result.FEncoding := TEncoding.Default;
+  Result.FIsCreate := False;  //  いらないけど一応
+end;
+
+function TJEncodingObject.GetUnicode: TJEncodingObject;
+begin
+  Result := TJEncodingObject.Create(Self.FEngine);
+  Result.FEncoding := TEncoding.Unicode;
+  Result.FIsCreate := False;  //  いらないけど一応
+end;
+
+function TJEncodingObject.GetUTF7: TJEncodingObject;
+begin
+  Result := TJEncodingObject.Create(Self.FEngine);
+  Result.FEncoding := TEncoding.UTF7;
+  Result.FIsCreate := False;  //  いらないけど一応
+end;
+
+function TJEncodingObject.GetUTF8: TJEncodingObject;
+begin
+  Result := TJEncodingObject.Create(Self.FEngine);
+  Result.FEncoding := TEncoding.UTF8;
+  Result.FIsCreate := False;  //  いらないけど一応
+end;
+
+function TJEncodingObject.GetIsSingleByte: Boolean;
+begin
+  Result := FEncoding.IsSingleByte;
+end;
+
+
+function TJEncodingObject.DoGetBytes(Param: TJValueList): TJValue;
+var
+  s: String;
+  Bytes: TJBytesObject;
+  v: TJValue;
+begin
+  Result := BuildNaN;
+  if (Param.Count >= 1) then
+  begin
+    v := Param[0];
+    s := AsString(@v);
+    Bytes := TJBytesObject.Create(FEngine);
+    Bytes.FBytes := FEncoding.GetBytes(s);
+    Result := BuildObject(Bytes);
+  end;
+end;
+
+function TJEncodingObject.DoGetString(Param: TJValueList): TJValue;
+var
+  s: String;
+  Bytes: TJBytesObject;
+begin
+  Result := BuildNaN;
+  if (Param.Count >= 1) and (Param.Items[0].ValueType = vtObject) and (Param.Items[0].vObject is TJBytesObject) then
+  begin
+    Bytes := Param.Items[0].vObject as TJBytesObject;
+    s := FEncoding.GetString(Bytes.FBytes);
+    Result := BuildString(s);
+  end;
+end;
+
+function TJEncodingObject.DoGetByteCount(Param: TJValueList): TJValue;
+var
+  s: String;
+  v: TJValue;
+begin
+  Result := BuildNaN;
+  if (Param.Count >= 1) then
+  begin
+    v := Param[0];
+    s := AsString(@v);
+    Result := BuildInteger(FEncoding.GetByteCount(s));
+  end;
+end;
+
+function TJEncodingObject.DoGetCharCount(Param: TJValueList): TJValue;
+var
+  Bytes: TJBytesObject;
+begin
+  Result := BuildNaN;
+  if (Param.Count >= 1) and (Param.Items[0].ValueType = vtObject) and (Param.Items[0].vObject is TJBytesObject) then
+  begin
+    Bytes := Param.Items[0].vObject as TJBytesObject;
+    Result := BuildInteger(FEncoding.GetCharCount(Bytes.FBytes));
+  end;
+end;
+
+function TJEncodingObject.DoGetPreamble(Param: TJValueList): TJValue;
+var
+  Bytes: TJBytesObject;
+begin
+  Bytes := TJBytesObject.Create(FEngine);
+  Bytes.FBytes := FEncoding.GetPreamble;
+  Result := BuildObject(Bytes);
+end;
+
+
+constructor TJFileReaderObject.Create(AEngine: TJBaseEngine; Param: TJValueList = nil; RegisteringFactory: Boolean = True);
+var
+  v: TJValue;
+begin
+  inherited;
+  RegistName('File');
+  //ファイル名設定
+  if IsParam1(Param) then
+  begin
+    v := Param[0];
+    FFilename := AsString(@v);
+  end;
+  if IsParam2(Param) then
+  begin
+    v := Param[1];
+    if (IsObject(@v)) then
+      FEncoding := v.vObject as TJEncodingObject
+    else
+      raise EJThrow.Create(E_FILEREADER, 'no encoding object');
+  end;
+
+  RegistMethod('open',DoOpen);
+  RegistMethod('close',DoClose);
+  RegistMethod('isOpened',DoIsOpened);
+  RegistMethod('readln',DoReadln);
+  RegistMethod('eof',DoEof);
+end;
+
+destructor TJFileReaderObject.Destroy;
+begin
+  if (FFileReader <> nil) then
+    FFileReader.Close;
+  FreeAndNil(FFileReader);
+  FreeAndNil(FFileStream);
+  inherited;
+end;
+
+function TJFileReaderObject.ToString(Value: PJValue = nil): String;
+begin
+  Result := FFilename;
+end;
+
+
+function TJFileReaderObject.DoOpen(Param: TJValueList): TJValue;
+begin
+  FFileStream := TFileStream.Create(FFilename, fmOpenRead);
+  if (FEncoding <> nil) then
+    FFileReader := TStreamReader.Create(FFileStream, FEncoding.FEncoding)
+  else
+    FFileReader := TStreamReader.Create(FFileStream);
+end;
+
+function TJFileReaderObject.DoClose(Param: TJValueList): TJValue;
+begin
+  FFileReader.Close;
+  FreeAndNil(FFileReader);
+  FreeAndNil(FFileStream);
+end;
+
+function TJFileReaderObject.DoIsOpened(Param: TJValueList): TJValue;
+begin
+  Result := BuildBool(FFileStream <> nil);
+end;
+
+function TJFileReaderObject.DoReadln(Param: TJValueList): TJValue;
+var
+  sLine: String;
+begin
+  if (FFileReader = nil) then
+    raise EJThrow.Create(E_FILEWRITER, 'no file open : ' + FFileName);
+  sLine := FFileReader.ReadLine;
+  Result := BuildString(sLine);
+end;
+
+function TJFileReaderObject.DoEof(Param: TJValueList): TJValue;
+begin
+  if (FFileReader = nil) then
+    raise EJThrow.Create(E_FILEWRITER, 'no file open : ' + FFileName);
+  Result := BuildBool(FFileReader.EndOfStream);
+end;
+
+function TJFileReaderObject.GetLength: Integer;
+begin
+  if (FFileStream = nil) then
+    raise EJThrow.Create(E_FILEWRITER, 'no file open : ' + FFileName);
+  Result := Integer(FFileStream.Size); //  Integerにキャストするので2GBを越えるファイルサイズは正しく扱えない
+end;
+
+function TJFileReaderObject.GetLastModified: TJDateObject;
+//ファイルの日付を返す
+var
+  res: Integer;
+  date: TDateTime;
+begin
+  Result := TJDateObject.Create(FEngine);
+
+  res := FileAge(FFilename);
+  if res = -1 then
+    date := Now
+  else
+    date := FileDateToDateTime(res);
+
+  Result.LocalTime := date;
+end;
+
+procedure TJFileReaderObject.SetEncoding(Value: TJEncodingObject);
+begin
+  if (FEncoding <> nil) then
+    FEncoding.DecRef;
+  FEncoding := Value;
+  FEncoding.IncRef;
+end;
+
+constructor TJFileWriterObject.Create(AEngine: TJBaseEngine; Param: TJValueList = nil; RegisteringFactory: Boolean = True);
+var
+  v: TJValue;
+begin
+  inherited;
+  RegistName('File');
+  //ファイル名設定
+  if IsParam1(Param) then
+  begin
+    v := Param[0];
+    FFilename := AsString(@v);
+  end;
+  if IsParam2(Param) then
+  begin
+    v := Param[1];
+    if (IsObject(@v)) then
+      FEncoding := v.vObject as TJEncodingObject
+    else
+      raise EJThrow.Create(E_FILEWRITER, 'no encoding object');
+  end;
+
+  RegistMethod('open',DoOpen);
+  RegistMethod('close',DoClose);
+  RegistMethod('isOpened',DoIsOpened);
+  RegistMethod('write',DoWrite);
+  RegistMethod('writeln',DoWriteln);
+  RegistMethod('flush',DoFlush);
+end;
+
+destructor TJFileWriterObject.Destroy;
+begin
+  FreeAndNil(FFileWriter);
+  FreeAndNil(FFileStream);
+  inherited;
+end;
+
+function TJFileWriterObject.ToString(Value: PJValue = nil): String;
+begin
+  Result := FFilename;
+end;
+
+
+function TJFileWriterObject.DoOpen(Param: TJValueList): TJValue;
+begin
+  if (FileExists(FFileName)) then
+  begin
+    FFileStream := TFileStream.Create(FFilename, fmOpenWrite);
+    if (FAppend = False) then
+    begin
+      FFileStream.Seek(0, soFromBeginning);
+      FFileStream.Size := 0;
+    end
+    else
+    begin
+      FFileStream.Seek(0, soFromEnd);
+    end;
+  end
+  else
+    FFileStream := TFileStream.Create(FFilename, fmCreate);
+  if (FEncoding <> nil) then
+    FFileWriter := TStreamWriter.Create(FFileStream, FEncoding.FEncoding)
+  else
+    FFileWriter := TStreamWriter.Create(FFileStream);
+end;
+
+function TJFileWriterObject.DoClose(Param: TJValueList): TJValue;
+begin
+  if (FFileWriter <> nil) then
+  begin
+    FFileWriter.Flush;
+    FFileWriter.Close;
+  end;
+  FreeAndNil(FFileWriter);
+  FreeAndNil(FFileStream);
+end;
+
+function TJFileWriterObject.DoIsOpened(Param: TJValueList): TJValue;
+begin
+  Result := BuildBool(FFileStream <> nil);
+end;
+
+function TJFileWriterObject.DoWrite(Param: TJValueList): TJValue;
+var
+  sLine: String;
+  v: TJValue;
+begin
+  if (FFileWriter = nil) then
+    raise EJThrow.Create(E_FILEWRITER, 'no file open : ' + FFileName);
+
+  if IsParam1(Param) then
+  begin
+    v := Param[0];
+    sLine := AsString(@v);
+    FFileWriter.Write(sLine);
+  end;
+end;
+
+function TJFileWriterObject.DoWriteln(Param: TJValueList): TJValue;
+var
+  sLine: String;
+  v: TJValue;
+begin
+  if (FFileWriter = nil) then
+    raise EJThrow.Create(E_FILEWRITER, 'no file open : ' + FFileName);
+
+  if IsParam1(Param) then
+  begin
+    v := Param[0];
+    sLine := AsString(@v);
+    FFileWriter.WriteLine(sLine);
+  end;
+end;
+
+function TJFileWriterObject.DoFlush(Param: TJValueList): TJValue;
+begin
+  if (FFileWriter = nil) then
+    raise EJThrow.Create(E_FILEWRITER, 'no file open : ' + FFileName);
+
+  FFileWriter.Flush;
+end;
+
+function TJFileWriterObject.GetLength: Integer;
+begin
+  if (FFileStream = nil) then
+    raise EJThrow.Create(E_FILEWRITER, 'no file open : ' + FFileName);
+  Result := Integer(FFileStream.Size); //  Integerにキャストするので2GBを越えるファイルサイズは正しく扱えない
+end;
+
+function TJFileWriterObject.GetLastModified: TJDateObject;
+//ファイルの日付を返す
+var
+  res: Integer;
+  date: TDateTime;
+begin
+  Result := TJDateObject.Create(FEngine);
+
+  res := FileAge(FFilename);
+  if res = -1 then
+    date := Now
+  else
+    date := FileDateToDateTime(res);
+
+  Result.LocalTime := date;
+end;
+
+procedure TJFileWriterObject.SetEncoding(Value: TJEncodingObject);
+begin
+  if (FEncoding <> nil) then
+    FEncoding.DecRef;
+  FEncoding := Value;
+  FEncoding.IncRef;
+end;
+
+{$endif}
 
 { TJFileObject }
 
@@ -475,9 +1134,15 @@ begin
   RegistMethod('close',DoClose);
   RegistMethod('isOpened',DoIsOpened);
   RegistMethod('write',DoWrite);
+{$ifdef UNICODE}
+{$else}
   RegistMethod('writeln',DoWriteln);
+{$endif}
   RegistMethod('flush',DoFlush);
+{$ifdef UNICODE}
+{$else}
   RegistMethod('readln',DoReadln);
+{$endif}
   RegistMethod('eof',DoEof);
   RegistMethod('exists',DoExists);
   RegistMethod('remove',DoRemove);
@@ -600,12 +1265,20 @@ function TJFileObject.DoRead(Param: TJValueList): TJValue;
 const
   BUFSIZE = 65535;
 var
+{$ifndef UNICODE}
   s,buf: String;
+{$endif}
   res,size: Integer;
   v: TJValue;
+{$ifdef UNICODE}
+  bytes: TBytes;
+  JBytes: TJBytesObject;
+{$endif}
 begin
   Result := BuildNull;
+{$ifndef UNICODE}
   s := '';
+{$endif}
   if FFile.IsOpened then
   begin
     try
@@ -614,12 +1287,32 @@ begin
         v := Param[0];
         size := AsInteger(@v);
         //指定サイズを読み込む
+{$ifdef UNICODE}
+        System.SetLength(bytes, size);
+        res := FFile.Read(bytes[0], size);
+        if (size <> res) then
+          System.SetLength(bytes, res);
+        JBytes := TJBytesObject.Create(FEngine);
+        JBytes.FBytes := bytes;
+        Result := BuildObject(JBytes);
+{$else}
         SetLength(s,size);
         FFile.Read(s[1],size);
         Result := BuildString(s);
+{$endif}
       end
       else begin
         //全て読む
+{$ifdef UNICODE}
+        size := GetFileSize(FFileName);
+        SetLength(bytes, size);
+        res := FFile.Read(bytes[0], size);
+        if (size <> res) then
+          System.SetLength(bytes, res);
+        JBytes := TJBytesObject.Create(FEngine);
+        JBytes.FBytes := bytes;
+        Result := BuildObject(JBytes);
+{$else}
         SetLength(buf,BUFSIZE);
         repeat
           res := FFile.Read(buf[1],BUFSIZE);
@@ -628,6 +1321,7 @@ begin
 
         until (res <= 0);
         Result := BuildString(s);
+{$endif}
       end;
     except
       raise EJThrow.Create(E_FILE,'read error: ' + FFilename);
@@ -637,6 +1331,7 @@ begin
     raise EJThrow.Create(E_FILE,'read error: ' + FFilename);
 end;
 
+{$ifndef UNICODE}
 function TJFileObject.DoReadln(Param: TJValueList): TJValue;
 const
   BUFSIZE = 4096;
@@ -678,6 +1373,7 @@ begin
   else
     raise EJThrow.Create(E_FILE,'read error: ' + FFilename);
 end;
+{$endif}
 
 function TJFileObject.DoRemove(Param: TJValueList): TJValue;
 //ファイルを削除する
@@ -773,6 +1469,7 @@ begin
     raise EJThrow.Create(E_FILE,'write error: ' + FFilename);
 end;
 
+{$ifndef UNICODE}
 function TJFileObject.DoWriteln(Param: TJValueList): TJValue;
 //改行付き書き込み
 var
@@ -788,6 +1485,7 @@ begin
   end;
   Result := DoWrite(Param);
 end;
+{$endif}
 
 function TJFileObject.GetLastModified: TJDateObject;
 //ファイルの日付を返す
@@ -1381,11 +2079,32 @@ function TJBaseStringsObject.DoLoadFromFile(Param: TJValueList): TJValue;
 var
   v: TJValue;
   s: String;
+{$ifdef UNICODE}
+  encoding: TEncoding;
+{$endif}
 begin
   if not Assigned(FStrings) then
     raise EJThrow.Create(E_STRINGS,'strings is null');
 
   Result := BuildObject(Self);
+{$ifdef UNICODE}
+  if IsParam2(Param) then
+  begin
+    v := Param[0];
+    s := AsString(@v);
+    v := Param[1];
+    if (v.vObject is TJEncodingObject) then
+      encoding := (v.vObject as TJEncodingObject).FEncoding
+    else
+      encoding := TEncoding.Default;
+    try
+      FStrings.LoadFromFile(s, encoding);
+    except
+      raise EJThrow.Create(E_STRINGS,'loadFromFile error');
+    end
+  end
+  else
+{$endif}
   if IsParam1(Param) then
   begin
     v := Param[0];
@@ -1404,11 +2123,32 @@ function TJBaseStringsObject.DoSaveToFile(Param: TJValueList): TJValue;
 var
   v: TJValue;
   s: String;
+{$ifdef UNICODE}
+  encoding: TEncoding;
+{$endif}
 begin
   if not Assigned(FStrings) then
     raise EJThrow.Create(E_STRINGS,'strings is null');
 
   Result := BuildObject(Self);
+{$ifdef UNICODE}
+  if IsParam2(Param) then
+  begin
+    v := Param[0];
+    s := AsString(@v);
+    v := Param[1];
+    if (v.vObject is TJEncodingObject) then
+      encoding := (v.vObject as TJEncodingObject).FEncoding
+    else
+      encoding := TEncoding.Default;
+    try
+      FStrings.SaveToFile(s, encoding);
+    except
+      raise EJThrow.Create(E_STRINGS,'saveToFile error');
+    end
+  end
+  else
+{$endif}
   if IsParam1(Param) then
   begin
     v := Param[0];
@@ -1620,14 +2360,14 @@ end;
 function TJWin32Object.DoWinExec(Param: TJValueList): TJValue;
 var
   v: TJValue;
-  s: String;
+  s: AnsiString;
 begin
   Result := BuildBool(False);
   if IsParam1(Param) then
   begin
     v := Param[0];
     s := AsString(@v);
-    Result := BuildBool(WinExec(PChar(s),SW_SHOW) > 31);
+    Result := BuildBool(WinExec(PAnsiChar(s),SW_SHOW) > 31);
   end
   else
     raise EJThrow.Create(E_WIN32,'winExec error');
@@ -1825,12 +2565,25 @@ end;
 function TJCRCObject.DoCalc(Param: TJValueList): TJValue;
 var
   v: TJValue;
+{$ifdef UNICODE}
+  Bytes: TJBytesObject;
+{$endif}
 begin
   Result := BuildObject(Self);
   if IsParam1(Param) then
   begin
     v := Param[0];
+{$ifdef UNICODE}
+    if (IsObject(@v)) and (v.vObject is TJBytesObject) then
+    begin
+      Bytes := v.vObject as TJBytesObject;
+      CalcBytesCRC(FCRC16,FCRC32,Bytes.FBytes);
+    end
+    else
+      raise EJThrow.Create(E_CRC,'calc error: type miss match');
+{$else}
     CalcStringCRC(FCRC16,FCRC32,AsString(@v));
+{$endif}
   end
   else
     raise EJThrow.Create(E_CRC,'calc error');
@@ -1890,12 +2643,23 @@ end;
 function TJBase64Object.DoDecode(Param: TJValueList): TJValue;
 var
   v: TJValue;
+{$ifdef UNICODE}
+  b: TBytes;
+  Bytes: TJBytesObject;
+{$endif}
 begin
   EmptyValue(Result);
   if IsParam1(Param) then
   begin
     v := Param[0];
+{$ifdef UNICODE}
+    b := DecodeBase64B(AsString(@v));
+    Bytes := TJBytesObject.Create(FEngine);
+    Bytes.FBytes := b;
+    Result := BuildObject(Bytes);
+{$else}
     Result := BuildString(DecodeBase64(AsString(@v)));
+{$endif}
   end
   else
     raise EJThrow.Create(E_BASE64,'decode error');
@@ -1923,7 +2687,19 @@ begin
   if IsParam1(Param) then
   begin
     v := Param[0];
+{$ifdef UNICODE}
+    if (IsObject(@v)) then
+    begin
+      if (v.vObject is TJBytesObject) then
+        Result := BuildString(EncodeBase64((v.vObject as TJBytesObject).FBytes))
+      else
+        raise EJThrow.Create(E_BASE64, 'unsuported type object');
+    end
+    else
+      raise EJThrow.Create(E_BASE64, 'unsuported type object');
+{$else}
     Result := BuildString(EncodeBase64(AsString(@v)));
+{$endif}
   end
   else
     raise EJThrow.Create(E_BASE64,'encode error');
@@ -1937,7 +2713,11 @@ begin
   if IsParam1(Param) then
   begin
     v := Param[0];
+{$ifdef UNICODE}
+    Result := BuildString(CreateHeaderStringW(AsString(@v)));
+{$else}
     Result := BuildString(CreateHeaderString(AsString(@v)));
+{$endif}
   end
   else
     raise EJThrow.Create(E_BASE64,'encodeHeader error');

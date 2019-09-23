@@ -9,4 +9,5 @@ https://ja.osdn.net/projects/dmonkey/ をベースにUnicode対応したDMonkey�
 ・HTTP, FTPなどの通信系ライブラリは非対応です。
 ・BytesやEncodingのバイナリを扱うクラスが追加されています。
 ・FileReader、FileWriterのファイル入出力のクラスが追加されています。
+・Stringオブジェクトでエンコーディング関連のメソッドは削除されています。
 

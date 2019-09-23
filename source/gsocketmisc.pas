@@ -210,6 +210,7 @@ function LookupHostName(const HostName: String): u_long;
 //host を ipに変換
 var
   RemoteHost : PHostEnt;
+  AnsiHostName: AnsiString;
 begin
   //アドレス初期化
   Result := INVALID_IP_ADDRESS;
@@ -217,8 +218,10 @@ begin
   if HostName = '' then
     Exit;
 
+  AnsiHostName := HostName;
+
   //まずIPアドレスかどうか試す
-  Result := Inet_Addr(PChar(HostName));
+  Result := Inet_Addr(PAnsiChar(AnsiHostName));
   //IPアドレスでないならば
 {$IFDEF WS2}
   if Result = INADDR_NONE then //-1 then
@@ -227,7 +230,7 @@ begin
 {$ENDIF}
   begin
     //Host名のIPアドレスを調べる
-    RemoteHost := GetHostByName(PChar(HostName));
+    RemoteHost := GetHostByName(PAnsiChar(HostName));
     //失敗ならば
     if not Assigned(RemoteHost) then
     begin
@@ -340,7 +343,7 @@ function GetSocketIPAddr(var Socket: TSocket): string;
 var
   addr: TSockAddrIn;
   addrlen: integer;
-  szIPAddr: PChar;
+  szIPAddr: PAnsiChar;
 begin
   addrlen := sizeof(addr);
   getsockname(Socket,addr,addrlen);
@@ -673,7 +676,7 @@ begin
   Result := IncludeTrailingBackSlash(LocalPath) +
     NormalFilename(ui.Host + ui.Dir);
 
-  Result := ReplaceRegExpr('\\\\+',Result,'\');
+  Result := ReplaceRegExpr('\\\\+',Result,'\', True);   // TODO 2007/7/27 m.matsubara (Trueでよい？)
 end;
 
 
@@ -1607,8 +1610,8 @@ function WildcardMatching(const SearchString,Mask: String; IgnoreCase: Boolean):
 //windcard
 var
   S,M: String;
-  SS: String[1];
-  C: Char;
+  SS: String;
+  C: WideChar;
 begin
   S := SearchString;
   M := Mask;

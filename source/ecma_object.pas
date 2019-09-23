@@ -4,6 +4,14 @@ unit ecma_object;
 //2001/04/14 ~
 //by Wolfy
 
+//Unicode対応による仕様変更
+//2010/4/29
+//by m.matsubara
+//  文字列型でShiftJISやEUC, JISの変換を扱うメソッドは廃止しました。
+//  （本質的にそれはバイナリ操作です）
+//  バイナリを扱うにはBytes型を使います。
+//  文字列とバイナリの相互変換にはEncoding型を使います。(ecma_extobject.pasにて定義)
+
 interface
 
 uses
@@ -181,6 +189,8 @@ type
     function DoSup(Param: TJValueList): TJValue;
     function DoToLowerCase(Param: TJValueList): TJValue;
     function DoToUpperCase(Param: TJValueList): TJValue;
+{$ifdef UNICODE}
+{$else}
     function DoToSJIS(Param: TJValueList): TJValue;
     function DoToJIS(Param: TJValueList): TJValue;
     function DoToEUC(Param: TJValueList): TJValue;
@@ -193,8 +203,12 @@ type
     function DoFromSJISToEUC(Param: TJValueList): TJValue;
     function DoFromSJISToJIS(Param: TJValueList): TJValue;
     function DoFromUtf8ToSJIS(Param: TJValueList): TJValue;
+{$endif}
     //function DoOrd(Param: TJValueList): TJValue;
+{$ifdef UNICODE}
+{$else}
     function DoCrypt(Param: TJValueList): TJValue;
+{$endif}
     function DoTrim(Param: TJValueList): TJValue;
     function DoTrimLeft(Param: TJValueList): TJValue;
     function DoTrimRight(Param: TJValueList): TJValue;
@@ -1817,13 +1831,25 @@ function TJStringObject.DoCharCodeAt(Param: TJValueList): TJValue;
 //文字コードを返す
 var
   v: TJValue;
+{$ifndef UNICODE}
   w: Word;
   s: String;
+{$endif}
+  ch: Char;
+  index: Integer;
 begin
   Result := BuildNaN;
   if IsParam1(Param) then
   begin
+{$ifdef UNICODE}
     v := Param[0];
+    index := AsInteger(@v) + 1;
+    if (index >= 1) and (System.Length(FText) >= index) then
+    begin
+      ch := FText[index];
+      Result := BuildInteger(Ord(ch));
+    end;
+{$else}
     s := MBGetCharAt(FText,AsInteger(@v) + 1);
     if s <> '' then
     begin
@@ -1833,6 +1859,7 @@ begin
         w := (w shl 8) or Word(s[2]);
       Result := BuildInteger(w);
     end;
+{$endif}
   end;
 end;
 
@@ -1856,6 +1883,8 @@ begin
   end;
 end;
 
+{$ifdef UNICODE}
+{$else}
 function TJStringObject.DoCrypt(Param: TJValueList): TJValue;
 //ハッシュ
 var
@@ -1879,6 +1908,7 @@ begin
    c.Free;
   end;
 end;
+{$endif}
 
 function TJStringObject.DoFixed(Param: TJValueList): TJValue;
 begin
@@ -1914,7 +1944,13 @@ function TJStringObject.DoFromCharCode(Param: TJValueList): TJValue;
 var
   v: TJValue;
   i: Integer;
+{$ifdef UNICODE}
+  w: Integer;
+  a: Word;
+  b: Word;
+{$else}
   w: Word;
+{$endif}
   s: String;
 begin
   EmptyValue(Result);
@@ -1925,14 +1961,29 @@ begin
     begin
       v := Param[i];
       w := AsInteger(@v);
+{$ifdef UNICODE}
+      if (w < $10000) then
+        s := s + Char(w)
+      else
+      begin
+        //  サロゲートペアと見なす
+        w := w - $10000;
+        a := $D800 + w div $400;
+        b := $DC00 + w mod $400;
+        s := s + Char(a) + Char(b);
+      end;
+{$else}
       if Hi(w) <> 0 then
         s := s + Char(Hi(w));
       s := s + Char(w);
+{$endif}
     end;
     Result := BuildString(s);
   end;
 end;
 
+{$ifdef UNICODE}
+{$else}
 function TJStringObject.DoFromEUCToJIS(Param: TJValueList): TJValue;
 begin
   Result := BuildString(euc2jis83(FText));
@@ -1967,6 +2018,7 @@ function TJStringObject.DoFromUtf8ToSJIS(Param: TJValueList): TJValue;
 begin
   Result := BuildString(Utf8ToAnsi(FText));
 end;
+{$endif}
 
 function TJStringObject.DoIndexOf(Param: TJValueList): TJValue;
 //文字を検索
@@ -2324,11 +2376,14 @@ begin
   Result := BuildString('<SUP>' + FText + '</SUP>');
 end;
 
+{$ifdef UNICODE}
+{$else}
 function TJStringObject.DoToEUC(Param: TJValueList): TJValue;
 //文字をEUCに変換する
 begin
   Result := BuildString(ConvertJCode(FText,EUC_OUT));
 end;
+{$endif}
 
 function TJStringObject.DoToHankaku(Param: TJValueList): TJValue;
 begin
@@ -2340,11 +2395,14 @@ begin
   Result := BuildString(Hiragana(FText));
 end;
 
+{$ifdef UNICODE}
+{$else}
 function TJStringObject.DoToJIS(Param: TJValueList): TJValue;
 //文字をJISに変換する
 begin
   Result := BuildString(ConvertJCode(FText,JIS_OUT));
 end;
+{$endif}
 
 function TJStringObject.DoToKatakana(Param: TJValueList): TJValue;
 begin
@@ -2357,11 +2415,14 @@ begin
   Result := BuildString(AnsiLowerCase(FText));
 end;
 
+{$ifdef UNICODE}
+{$else}
 function TJStringObject.DoToSJIS(Param: TJValueList): TJValue;
 //文字をSJISに変換
 begin
   Result := BuildString(ConvertJCode(FText,SJIS_OUT));
 end;
+{$endif}
 
 function TJStringObject.DoToUpperCase(Param: TJValueList): TJValue;
 //大文字化
@@ -2369,6 +2430,8 @@ begin
   Result := BuildString(AnsiUpperCase(FText));
 end;
 
+{$ifdef UNICODE}
+{$else}
 function TJStringObject.DoToUtf8(Param: TJValueList): TJValue;
 //utf8に変換
 begin
@@ -2391,6 +2454,7 @@ begin
     FreeMem(p);
   end;
 end;
+{$endif}
 
 function TJStringObject.DoToZenkaku(Param: TJValueList): TJValue;
 begin
@@ -2524,17 +2588,22 @@ begin
 
   RegistMethod('toLowerCase',DoToLowerCase);
   RegistMethod('toUpperCase',DoToUpperCase);
+{$ifdef UNICODE}
+{$else}
   RegistMethod('toJIS',DoToJIS);
   RegistMethod('toSJIS',DoToSJIS);
   RegistMethod('toEUC',DoToEUC);
   RegistMethod('toWide',DoToWide);
   RegistMethod('toUTF8',DoToUtf8);
+{$endif}
   RegistMethod('toString',DoToString);
   RegistMethod('toZenkaku',DoToZenkaku);
   RegistMethod('toHankaku',DoToHankaku);
   RegistMethod('toHiragana',DoToHiragana);
   RegistMethod('toKatakana',DoToKatakana);
 
+{$ifdef UNICODE}
+{$else}
   RegistMethod('fromJIStoSJIS',DoFromJISToSJIS);
   RegistMethod('fromJIStoEUC',DoFromJISToEUC);
   RegistMethod('fromEUCtoSJIS',DoFromEUCToSJIS);
@@ -2544,6 +2613,7 @@ begin
   RegistMethod('fromUTF8toSJIS',DoFromUtf8ToSJIS);
   //unix des crypt
   RegistMethod('crypt',DoCrypt);
+{$endif}
   //制御文字を消す
   RegistMethod('trim',DoTrim);
   RegistMethod('trimLeft',DoTrimLeft);
@@ -3637,6 +3707,7 @@ begin
   RegistMethod('toUTCString',DoToUTCString);
   RegistMethod('UTC',DoUTC);
   RegistMethod('parse',DoParse);
+  RegistMethod('valueOf',DoGetTime);
 
   //現在時間
   LocalTime := Now;

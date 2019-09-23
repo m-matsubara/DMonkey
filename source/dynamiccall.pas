@@ -36,12 +36,22 @@ type
       5: (_int64: Int64);
   end;
 
+{$ifdef WIN64}
+  PSIZEWORD = NativeUInt;
+{$else}
+  PSIZEWORD = Cardinal;
+{$endif}
+
   PDynaParm = ^TDynaParm;
   TDynaParm = packed record
     dwFlags: DWORD;
     nWidth: Integer;
     case Integer of
+{$ifdef WIN64}
+      0: (dwArg: PSIZEWORD);
+{$else}
       0: (dwArg: DWORD);
+{$endif}
       1: (pArg: Pointer);
   end;
 
@@ -151,13 +161,19 @@ function DynaCall(Flags: Integer; lpFunction: Pointer;
 //指定された関数を与えられた引数で呼び出す。
 //適切なスタックを構築し、正しい戻り値の処理を行う。
 { TODO : 実数の呼び出しがうまくいってない }
+{ 
+  2014/12/31 m.matsubara 現状64bit版は非対応
+}
+{$ifdef WIN32}
 var
   Res: TDynaResult;
   i,nInd,nSize: Integer;
   dwEAX,dwEDX,dwVal,dwStSize: DWORD;
   pStack: PDWORD;
   pArg: PBYTE;
+{$endif}
 begin
+{$ifdef WIN32}
   ClearDynaResult(Res);
   dwEAX := 0;
   dwEDX := 0;
@@ -257,6 +273,9 @@ begin
   end;
 
   Result := Res;
+{$else}
+  raise Exception.Create('not implemented for x64 ');
+{$endif}
 end;
 
 function DynaCall(Flags: Integer; lpFunction: Pointer;
@@ -423,13 +442,21 @@ begin
         dvtIDispatch:
         begin
           Result[i].nWidth := SizeOf(IDispatch);
+{$if CompilerVersion >= 23.0}
+          Result[i].dwArg := PSIZEWORD(Values[i]._idispatch);
+{$else}
           Result[i].dwArg := Cardinal(Values[i]._idispatch);
+{$endif}
         end;
 
         dvtIUnknown:
         begin
           Result[i].nWidth := SizeOf(IUnknown);
+{$if CompilerVersion >= 23.0}
+          Result[i].dwArg := PSIZEWORD(Values[i]._iunknown);
+{$else}
           Result[i].dwArg := Cardinal(Values[i]._iunknown);
+{$endif}
         end;
 
         dvtString:
@@ -449,7 +476,11 @@ begin
           Result[i].nWidth := SizeOf(Single);
           //Result[i].dwFlags := DC_FLAG_ARGPTR;
           //Result[i].pArg := @Values[i].f;
+{$if CompilerVersion >= 23.0}
+          Result[i].pArg := @Values[i]._float;
+{$else}
           Result[i].pArg := Pointer(Values[i]._float);
+{$endif}
         end;
 
         dvtDouble:

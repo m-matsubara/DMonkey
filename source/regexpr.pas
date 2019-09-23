@@ -392,8 +392,8 @@ type
     property ModifierR : boolean index 2 read GetModifier write SetModifier;
     // Modifier /r - use r.e.syntax extended for russian,
     // (was property ExtSyntaxEnabled in previous versions)
-    // If true, then à-ÿ  additional include russian letter '¸',
-    // À-ß  additional include '¨', and à-ß include all russian symbols.
+    // If true, then Eÿ  additional include russian letter '¸',
+    // À-ß  additional include '¨', and Eß include all russian symbols.
     // You have to turn it off if it may interfere with you national alphabet.
     // , initialized from RegExprModifierR
 
@@ -1449,7 +1449,7 @@ procedure TRegExpr.Tail (p : PRegExprChar; val : PRegExprChar);
    // shr after subtraction to calculate widechar distance %-( )
    // so, if difference is negative we have .. the "feature" :(
    // I could wrap it in $IFDEF UniCode, but I didn't because
-   // "P – Q computes the difference between the address given
+   // "P EQ computes the difference between the address given
    // by P (the higher address) and the address given by Q (the
    // lower address)" - Delphi help quotation.
    else PRENextOff (scan + REOpSz)^ := val - scan; //###0.933
@@ -1560,14 +1560,14 @@ const
    #$418,#$419,#$41A,#$41B,#$41C,#$41D,#$41E,#$41F,
    #$420,#$421,#$422,#$423,#$424,#$425,#$426,#$427,
    #$428,#$429,#$42A,#$42B,#$42C,#$42D,#$42E,#$42F,#0);
- RusRangeLoLow = #$430{'à'};
+ RusRangeLoLow = #$430{'E};
  RusRangeLoHigh = #$44F{'ÿ'};
  RusRangeHiLow = #$410{'À'};
  RusRangeHiHigh = #$42F{'ß'};
 {$ELSE}
- RusRangeLo = 'àáâãäå¸æçèéêëìíîïğñòóôõö÷øùúûüışÿ';
+ RusRangeLo = 'àáâãäå¸æçèéEEú@ğñòóôõö÷øùúûEşÿ';
  RusRangeHi = 'ÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞß';
- RusRangeLoLow = 'à';
+ RusRangeLoLow = 'E;
  RusRangeLoHigh = 'ÿ';
  RusRangeHiLow = 'À';
  RusRangeHiHigh = 'ß';
@@ -2295,10 +2295,10 @@ function TRegExpr.ParseAtom (var flagp : integer) : PRegExprChar;
              if RangeEnd = EscChar then begin
                {$IFDEF UniCode} //###0.935
                if (ord ((regparse + 1)^) < 256)
-                  and (char ((regparse + 1)^)
-                        in ['d', 'D', 's', 'S', 'w', 'W']) then begin
+                  and (CharInSet(char ((regparse + 1)^),
+                        ['d', 'D', 's', 'S', 'w', 'W'])) then begin
                {$ELSE}
-               if (regparse + 1)^ in ['d', 'D', 's', 'S', 'w', 'W'] then begin
+               if CharInSet((regparse + 1)^, ['d', 'D', 's', 'S', 'w', 'W']) then begin
                {$ENDIF}
                  EmitRangeC ('-'); // or treat as error ?!!
                  CONTINUE;
@@ -3590,7 +3590,7 @@ procedure TRegExpr.SetInputString (const AInputString : RegExprString);
   fInputStart := PChar (fInputString);
   Len := length (fInputString);
   fInputEnd := PRegExprChar (integer (fInputStart) + Len); ??
-  !! startp/endp âñå ğàâíî áóäåò îïàñíî èñïîëüçîâàòü ?
+  !! startp/endp âñEğàâíEáóäåEú@àñûM èñEEçîâàòü ?
   }
  end; { of procedure TRegExpr.SetInputString
 --------------------------------------------------------------}
@@ -3678,7 +3678,7 @@ function TRegExpr.Substitute (const ATemplate : RegExprString) : RegExprString;
     else
      while (p < TemplateEnd) and
       {$IFDEF UniCode} //###0.935
-      (ord (p^) < 256) and (char (p^) in Digits)
+      (ord (p^) < 256) and (CharInSet(char (p^), Digits))
       {$ELSE}
       (p^ in Digits)
       {$ENDIF}

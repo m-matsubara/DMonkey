@@ -989,6 +989,10 @@ end;
 function TJHTTPObject.DoGet(Param: TJValueList): TJValue;
 var
   v: TJValue;
+{$ifdef UNICODE}
+  Bytes: TBytes;
+  JBytes: TJBytesObject;
+{$endif}
 begin
   EmptyValue(Result);
   if IsParam1(Param) then
@@ -997,7 +1001,13 @@ begin
       BeforeRequest;
 
       v := Param[0];
+{$ifdef UNICODE}
+      Bytes := FHTTP.Get(AsString(@v));
+      JBytes := TJBytesObject.Create(Self.FEngine);
+      JBytes.Bytes := Bytes;
+{$else}
       Result := BuildString(FHTTP.Get(AsString(@v)));
+{$endif}
 
       AfterResponse;    
     except
