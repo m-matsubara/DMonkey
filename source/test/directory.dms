@@ -1,0 +1,99 @@
+var d = new Directory('.');
+println(d.findFiles('*.pas'));
+
+println(d.directories);
+println(d.files);
+
+//d.clear();
+
+  /*d = new Directory('.\temp');
+  if(! d.exists())
+    d.make();
+
+
+  d = new Directory('.\temp');
+  if(d.exists())
+    d.remove();
+  */
+
+function checkpath(dirname){
+  if(dirname.lastIndexOf('\') == (dirname.length - 1))
+    return dirname;
+  else
+    return dirname + '\';
+}
+function checkdot(dirname){
+  return ((dirname != '.') && (dirname != '..'));
+}
+function search(dirname){
+  dirname = checkpath(dirname);
+  println(dirname);
+  var d = new Directory(dirname);
+  var n = d.findFirstFile(); //ファイル検索
+  try{
+    if(n){
+      println("\t" + n);
+      for(;;){
+        n = d.findNextFile();
+        if(n)
+          println("\t" + n);
+        else
+          break;
+      }
+    }
+  }
+  finally{
+    d.findClose();
+  }
+  n = d.findFirstDir(); //フォルダ検索
+  try{
+    if(n){
+      if (checkdot(n))
+        search(dirname + n); //再帰検索
+      for(;;){
+        n = d.findNextDir();
+        if(n){
+          if (checkdot(n))
+            search(dirname + n);//再帰検索
+        }
+        else
+          break;
+      }
+    }
+  }
+  finally{
+    d.findClose();
+  }
+}
+
+search('.');
+
+
+  var d = new Directory('c:\program files\irvine');
+  println(d.includePathDelimiter());
+  println(d.excludePathDelimiter());
+
+@set @VERSION7 = true
+
+function search2(directory){
+  var d = new Directory(directory);
+  println(d.path);
+  
+  var files = d.files;
+  fcount += files.length;
+  for(var file in files){
+    println("\t" + file);
+  }
+   
+  var dirs = d.directories;
+  dcount += dirs.length;
+  for(var dir in dirs){
+    search2(dir);
+  }
+}
+
+var fcount = 0;
+var dcount = 0;
+
+search2('.');
+println(format('dir: %.0f  file: %.0f',dcount,fcount));

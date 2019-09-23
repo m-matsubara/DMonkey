@@ -1,0 +1,1974 @@
+
+<HTML>
+<HEAD>
+<TITLE>DMonkeyマニュアル 0.3.9</TITLE>
+</HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<DIV ALIGN="right"></DIV>
+<P>
+<UL><LI><A HREF="#id1">はじめに</A><LI><A HREF="#id2">ライセンス</A><LI><A HREF="#id3">インストール</A><LI><A HREF="#id4">使用法</A><LI><A HREF="#id5">言語仕様について</A><UL>
+<LI><A HREF="#id5did1">式</A><LI><A HREF="#id5did2">文</A><LI><A HREF="#id5did3">条件コンパイル文</A><LI><A HREF="#id5did4">宣言</A><LI><A HREF="#id5did5">オブジェクト</A><LI><A HREF="#id5did6">VCLオブジェクト</A><LI><A HREF="#id5did7">クラス定義</A><LI><A HREF="#id5did8">例外</A><LI><A HREF="#id5did9">インポート</A></UL>
+<LI><A HREF="#id6">組込みオブジェクト</A><UL>
+<LI><A HREF="#id6did1">Object</A><LI><A HREF="#id6did2">Global</A><LI><A HREF="#id6did3">Array</A><LI><A HREF="#id6did4">Number</A><LI><A HREF="#id6did5">Boolean</A><LI><A HREF="#id6did6">String</A><LI><A HREF="#id6did7">RegExp</A><LI><A HREF="#id6did8">Math</A><LI><A HREF="#id6did9">Date</A><LI><A HREF="#id6did10">File</A><LI><A HREF="#id6did11">Directory</A><LI><A HREF="#id6did12">Strings</A><LI><A HREF="#id6did13">Win32</A><LI><A HREF="#id6did14">Ini</A><LI><A HREF="#id6did15">RegIni</A><LI><A HREF="#id6did16">CRC</A><LI><A HREF="#id6did17">Base64</A><LI><A HREF="#id6did18">Dialog</A><LI><A HREF="#id6did19">Mutex</A><LI><A HREF="#id6did20">URL</A><LI><A HREF="#id6did21">Cookie</A><LI><A HREF="#id6did22">Response</A><LI><A HREF="#id6did23">HTTP</A><LI><A HREF="#id6did24">HTTPS</A><LI><A HREF="#id6did25">HtmlTag</A><LI><A HREF="#id6did26">HtmlParser</A><LI><A HREF="#id6did27">FileProperty</A><LI><A HREF="#id6did28">FTP</A><LI><A HREF="#id6did29">TCPSocket</A><LI><A HREF="#id6did30">Mail</A><LI><A HREF="#id6did31">POP3</A><LI><A HREF="#id6did32">SMTP</A><LI><A HREF="#id6did33">ActiveXObject</A><LI><A HREF="#id6did34">Keyboard</A><LI><A HREF="#id6did35">Mouse</A><LI><A HREF="#id6did36">Clipboard</A><LI><A HREF="#id6did37">DynaCall</A><LI><A HREF="#id6did38">Struct</A><LI><A HREF="#id6did39">StringBuffer</A><LI><A HREF="#id6did40">WScript</A><LI><A HREF="#id6did41">Enumerator</A><LI><A HREF="#id6did42">CheckListBox</A></UL>
+<LI><A HREF="#id7">拡張組込みオブジェクト</A></UL><P>
+<A NAME="id1"><BR></A>
+<HR>
+<H2>はじめに</H2>
+<P>
+DMonkeyは Delphiで作られた
+アプリケーションへの組込みを目的としたインタプリタ・スクリプトエンジンです。<br>
+言語仕様は
+<A HREF="http://www.ecma-international.org/publications/standards/Ecma%2D262.htm" target="_top">ECMAScript(JavaScript)</A>
+のサブセットになっています。
+<P>
+<A NAME="id2"><BR></A>
+<HR>
+<H2>ライセンス</H2>
+<P>
+DMonkeyの使用・配布・改変についての制限はありません。
+<P>
+<A NAME="id3"><BR></A>
+<HR>
+<H2>インストール</H2>
+<P>
+コンポーネントのインストールから DMonkey.pasをインストールします。
+<P>
+<A NAME="id4"><BR></A>
+<HR>
+<H2>使用法</H2>
+<P>
+1.メソッド
+<PRE>スクリプトをコンパイルします。
+function Compile(SourceCode: String): Boolean;
+function CompileFile(AFilename: String): Boolean;
+<P>
+スクリプトを実行します。
+function Run(Args: array of const): Integer; overload;
+function Run(Args: TJValueList): Integer; overload;
+function Run: Integer; overload;
+<P>
+関数を呼び出します。
+function CallFunction(Symbol: String; Param: array of const; var RetValue: TJValue): Boolean; overload;
+function CallFunction(Symbol: String; Param: TJValueList; var RetValue: TJValue): Boolean; overload;
+<P>
+クリアします。
+procedure Clear;
+<P>
+スクリプトを中止します。
+procedure Abort;
+<P>
+実行中かどうか。
+function IsRunning: Boolean;
+<P>
+拡張組込みオブジェクトをインポートします。
+procedure ImportObject(ObjectName: String; ObjectClass: TJObjectClass);
+</PRE>
+2.プロパティ
+<PRE>import宣言での検索パス。
+property LibraryPath: TStringList
+<P>
+コンパイル済バイナリを使用する。
+property CompiledBinary: Boolean
+</PRE>
+3.イベント
+<PRE>標準出力
+property OnStdout: TStringEvent
+<P>
+標準エラー
+property OnStderr: TStringEvent
+<P>
+標準入力
+property OnStdin: TReadStringEvent
+<P>
+デバッグ出力
+property OnDebugout: TStringEvent
+<P>
+スクリプト実行時にオブジェクトが作成されたとき呼ばれます。
+property OnNewObject: TNewObjectEvent
+<P>
+実行開始
+property OnRun: TNotifyEvent
+<P>
+実行終了
+property OnDone: TNotifyEvent
+<P>
+スクリプトの文(statement)を一つ実行するたびに呼ばれます。スクリプトの中断などに使用します。
+property OnStep: TStepEvent
+<P>
+</PRE>
+4.実行例
+<PRE>begin
+  //実行
+  if DMonkey1.Compile('println("hello,world");') then
+    DMonkey1.Run;
+end;
+<P>
+var
+  retval: TJValue;
+begin
+  //関数呼び出し
+  if DMonkey1.Compile('function f(a){ println(a);}') then
+  begin
+    //実行する必要があります
+    DMonkey1.Run;
+    //呼び出し
+    DMonkey1.CallFunction('f',['hello'],retval);
+  end;
+end;
+</PRE>
+5.条件定義 {$DEFINE }
+<PRE><UL><LI>NO_EXTENSION ... 拡張Objectを使用しない。</UL>
+<UL><LI>NO_SOCKET ... Socket Objectを使用しない。</UL>
+<UL><LI>NO_ACTIVEX ... Activex Objectを使用しない。</UL>
+<UL><LI>NO_DYNACALL ... DynaCall Objectを使用しない。</UL>
+<UL><LI>NO_GUI ... GUI Objectを使用しない。</UL>
+<UL><LI>NO_WSH ... WScript Objectを使用しない。</UL>
+<UL><LI>NO_VCL ... VCL Objectを使用しない。</UL>
+<UL><LI>MB_NO_OWNER ... alert()などでのダイアログをタスクバーに表示する。</UL>
+</PRE>
+<P>
+<A NAME="id5"><BR></A>
+<HR>
+<H2>言語仕様について</H2>
+<P>
+DMonkeyの言語仕様について簡単に解説します。
+<P>
+<A NAME="id5did1"><BR></A>
+<H3>式</H3>
+式については JavaScriptとほぼ同じです。<br>
+変数はvar宣言を使用するとローカル、<s>使用しない場合はグローバル変数になります</s>。<br>
+var宣言を使用する方が効率的になります。<br>
+未定義の変数を使用した場合には例外が発生します。<br>
+文字列は ' で囲むとエスケープ文字を展開しません。
+<P>
+<A NAME="id5did2"><BR></A>
+<H3>文</H3>
+文は以下が使用できます。<br>
+if..else, while, do..while, for, for..in, continue,
+break, return, try, throw, catch, finally, with, switch-case-default<br>
+<p>
+<STRONG>※0.2.0からfor..in文が変更になりました<br></STRONG>
+Array,Strings,HtmlParserの扱いが変更になっています。<br>
+例(1) 0.1.7まで
+<PRE>  a = ['a','b','c','d'];//配列
+  for(i in a)           //iにはインデックスが入る
+    println(a[i]);
+</PRE>
+例(2) 0.2.0から
+<PRE>  a = ['a','b','c','d'];//配列
+  for(v in a)           //vには要素が直接入る
+    println(v);
+</PRE>
+<P>
+<STRONG>※0.2.1からfor..in文が変更になりました<br></STRONG>
+例(1) 0.2.1から
+<PRE>  a = ['a','b','c','d'];//配列
+  for(i in a)           //iにはインデックスが入る
+    println(a[i]);
+</PRE>
+例(2) 条件定義
+<PRE>  @set @VERSION7 = true //条件定義
+  a = ['a','b','c','d'];//配列
+  for(v in a)           //vには要素が直接入る
+    println(v);
+</PRE>
+</p>
+<P>
+<A NAME="id5did3"><BR></A>
+<H3>条件コンパイル文</H3>
+条件コンパイルは以下のシンボルが使用できます。<br>
+@set @VERSION7 = true         //デフォルトはfalse、trueにするとfor..in文で配列の要素を変数に入れる<br>
+@set @SHORT_CIRCUIT = false   //デフォルトはtrue、falseにすると条件文で完全評価<br>
+<P>
+<A NAME="id5did4"><BR></A>
+<H3>宣言</H3>
+宣言は以下が使用できます。<br>
+function, var, class, import, static
+<P>
+<A NAME="id5did5"><BR></A>
+<H3>オブジェクト</H3>
+オブジェクトは以下が使用できます。（個別については後述）<br>
+Object, Global, Array, String, RegExp, Number, Boolean, Date,
+Math, Strings, File, Directory,TCPSocket, HTTP, HTTPS, Cookie, Response, Mail,
+SMTP, POP3, URL, CRC, Dialog, Mutex, Win32, Base64, Ini, ActiveXObject, Keyboard, Mouse, Clipboard, Dynacall,
+RegIni, HtmlTag, HtmlParser, FTP, WScript, Enumerator, CheckListBox
+<P>
+<A NAME="id5did6"><BR></A>
+<H3>VCLオブジェクト</H3>
+仕様はDelphi6のヘルプを参照してください。<br>
+VCLForm, VCLEdit, VCLButton, VCLMemo, VCLLabel, VCLTimer,
+VCLMenuItem, VCLMainMenu, VCLPopupMenu, VCLCheckBox, VCLRadioButton,
+VCLListBox, VCLComboBox, VCLGroupBox, VCLRadioGroup, VCLPanel, VCLSplitter,
+VCLCheckListBox, VCLImage, VCLTabControl, VCLTabSheet, VCLPageControl,
+VCLProgressBar, VCLTreeView, VCLListView, VCLStatusBar, VCLToolButton, VCLToolBar, VCLCoolBar,
+VCLAction, VCLOpenDialog, VCLSaveDialog, VCLFontDialog, VCLFindDialog, VCLReplaceDialog,
+VCLSpinEdit, VCLUpDown
+<P>
+<A NAME="id5did7"><BR></A>
+<H3>クラス定義</H3>
+既存のオブジェクトを継承して新しいオブジェクトを作ることができます。<br>
+<br>
+例(1)
+<PRE>class Foo{ //指定しない場合は Objectを継承
+  aaa = 10;
+  function f1(a){
+    Global.println(a + ',world'); //Globalが必要になります
+  }
+}
+class Bar extends Foo{
+  bbb = 20;
+  function f2(){
+    Global.println(this.aaa);
+  }
+}
+class Hoge extends Bar{
+  ccc = new Array(5,6,7,8,9,10);
+  function f3(){
+    Global.println(this.bbb);
+  }
+}
+<P>
+a = new Hoge;
+println(a.getProperties());
+a.f1('hello');
+a.f2();
+a.f3();
+for(i in a.ccc)
+  println(i);
+</PRE>
+例(2)
+<PRE>class IE {
+  ie = new ActiveXObject('InternetExplorer.Application');
+  win32 = new Win32;
+  function IE(){  //コンストラクタを指定すると作成時に呼ばれます。
+    if(arguments.length > 0)
+      this.ie.Visible = arguments[0];
+    else
+      this.ie.Visible = true;
+  }
+  function goGoogle(){
+    this.ie.Navigate('http://www.google.com/intl/ja/');
+  }
+  function go(url){
+    this.ie.Navigate(url);
+    while(this.ie.Busy)
+      this.win32.processMessages(); //待機
+  }
+  function quit(){
+    this.ie.Quit();
+  }
+}
+  ie = new IE(true);
+  //ie.goGoogle();
+  for(;;){
+    a = prompt('URLを指定してください');
+    if(a)
+      ie.go(a);
+    else{
+      ie.quit();
+      exit();
+    }
+  }
+</PRE>
+<P>
+<A NAME="id5did8"><BR></A>
+<H3>例外</H3>
+未定義の値を参照したりエラーの場合などには、
+例外が発生してスクリプトは終了します。
+例外後も継続して実行する場合には try..catchを使用します。<br>
+<br>
+例(1)
+<PRE>  println(a);       //未定義の値を参照したため例外が起きます。
+  println('hello'); //ここは実行されません
+</PRE>
+例(2) catch文は例外が起きた場合にのみ実行します。
+<PRE>  try{
+    println(a);   //例外が起きるとcatch文へ移動します。
+  }
+  catch(e){
+    println('error: ' + e);
+  }
+</PRE>
+例(3) finally文を使うと例外に関係なく常に実行します。
+<PRE>  try{
+    println(a);   //例外が起きるとcatch文へ移動します。
+  }
+  catch(e){
+    println('error: ' + e);
+  }
+  finally{
+    println('hello');
+  }
+</PRE>
+<P>
+<A NAME="id5did9"><BR></A>
+<H3>インポート</H3>
+他のスクリプトファイルをインポートすることができます。<br>
+<br>
+例(1) hello.dmsのファイル名で保存します。
+<PRE>  println('hello,');
+  a = 'world';
+</PRE>
+例(2) 名前空間なしでインポートします。
+<PRE>  import hello.*;
+  println(a);
+</PRE>
+<P>
+例(3) 名前空間ありでインポートします。
+<PRE>  import hello;
+  println(hello.a);
+  println(a); //現在の名前空間に a が存在しない場合
+</PRE>
+<P>
+例(4) 名前空間ありでインポートします。
+<PRE>  import hello;
+  a = 10;
+  println(hello.a);
+  println(a); //現在の名前空間に a が存在する場合
+</PRE>
+<P>
+<P>
+<A NAME="id6"><BR></A>
+<HR>
+<H2>組込みオブジェクト</H2>
+DMonkeyでは組込みオブジェクトによって機能を拡張していきます。<br>
+<P>
+<A NAME="id6did1"><BR></A>
+<H3>Object</H3>
+すべての基本となるオブジェクト。ハッシュテーブルの機能を持ちます。<br>
+<UL><LI>hasKey(文字列) ... 文字列のkeyを持っているかチェックします。返値は Boolean値。</UL>
+<UL><LI>hasOwnProperty(文字列) ... hasKeyと同じ。</UL>
+<UL><LI>removeKey(文字列) ... 文字列のkeyを削除します。返値は Boolean値。</UL>
+<UL><LI>getKeys() ... 全てのkeyを改行で区切られた文字列で返す。</UL>
+<UL><LI>getProperties() ... 全てのpropertyを改行で区切られた文字列で返す。</UL>
+<UL><LI>getMethods() ... 全てのmethodを改行で区切られた文字列で返す。</UL>
+<P>
+<P>
+例(1)
+<PRE>  a = new Object;
+  a['hello'] = 'world';
+  println(a['hello']);
+  println(a.hello);
+  println(a.hasKey('hello'));
+</PRE>
+例(2)
+<PRE>  obj = {hello : 'world', foo : 10}; //object生成
+  println(obj.hello);
+  println(obj.foo);
+</PRE>
+例(3)
+<PRE>  obj = {hello : 'world', foo : 10}; //object生成
+  keys = obj.getKeys();
+  for(i in keys)
+    println(keys[i]);
+<P>
+</PRE>
+例(4)
+<PRE>function _inc(){
+  return this.counter += 1;
+}
+function _dec(){
+  return this.counter -= 1;
+}
+  //擬似的なオブジェクト定義
+  a = {counter: 0,
+       inc: _inc,
+       dec: _dec
+      };
+  b = {counter: 0,
+       inc: _inc,
+       dec: _dec
+      };
+<P>
+  for(i = 0; i < 10; i++)
+    a.inc();
+<P>
+  for(i = 0; i < 10; i++)
+    b.dec();
+<P>
+  println(a.counter);
+  println(b.counter);
+</PRE>
+<P>
+<P>
+<A NAME="id6did2"><BR></A>
+<H3>Global</H3>
+カレントオブジェクト。スクリプトは Globalオブジェクト内で実行されます。<br>
+グローバルオブジェクト Globalがスクリプトに最初から存在します。
+<P>
+<UL><LI>escape(文字列) ... 文字列をエンコードします。返値は文字列。</UL>
+<UL><LI>unescape(文字列) ... 文字列をデコードします。返値は文字列。</UL>
+<UL><LI>eval(文字列) ... 文字列をスクリプトとして実行します。返値は整数値。</UL>
+<UL><LI>isFinite(値) ... 値が数値かどうかチェックします。</UL>
+<UL><LI>isNaN(値) ... 値がNaNかどうかチェックします。</UL>
+<UL><LI>parseFloat(値) ... 値を浮動小数点に変換します。返値は数値。</UL>
+<UL><LI>parseInt(値） ... 値を整数値に変換します。返値は整数値。</UL>
+<UL><LI>print(値） ... 値を標準出力に出力します。</UL>
+<UL><LI>println(値） ... 値を標準出力に改行を付けて出力します。</UL>
+<UL><LI>write() ... print()</UL>
+<UL><LI>writeln() ... println()</UL>
+<UL><LI>alert(文字列) ... 警告ダイアログを表示します。</UL>
+<UL><LI>prompt(文字列A,文字列B) ... プロンプトを表示します。Aはメッセージ、Bは初期値。返値は文字列かnull。</UL>
+<UL><LI>confirm(文字列) ... 確認ダイアログを表示します。返値はBoolean。</UL>
+<UL><LI>textArea(文字列A,文字列B) ... テキストエリアを表示します。Aはメッセージ、Bは初期値。返値は文字列かnull。</UL>
+<UL><LI>exit() ... スクリプトを終了します。</UL>
+<UL><LI>scriptEngine() ... スクリプトエンジンの名前。</UL>
+<UL><LI>scriptEngineBuildVersion() ... スクリプトエンジンのビルド番号。</UL>
+<UL><LI>scriptEngineMajorVersion() ... スクリプトエンジンのメジャーバージョン。</UL>
+<UL><LI>scriptEngineMinorVersion() ... スクリプトエンジンのマイナーバージョン。</UL>
+<UL><LI>scriptEngineVersion() ... スクリプトエンジンのバージョン。</UL>
+<UL><LI>read(整数値) ... 標準入力から整数値分読み込んで文字列を返します。</UL>
+<UL><LI>readln() ... 標準入力から1行読み込みます。</UL>
+<UL><LI>isConsole() ... コンソールで実行されているのかどうか。</UL>
+<UL><LI>encodeURI(文字列) ... 文字列を一部の文字を除きURLエンコードします。返値は文字列。</UL>
+<UL><LI>encodeURIComponent(文字列) ... 文字列をURLエンコードします。返値は文字列。</UL>
+<UL><LI>decodeURI(文字列) ... 文字列を一部の文字を除きURデコードします。返値は文字列。</UL>
+<UL><LI>decodeURIComponent(文字列) ... 文字列をURLデコードします。返値は文字列。</UL>
+<UL><LI>format(文字列,値1[,値2,[値3,...]]]) ... 形式文字列。</UL>
+<UL><LI>sprintf(文字列,値1[,値2,[値3,...]]]) ... 形式文字列。</UL>
+<UL><LI>formatFloat(文字列,数値) ... 数値・形式文字列。</UL>
+<UL><LI>printf(文字列,値1[,値2,[値3,...]]]) ... 形式文字列を出力。</UL>
+<UL><LI>printfln(文字列,値1[,値2,[値3,...]]]) ... 形式文字列を改行出力。</UL>
+<UL><LI>eventLoop() ... VCLのイベントループに入る。</UL>
+<UL><LI>terminate() ... VCLのイベントループを終了する。</UL>
+<UL><LI>sleep(数値) ... ミリ秒停止する。</UL>
+<UL><LI>isNull(値) ... 値がnullかどうかチェック。</UL>
+<UL><LI>isUndefined(値) ... 値が未定義かどうかチェック。</UL>
+<UL><LI>nameOf(オブジェクト) ... オブジェクト名を返す。返値は文字列かnull。</UL>
+<P>
+<UL><LI>arguments ... Array。起動時の引数が入った配列。</UL>
+<UL><LI>applicationHandle ... アプリケーションのハンドル。</UL>
+<UL><LI>mainFormHandle ... メインフォームのハンドル。</UL>
+<UL><LI>platform ... OSの種類を文字で返す。'nt'|'windows'|'win32s'</UL>
+<P>
+<P>
+例(1)
+<PRE>  a = 'あいうえお';
+  b = escape(a);
+  println(b);
+  println(unescape(b));
+</PRE>
+例(2)
+<PRE>  ret = eval('10*10');
+  println(ret);
+</PRE>
+例(3)
+<PRE>  a = 10;
+  if (isFinite(a))
+    println('number');
+</PRE>
+例(4)
+<PRE>  a = '0.9';
+  b = 0.1;
+  println(a + b);
+  println(parseFloat(a) + b);
+</PRE>
+例(5)
+<PRE>  a = '0xa'; //10
+  b = 1;
+  println(a + b);
+  println(parseInt(a) + b);
+</PRE>
+例(6)
+<PRE>  alert('hello');
+  if(confirm('prompt?'))
+    a = prompt('prompt','');
+  else
+    a = textArea('textArea','');
+<P>
+  if(a)
+    println(a);
+  else {
+    println('exit');
+    exit();
+  }
+</PRE>
+例(7)
+<PRE>   s = ""; // 文字列を連結します。
+   s += scriptEngine() + " Version ";
+   s += scriptEngineMajorVersion() + ".";
+   s += scriptEngineMinorVersion() + ".";
+   s += scriptEngineBuildVersion();
+   println(s);
+</PRE>
+<P>
+<P>
+<A NAME="id6did3"><BR></A>
+<H3>Array</H3>
+配列オブジェクト。存在しない要素の値をgetしようとすると例外が発生します<br>
+<P>
+<UL><LI>new Array(整数) ... 整数分の配列を作成します。</UL>
+<UL><LI>new Array(値,値,...) ... 配列を値で初期化します。</UL>
+<UL><LI>delete(整数) ... 整数番目の要素を削除します。</UL>
+<UL><LI>clear() ... 配列をクリアします。</UL>
+<UL><LI>add(値) ... 値を1つ最後に加えます。</UL>
+<UL><LI>sort()  ... 省略。</UL>
+<UL><LI>concat()... 省略。</UL>
+<UL><LI>join()... 省略。</UL>
+<UL><LI>pop()... 省略。</UL>
+<UL><LI>push()... 省略。</UL>
+<UL><LI>reverse()... 省略。</UL>
+<UL><LI>shift()... 省略。</UL>
+<UL><LI>slice()... 省略。</UL>
+<UL><LI>splice()... 省略。</UL>
+<UL><LI>toString()... 省略。</UL>
+<UL><LI>unshift()... 省略。</UL>
+<UL><LI>assign(Array)... 配列をArrayからコピー。</UL>
+<UL><LI>lengh ... 整数値。要素数。</UL>
+<P>
+例(1)
+<PRE>  a = new Array;
+  a.add(1);
+  a.add(2);
+  a.add(3);
+  println(a.toString());
+  println(a.reverse().toString());
+  for(i = a.length - 1; i >= 0; i--)
+    a.delete(i);
+<P>
+  for(i = 0;i < 10;i++)
+    a.add(i);
+<P>
+  function f(a,b){ return b - a;}
+  println(a.toString());
+  a.sort(f);
+  println(a.toString());
+<P>
+  c = new Array(a);
+  for(i in c[0])
+    println(c[0][i]);
+<P>
+  a.clear();
+  println(c[0].length);
+</PRE>
+例(2)
+<PRE>  a = [5,4,3,2,1,0]; //配列生成
+  for(i in a)
+    println(a[i]);
+</PRE>
+<P>
+<A NAME="id6did4"><BR></A>
+<H3>Number</H3>
+数値オブジェクト。<br>
+グローバルオブジェクト Numberがスクリプトに最初から存在します。
+<P>
+<UL><LI>toString(整数値) ... 整数値は変換する進数を指定。10,16,8,2に対応。</UL>
+<UL><LI>toChar() ... 数値の文字コードを文字に変換。</UL>
+<UL><LI>NaN ... 非数値。</UL>
+<UL><LI>MAX_VALUE ... 最大値。</UL>
+<UL><LI>MIN_VALUE ... 最小値。</UL>
+<UL><LI>POSITIVE_INFINITY ... 正の無限大。</UL>
+<UL><LI>NEGATIVE_INFINITY ... 負の無限大。</UL>
+<UL><LI>number ... Numberオブジェクトの内部浮動小数点値へアクセス。</UL>
+<UL><LI>int ... Numberオブジェクトの内部整数値へアクセス。</UL>
+<UL><LI>asChar ... Numberオブジェクトの内部整数値を文字で取得、設定。</UL>
+<P>
+<br>
+例(1)
+<PRE>  a = 100;
+  println(a.toString(16));
+<P>
+  println(0x41.toChar());
+</PRE>
+例(2)
+<PRE>  n = new Number(0x41);
+  println(n.asChar);
+  n.asChar = 'B';
+  println('0x' + n.toString(16));
+</PRE>
+<P>
+<A NAME="id6did5"><BR></A>
+<H3>Boolean</H3>
+真偽オブジェクト。
+<P>
+<UL><LI>toString() ... 文字列に変換した値を返します。</UL>
+<UL><LI>bool ... Booleanオブジェクトの内部値へアクセス。</UL>
+<P>
+<br>
+例(1)
+<PRE>  a = true;
+  b = new Boolean(true);
+  println(a.toString());  //true
+  println(b);             //true
+</PRE>
+<P>
+<A NAME="id6did6"><BR></A>
+<H3>String</H3>
+文字列オブジェクト。<br>
+グローバルオブジェクト Stringがスクリプトに最初から存在します。<br>
+配列として各文字を得ることが出来ます。<br>
+※0.2.2から内部コードがWideStringに変更になりました。DynaCallなどではStringBufferを使ってください。
+<P>
+<P>
+<UL><LI>charAt()... 省略。</UL>
+<UL><LI>anchor()... 省略。</UL>
+<UL><LI>big()... 省略。</UL>
+<UL><LI>blink()... 省略。</UL>
+<UL><LI>bold()... 省略。</UL>
+<UL><LI>charCodeAt()... 省略。</UL>
+<UL><LI>concat()... 省略。</UL>
+<UL><LI>fixed()... 省略。</UL>
+<UL><LI>fontcolor()... 省略。</UL>
+<UL><LI>fontsize()... 省略。</UL>
+<UL><LI>fromCharCode()... 省略。</UL>
+<UL><LI>indexOf()... 省略。</UL>
+<UL><LI>italics()... 省略。</UL>
+<UL><LI>lastIndexOf()... 省略。</UL>
+<UL><LI>link()... 省略。</UL>
+<UL><LI>match()... 省略。</UL>
+<UL><LI>replace()... 省略。</UL>
+<UL><LI>search()... 省略。</UL>
+<UL><LI>slice()... 省略。</UL>
+<UL><LI>small()... 省略。</UL>
+<UL><LI>split()... 省略。</UL>
+<UL><LI>strike()... 省略。</UL>
+<UL><LI>sub()... 省略。</UL>
+<UL><LI>substr()... 省略。</UL>
+<UL><LI>substring()... 省略。</UL>
+<UL><LI>sup()... 省略。</UL>
+<UL><LI>toLowerCase()... 省略。</UL>
+<UL><LI>toUpperCase()... 省略。</UL>
+<UL><LI>toString()... 省略。</UL>
+<UL><LI>toJIS()... JISに変換して返します。</UL>
+<UL><LI>toSJIS()... SJISに変換して返します。</UL>
+<UL><LI>toEUC()... EUCにして返します。</UL>
+<UL><LI>toUTF8()... UTF8にして返します。</UL>
+<UL><LI>fromJIStoSJIS()... JISからSJISへ変換。</UL>
+<UL><LI>fromJIStoEUC()... JISからEUCへ変換。</UL>
+<UL><LI>fromEUCtoSJIS()... EUCからSJISへ変換。</UL>
+<UL><LI>fromEUCtoJIS()... EUCからJISへ変換。</UL>
+<UL><LI>fromSJIStoEUC()... SJISからEUCへ変換。</UL>
+<UL><LI>fromSJIStoJIS()... SJISからJISへ変換。</UL>
+<UL><LI>fromUTF8toSJIS()... UTF8からSJISへ変換。</UL>
+<UL><LI>crypt(文字列) ... 文字列をsaltにして暗号化します。crypt(3)。</UL>
+<UL><LI>trim()... 前後の制御・空白文字を削除します。</UL>
+<UL><LI>trimLeft()... 前の制御・空白文字を削除します。</UL>
+<UL><LI>trimRight()... 後の制御・空白文字を削除します。</UL>
+<UL><LI>localeCompare(文字列)... 文字列と比較して-1,0,1を返します。</UL>
+<UL><LI>sizeOf() ... 文字のバイト数を返します。</UL>
+<UL><LI>toZenkaku() ... 全角文字へ変換。</UL>
+<UL><LI>toHankaku() ... 半角文字へ変換。</UL>
+<UL><LI>toHiragana() ... ひらがなへ変換。</UL>
+<UL><LI>toKatakana() ... カタカナへ変換。</UL>
+<UL><LI>multiply(数値) ... 文字列を数値回数連結して返します。</UL>
+<P>
+<UL><LI>length ... 整数値。文字数。</UL>
+<UL><LI>text ... Stringオブジェクトの内部値へアクセス。</UL>
+<UL><LI>str ... textと同じ。</UL>
+<P>
+<P>
+例(1)
+<PRE>  a = 'あいうえお';
+  b = a.toEUC();
+  c = a.toJIS();
+  println(b);
+  println(c);
+  println(b.fromEUCtoSJIS());
+  println(c.fromJIStoSJIS());
+</PRE>
+<P>
+例(2)
+<PRE>  s = new String('あいうえお');
+  println(s.toString());
+</PRE>
+<P>
+例(3)
+<PRE>  s = 'aｂcdｆgｈijｋlmn';
+  for(i = 0; i < s.length; i++)
+    println(s[i]);
+</PRE>
+例(4)
+<PRE>  pass = prompt('パスワードを入力してください','');
+  //saltは最初の二文字
+  salt = pass;
+  /*chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTQVWXYZ';
+  salt = chars[Math.floor(Math.random() * chars.length)] +
+         chars[Math.floor(Math.random() * chars.length)];
+  */;
+  //暗号化
+  alert(c = pass.crypt(salt));
+  a = prompt('確認のパスワードを入力してください','');
+  if(a){
+    //暗号化された文字をsaltに使う
+    if(c == a.crypt(c))
+      alert('正解です');
+    else
+      alert('違います');
+  }
+</PRE>
+<P>
+<P>
+<A NAME="id6did7"><BR></A>
+<H3>RegExp</H3>
+正規表現オブジェクト。<br>
+グローバルオブジェクト RegExpがスクリプトに最初から存在します。
+<P>
+<UL><LI>new RegExp(文字列A,文字列B) ... Aは正規表現、Bはオプション(igm)</UL>
+<UL><LI>exec(文字列) ... 文字列を正規表現とマッチングします。返値はマッチ文字列の配列。</UL>
+<UL><LI>test(文字列) ... 文字列を正規表現とマッチングします。返値はBoolean。</UL>
+<UL><LI>replace(文字列A,文字列B) ... Aと正規表現がマッチする文字列をBに変換します。</UL>
+<UL><LI>split(文字列,整数値) ... 文字列を正規表現で分割します。返値は分割した文字列の配列。整数値は配列の制限数。</UL>
+<UL><LI>ignoreCase ... Boolean。文字のケースを無視するかどうか。</UL>
+<UL><LI>global ... Boolean。連続でマッチングをするかどうか。</UL>
+<UL><LI>source ... 文字列。正規表現。</UL>
+<UL><LI>$1 ～ $9 ...文字列。サブマッチの値。</UL>
+<UL><LI>multiline ... Boolean。複数行。</UL>
+<P>
+<br>
+例(1)
+<PRE>  re = new RegExp(';');
+  a = '100;200;300;400';
+  b = re.split(a);
+  for(i in b)
+    println(b[i]);
+</PRE>
+例(2)
+<PRE>  re = new RegExp('a+','g');
+  a = 'akgatranavayakhahjajatdaa';
+  b = re.exec(a);
+  for(i in b)
+    println(b[i]);
+</PRE>
+<P>
+<A NAME="id6did8"><BR></A>
+<H3>Math</H3>
+数学オブジェクト。<br>
+グローバルオブジェクト Mathがスクリプトに最初から存在します。
+<P>
+<UL><LI>すべて省略。</UL>
+<P>
+<A NAME="id6did9"><BR></A>
+<H3>Date</H3>
+日付オブジェクト。<br>
+グローバルオブジェクト Dateがスクリプトに最初から存在します。<br>
+月は 1 ～ 12になります。
+<P>
+<UL><LI>すべて省略。</UL>
+<P>
+<A NAME="id6did10"><BR></A>
+<H3>File</H3>
+ファイルオブジェクト。ファイルはバイナリモードで開きます<br>
+テキストモードは後述するStringsオブジェクトを使用します。
+<P>
+<UL><LI>new File(文字列） ... 文字列はファイル名を指定します。</UL>
+<UL><LI>open(文字列) ... ファイルを開きます。文字列はオプションで書き込み(w)読み込み(r)排他処理(d)を指定します。開けなかった場合は例外。</UL>
+<UL><LI>close() ... ファイルを閉じます。</UL>
+<UL><LI>isOpened() ... ファイルが開かれているかどうかの Boolean値。</UL>
+<UL><LI>read(整数値) ... 整数値分読み込んで文字列を返します。</UL>
+<UL><LI>readln() ... 1行読み込みます。</UL>
+<UL><LI>write(文字列) ... 文字列を書き込みます。</UL>
+<UL><LI>writeln(文字列) ... 文字列を改行付きで書き込みます。</UL>
+<UL><LI>flush() ... ファイルをフラッシュします。</UL>
+<UL><LI>eof() ... ファイルの最後ならば trueを返します。</UL>
+<UL><LI>exists() ... ファイルが存在すれば trueを返します。</UL>
+<UL><LI>remove() ... ファイルを削除します。</UL>
+<UL><LI>renameTo(文字列) ... 文字列ファイル名にリネームします。</UL>
+<UL><LI>copyTo(文字列) ... 文字列ファイル名にコピーします。</UL>
+<UL><LI>canRead() ... 読み込み可能ならば true。</UL>
+<UL><LI>canWrite() ... 書き込み可能ならば true。</UL>
+<UL><LI>seek(整数値) ... ファイルの位置を移動します。負の値の場合は length + 整数値になります。</UL>
+<UL><LI>extractName() ... ファイル名からパスの除いた部分を取り出します。</UL>
+<UL><LI>extractDrive() ... ファイル名からドライブ名を取り出します。</UL>
+<UL><LI>extractDir() ... ファイル名からパスの部分を取り出します。</UL>
+<UL><LI>extractPath() ... ファイル名から最後に\のついたパス部分を取り出します。</UL>
+<UL><LI>extractExt() ... ファイル名から拡張子を取り出します。</UL>
+<UL><LI>changeExt(文字列) ... ファイル名を文字列の拡張子に変換したファイル名を返します。</UL>
+<UL><LI>expandUNCFilename() ... UNCファイル名へ変換したものを返す。</UL>
+<UL><LI>extractShortPathName() ... ファイル名を短いファイル名へ変換したものを返す。</UL>
+<UL><LI>length ... 整数値。ファイルサイズ。</UL>
+<UL><LI>filename ... 文字列。ファイル名。</UL>
+<UL><LI>lastModified ...Date。更新日時。</UL>
+<UL><LI>path ... filename。</UL>
+<P>
+例(1)
+<PRE>  f = new File('temp.txt');
+  try{
+    f.open('w'); //書き込みモードで開く
+    f.writeln('hello,');
+    f.write('world');
+  }
+  catch(e){
+    println(e);
+  }
+  finally{
+    f.close();
+  }
+</PRE>
+<P>
+例(2)
+<PRE>  f = new File('temp.txt');
+  try{
+    f.open('r'); //読み込みモードで開く
+    s = f.read();//すべて読む
+    println(s);
+    f.seek(0);  //最初に戻る
+    s = f.readln(); //1行読む
+    println(s);
+  }
+  catch(e){
+    println(e);
+  }
+  finally{
+    f.close();
+  }
+</PRE>
+例(3)
+<PRE>  f = new File('c:\program files\irvine\irvine.exe');
+  println(f.extractName());
+  println(f.extractPath());
+  println(f.extractDir());
+  println(f.extractDrive());
+  println(f.extractExt());
+  println(f.changeExt('.jpg'));
+</PRE>
+<P>
+<A NAME="id6did11"><BR></A>
+<H3>Directory</H3>
+ディレクトリオブジェクト。<br>
+<P>
+<UL><LI>new Directory(文字列） ... 文字列にディレクトリを指定します。</UL>
+<UL><LI>make() ... 新規作成します。</UL>
+<UL><LI>remove() ... 削除します。</UL>
+<UL><LI>exists() ... 存在していれば true。</UL>
+<UL><LI>changeTo(文字列) ... カレントディレクトリを文字列に変更します。</UL>
+<UL><LI>findFirst(文字列) ... ディレクトリ内をワイルドカードで検索します。返値は文字列かnull。</UL>
+<UL><LI>findFirstFile(文字列) ... ディレクトリ内をワイルドカードでファイルを検索します。返値は文字列かnull。</UL>
+<UL><LI>findFirstDir(文字列) ... ディレクトリ内をワイルドカードでディレクトリを検索します。返値は文字列かnull。</UL>
+<UL><LI>findNext() ... 続けて検索します。返値は文字列かnull。</UL>
+<UL><LI>findNextFile() ... 続けてファイルを検索します。返値は文字列かnull。</UL>
+<UL><LI>findNextDir() ... 続けてディレクトリを検索します。返値は文字列かnull。</UL>
+<UL><LI>findClose() ... 検索を終了します。</UL>
+<UL><LI>includePathDelimiter() ... 最後に\の付いたディレクトリ名を返す。</UL>
+<UL><LI>excludePathDelimiter() ... 最後の\を削除したディレクトリ名を返す。</UL>
+<UL><LI>expandUNCFilename() ... UNCファイル名へ変換したものを返す。</UL>
+<UL><LI>clear([Undo]) ... 全てのファイルを削除する。Undoがtrueでごみ箱に移動する。</UL>
+<UL><LI>findFiles(文字列) ... Strings。ファイルをワイルドカードで検索する。</UL>
+<UL><LI>dirname ... 文字列。ディレクトリ名。</UL>
+<UL><LI>files ... Strings。ディレクトリ内のファイル。</UL>
+<UL><LI>directories ... Strings。ディレクトリ内のディレクトリ。</UL>
+<UL><LI>path ... dirname。</UL>
+<P>
+<P>
+例(1)
+<PRE>  d = new Directory('.\temp');
+  if(! d.exists())
+    d.make();
+</PRE>
+<P>
+例(2)
+<PRE>  d = new Directory('.\temp');
+  if(d.exists())
+    d.remove();
+</PRE>
+<P>
+例(3)
+<PRE>function checkpath(dirname){
+  if(dirname.lastIndexOf('\') == (dirname.length - 1))
+    return dirname;
+  else
+    return dirname + '\';
+}
+function checkdot(dirname){
+  return ((dirname != '.') && (dirname != '..'));
+}
+function search(dirname){
+  dirname = checkpath(dirname);
+  println(dirname);
+  d = new Directory(dirname);
+  n = d.findFirstFile(); //ファイル検索
+  try{
+    if(n){
+      println("\t" + n);
+      for(;;){
+        n = d.findNextFile();
+        if(n)
+          println("\t" + n);
+        else
+          break;
+      }
+    }
+  }
+  finally{
+    d.findClose();
+  }
+  n = d.findFirstDir(); //フォルダ検索
+  try{
+    if(n){
+      if (checkdot(n))
+        search(dirname + n); //再帰検索
+      for(;;){
+        n = d.findNextDir();
+        if(n){
+          if (checkdot(n))
+            search(dirname + n);//再帰検索
+        }
+        else
+          break;
+      }
+    }
+  }
+  finally{
+    d.findClose();
+  }
+}
+<P>
+search('.');
+<P>
+<P>
+</PRE>
+<P>
+例(4)
+<PRE>  d = new Directory('c:\program files\irvine');
+  println(d.includePathDelimiter());
+  println(d.excludePathDelimiter());
+</PRE>
+<P>
+<A NAME="id6did12"><BR></A>
+<H3>Strings</H3>
+文字列リストオブジェクト。TStringListのラッパーです。
+<P>
+<UL><LI>add(文字列) ... 文字列をリストの最後に加えます。</UL>
+<UL><LI>insert(整数値,文字列) ... 文字列を整数値の要素に挿入します。</UL>
+<UL><LI>delete(整数値) ... 整数値の要素を削除します。</UL>
+<UL><LI>clear() ... クリアします。</UL>
+<UL><LI>indexOf(文字列) ... 文字列と一致する要素の整数値を返します。</UL>
+<UL><LI>sort() ... ソートします。</UL>
+<UL><LI>saveToFile(文字列) ... 文字列のファイルに保存します。</UL>
+<UL><LI>loadFromFile(文字列) ... 文字列のファイルを読み込みます。</UL>
+<UL><LI>assign(Strings) ... 別のStringsオブジェクトからすべてコピーします。</UL>
+<UL><LI>addStrings(Strings) ... 別のStringsオブジェクトから要素をすべて加えます。</UL>
+<UL><LI>text ... 文字列。文字列リストを1つの文字列にして返します。</UL>
+<UL><LI>commaText ... 文字列。文字列リストを , で区切られた1つの文字列にして返します。</UL>
+<UL><LI>length ... 整数値。要素数。</UL>
+<UL><LI>count ... length。</UL>
+<UL><LI>sorted ... Boolean。文字列リストをソート済みにするかどうか。</UL>
+<UL><LI>caseSensitive ... Boolean。大文字小文字を区別するかどうか。</UL>
+<UL><LI>duplicates ... Boolean。ソートされたリストに重複文字列を追加できるかどうか。</UL>
+<P>
+例(1)
+<PRE>  sl = new Strings;
+  sl.add('aaa');
+  sl.add('bbb');
+  sl.insert(0,'ccc');
+  sl.insert(1,'ddd');
+  println(sl.text);
+  println(sl.commaText);
+  sl.saveToFile('temp.txt');
+</PRE>
+<P>
+例(2)
+<PRE>  sl = new Strings;
+  sl.loadFromFile('temp.txt');
+  for(i in sl)
+    println(sl[i]);
+<P>
+  sl.clear();
+</PRE>
+<P>
+<A NAME="id6did13"><BR></A>
+<H3>Win32</H3>
+Win32オブジェクト。Win32APIなど。
+<P>
+<UL><LI>sleep(整数値) ... 整数値ミリ秒処理を止めます。</UL>
+<UL><LI>winExec(文字列) ... 文字列をコマンドとして実行します。成功すればtrue。</UL>
+<UL><LI>shellExecute(文字列A,文字列B,文字列C,文字列D) ... ファイルを関連付けで実行します。Aが操作('open'など)、Bが実行ファイル、Cがパラメータ（無指定でも可)、Dがワークディレクトリ（無指定でも可)。成功すればtrue。</UL>
+<UL><LI>getTickCount() ... OSが起動してからのミリ秒数を得ます。</UL>
+<P>
+<A NAME="id6did14"><BR></A>
+<H3>Ini</H3>
+Iniオブジェクト。Iniファイルを処理します。TIniFileのラッパーです。
+<P>
+<UL><LI>new Ini(文字列) ... 文字列のIniファイルを指定します。</UL>
+<UL><LI>deleteKey(文字列A,文字列B) ... AセクションのBのキーを削除します。</UL>
+<UL><LI>eraseSection(文字列) ... 文字列のセクションを削除します。</UL>
+<UL><LI>readSection(文字列) ... 文字列のセクションから全てのキーを読みStringsオブジェクトを返します。</UL>
+<UL><LI>readSections() ... 全てのセクションを読みStringsオブジェクトを返します。</UL>
+<UL><LI>sectionExists(文字列) ... 文字列のセクションが存在すれば true。</UL>
+<UL><LI>write(文字列A,文字列B,文字列C) ... AセクションのBキーにCを書き込みます。</UL>
+<UL><LI>read(文字列A,文字列B,文字列C) ... AセクションのBキーから読み込み文字列を返します。失敗した場合はCを返します。</UL>
+<UL><LI>update() ... write()した内容をファイルに書き込む。</UL>
+<P>
+例(1)
+<PRE>  ini = new Ini('iria.ini');
+  secs = ini.readSections();
+  for(i in secs){
+    println(secs[i]);
+    keys = ini.readSection(secs[i]);
+    for(j in keys){
+      println('  ' + keys[j] + '=' + ini.read(secs[i],keys[j],''));
+    }
+  }
+<P>
+</PRE>
+<P>
+<A NAME="id6did15"><BR></A>
+<H3>RegIni</H3>
+レジストリオブジェクト。TRegIniFileのラッパーです。
+<P>
+<UL><LI>new RegIni(文字列) ... HKEY_CURRENT_USERの下の文字列のキーを開きます。</UL>
+<UL><LI>deleteKey(文字列A,文字列B) ... AセクションのBのキーを削除します。</UL>
+<UL><LI>eraseSection(文字列) ... 文字列のセクションを削除します。</UL>
+<UL><LI>readSection(文字列) ... 文字列のセクションから全てのキーを読みStringsオブジェクトを返します。</UL>
+<UL><LI>readSections() ... 全てのセクションを読みStringsオブジェクトを返します。</UL>
+<UL><LI>sectionExists(文字列) ... 文字列のセクションが存在すれば true。</UL>
+<UL><LI>write(文字列A,文字列B,文字列C) ... AセクションのBキーにCを書き込みます。</UL>
+<UL><LI>read(文字列A,文字列B,文字列C) ... AセクションのBキーから読み込み文字列を返します。失敗した場合はCを返します。</UL>
+<P>
+例(1)
+<PRE>  reg = new RegIni('\software\wildforce\irvine');
+  println(reg.readSections().text);
+<P>
+  if(reg.sectionExists('path'))
+    println(reg.read('path','Application',''));
+</PRE>
+<P>
+<A NAME="id6did16"><BR></A>
+<H3>CRC</H3>
+CRCオブジェクト。
+<P>
+<UL><LI>calc(文字列) ... 文字列のCRCを計算します。</UL>
+<UL><LI>calcFile(文字列) ... 文字列のファイルのCRCを計算します。</UL>
+<UL><LI>CRC16 ... 整数値。計算結果の CRC16</UL>
+<UL><LI>CRC32 ... 整数値。計算結果の CRC32</UL>
+<P>
+例(1)
+<PRE>  crc = new CRC;
+  crc.calc('あいうえお');
+  println(crc.CRC16.toString(16));
+  println(crc.CRC32.toString(16));
+</PRE>
+<P>
+<A NAME="id6did17"><BR></A>
+<H3>Base64</H3>
+Base64オブジェクト。Base64エンコード、デコードを行います。
+<P>
+<UL><LI>encode(文字列) ... 文字列をBase64エンコードした値を返します。</UL>
+<UL><LI>decode(文字列) ... 文字列をBase64デコードした値を返します。</UL>
+<UL><LI>encodeHeader(文字列) ... 文字列をメールヘッダの形式にエンコードします。</UL>
+<UL><LI>decodeHeader(文字列) ... 文字列をメールヘッダの形式からデコードします。</UL>
+<P>
+例(1)
+<PRE>  b64 = new Base64;
+  a = 'あいうえお';
+  b = b64.encode(a);
+  println(b);
+  println(b64.decode(b));
+</PRE>
+<P>
+例(2)
+<PRE>  b64 = new Base64;
+  a = 'あいうえお';
+  c = b64.encodeHeader(a);
+  println(c);
+  d = b64.decodeHeader(c);
+  println(d);
+</PRE>
+<P>
+<P>
+<A NAME="id6did18"><BR></A>
+<H3>Dialog</H3>
+Dialogオブジェクト。
+<P>
+<UL><LI>new Dialog(文字列) ... フィルタを文字列で初期化します。</UL>
+<UL><LI>openFile(文字列A,文字列B) ... ファイル選択ダイアログを開きます。Aはタイトル、Bはデフォルトファイル名。返値はファイル名かnull。</UL>
+<UL><LI>openFiles(文字列A,文字列B) ... 複数ファイル選択ダイアログを開きます。Aはタイトル、Bはデフォルトファイル名。返値はファイル名の文字列リスト。</UL>
+<UL><LI>saveFile(文字列A,文字列B) ... ファイル保存選択ダイアログを開きます。Aはタイトル、Bはデフォルトファイル名。返値はファイル名かnull。</UL>
+<UL><LI>openFolder(文字列A,文字列B) ... フォルダ選択ダイアログを開きます。Aはタイトル、Bはデフォルトフォルダ名。返値はファイル名かnull。</UL>
+<UL><LI>filters ... Strings。’説明｜拡張子’形式のフィルタの入った文字列リスト。</UL>
+<P>
+例(1)
+<PRE>  d = new Dialog('テキストファイル *.txt|*.txt','すべてのファイル|*.*');
+  println(d.openFile('load'));
+  println(d.saveFile('save'));
+  println(d.openFolder());
+  s = d.openFiles();
+  for(i in s)
+    println(s[i]);
+<P>
+</PRE>
+<P>
+<P>
+<A NAME="id6did19"><BR></A>
+<H3>Mutex</H3>
+同期オブジェクト。スレッド、プロセスを越えて同期をとります。
+<P>
+<UL><LI>new Mutex(文字列) ... 文字列の名前を持つMutexオブジェクトを作成します。</UL>
+<UL><LI>lock() ... ロックします。他のMutexオブジェクトがロックしていた場合はロック解除まで停止します。</UL>
+<UL><LI>unlock() ... ロックを解除します。</UL>
+<UL><LI>tryLock() ... ロックします。他のMutexオブジェクトがロックしていた場合はタイムアウトまで停止します。</UL>
+<UL><LI>timeout ... ロックのタイムアウトをミリ秒で指定します。</UL>
+<UL><LI>existed ... すでに同じ名前のMutexオブジェクトが存在すれば true。</UL>
+<P>
+例(1)
+<PRE>  mutex = new Mutex('sakura');
+  if (mutex.existed)
+    println('えんいー');
+</PRE>
+<P>
+<P>
+<A NAME="id6did20"><BR></A>
+<H3>URL</H3>
+URL情報オブジェクト。
+<P>
+<UL><LI>new URL(文字列） ... 文字列にURLを指定します。</UL>
+<UL><LI>expand(Path) ... 現在のURLを基準にPathを絶対Pathに変換して返す。</UL>
+<P>
+<UL><LI>url ... 文字列。URL。</UL>
+<UL><LI>uri ... url。</UL>
+<UL><LI>href ... url。</UL>
+<UL><LI>protocol ... 文字列。プロトコル。</UL>
+<UL><LI>scheme ... protocol。</UL>
+<UL><LI>username ... 文字列。ユーザ名。</UL>
+<UL><LI>user ... username。</UL>
+<UL><LI>userid ... username。</UL>
+<UL><LI>password ... 文字列。パスワード。</UL>
+<UL><LI>pass ... password。</UL>
+<UL><LI>host ... 文字列。ポートを含むホスト名。</UL>
+<UL><LI>hostname ... 文字列。ホスト名。</UL>
+<UL><LI>port ... 文字列。ポート。</UL>
+<UL><LI>path ... 文字列。パス。</UL>
+<UL><LI>directory ... 文字列。パスからファイル名を除いたディレクトリ名。</UL>
+<UL><LI>dir ... directory。</UL>
+<UL><LI>filename ... 文字列。パスからディレクトリ名を除いたファイル名。</UL>
+<UL><LI>query ... 文字列。?以降の文字。</UL>
+<UL><LI>search ... query。</UL>
+<P>
+例(1)
+<PRE>  u = new URL('http://127.0.0.1/dir/index.html?qqq');
+  println(u.url);
+  println(u.protocol);
+  println(u.host);
+  println(u.path);
+  println(u.dir);
+  println(u.filename);
+  println(u.query);
+</PRE>
+<P>
+<A NAME="id6did21"><BR></A>
+<H3>Cookie</H3>
+HTTPのCookieオブジェクト。Responseオブジェクトの一部として使われます。
+クッキーのデータ(name=value)を配列アクセス可能。
+<P>
+<UL><LI>parse(URL,CookieText) ... クッキーを解析する。</UL>
+<UL><LI>domain ... 文字列。ドメイン名。</UL>
+<UL><LI>path ... 文字列。パス。</UL>
+<UL><LI>expires ... Date。期限。</UL>
+<UL><LI>data ... 文字列。データ。</UL>
+<UL><LI>length ... クッキーのデータ(name=value)の数。</UL>
+<P>
+<A NAME="id6did22"><BR></A>
+<H3>Response</H3>
+HTTPのResponseオブジェクト。HTTPとHTTPSの一部として使われます。
+<P>
+<UL><LI>cookie ... Cookie。</UL>
+<UL><LI>code ... 整数値。ステータスコード。</UL>
+<UL><LI>text ... 文字列。ステータスメッセージ。</UL>
+<UL><LI>version ... 文字列。サーバのHTTPバージョン。</UL>
+<P>
+<A NAME="id6did23"><BR></A>
+<H3>HTTP</H3>
+HTTPオブジェクト。
+<P>
+<UL><LI>get(文字列) ... 文字列のURLをGETして文字列を返します。</UL>
+<UL><LI>getFile(文字列A,文字列B) ... AのURLをGETしてBのファイルに保存します。</UL>
+<UL><LI>post(文字列A,文字列B) ... AのURLに接続して、BをPOSTします。</UL>
+<UL><LI>head(文字列) ... 文字列のURLをHEADします。</UL>
+<UL><LI>request(文字列A,文字列B,文字列C) ... AのメソッドでBのURLに接続します。CはPOSTする場合のデータ。</UL>
+<UL><LI>response() ... サーバからのレスポンスを得ます。</UL>
+<UL><LI>disconnect() ... サーバから切断します。</UL>
+<UL><LI>close() ... disconnect;</UL>
+<UL><LI>capture(文字列) ... 文字列のファイルにデータを保存します。</UL>
+<UL><LI>readln() ... データを1行読み込んで文字列を返します。</UL>
+<UL><LI>read(整数値) ... 整数値分のデータを読み込みます。指定しない場合は全て読み込みます。</UL>
+<UL><LI>requestHeader ... Object。リクエストのヘッダを指定します。</UL>
+<UL><LI>responseHeader ... Response。レスポンスヘッダが入ります。</UL>
+<UL><LI>version ... 文字列。HTTPのバージョン</UL>
+<UL><LI>length ... 整数値。データの長さ。</UL>
+<UL><LI>autoRedirect ... Boolean。自動でリダイレクトするかどうか。</UL>
+<UL><LI>proxy ... 文字列。Proxyを 127.0.0.1:8080の形式で指定。</UL>
+<UL><LI>timeout ... 整数値。タイムアウトを秒数で指定。</UL>
+<UL><LI>debug ... Boolean。trueにするとデバッグ出力をします。</UL>
+<UL><LI>bytesRead ... 読み込みバイト数。</UL>
+<UL><LI>bytesWrote ... 書き込みバイト数。</UL>
+<UL><LI>bytesTotal ... 書き込み読み込みバイト数。</UL>
+<UL><LI>onConnect ... 接続イベント。function(sender){}</UL>
+<UL><LI>onDisconnect ... 切断イベント。function(sender){}</UL>
+<UL><LI>onError ... ソケットエラーイベント。function(sender,errorcode,errormsg){}</UL>
+<UL><LI>onRead ... 読み込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onWrite ... 書き込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onStatus ... 情報イベント。function(sender,msg){}</UL>
+<UL><LI>onSuccess ... 成功イベント。function(sender){}</UL>
+<UL><LI>onFailure ... 失敗イベント。function(sender){}</UL>
+<UL><LI>onRequest ... リクエストイベント。function(sender){}</UL>
+<UL><LI>onResponse ... レスポンスイベント。function(sender){}</UL>
+<P>
+例(1)
+<PRE>  u = new URL('http://127.0.0.1/index.html');
+  http = new HTTP;
+  println(http.get(u.url));
+  http.getFile(u.url,u.filename);
+</PRE>
+<P>
+例(2)
+<PRE>  http = new HTTP;
+  http.requestHeader['User-Agent'] = 'dmonkey';
+  http.requestHeader['Referer'] = 'referer';
+  http.requestHeader['Cookie'] = 'name=value';
+  try{
+    http.request('GET','http://127.0.0.1/');
+    http.response();
+    if(http.responseHeader.code == 200){
+      while(true){
+        s = http.readln();
+        if(s)
+          println(s);
+        else
+          break;
+      }
+    }
+  }
+  finally{
+    http.disconnect();
+  }
+<P>
+</PRE>
+<P>
+<A NAME="id6did24"><BR></A>
+<H3>HTTPS</H3>
+HTTPSオブジェクト。HTTPと互換なので省略。
+<P>
+<A NAME="id6did25"><BR></A>
+<H3>HtmlTag</H3>
+HTMLのタグ。HtmlParserで使用されます。
+<P>
+<UL><LI>name ... タグの名前。</UL>
+<P>
+<A NAME="id6did26"><BR></A>
+<H3>HtmlParser</H3>
+HTML解析。解析結果は木構造ではなく単純な線構造になります。
+<P>
+<UL><LI>parse(文字列) ... 文字列のHTMLを解析します。</UL>
+<UL><LI>parseFile(文字列) ...文字列のファイルを解析します。</UL>
+<UL><LI>clear() ... クリアします。</UL>
+<UL><LI>length ... 解析したタグの数。</UL>
+<UL><LI>html ... 解析したHTML。</UL>
+<UL><LI>text ... 解析したタグを除いたテキスト。</UL>
+<P>
+例(1)
+<PRE>a = new HtmlParser;
+a.parse('&lt;a href=&quot;http://host/&quot;&gt;abc&lt;/a&gt;');
+<P>
+println(a.length);
+println(a.html);
+println(a.text);
+<P>
+for(i=0; i&lt;a.length;i++){
+  println(a[i]);
+}
+<P>
+for(i in a){
+  for(ii in a[i]){
+    println(ii + ': ' + a[i][ii]);
+  }
+}
+</PRE>
+<P>
+<A NAME="id6did27"><BR></A>
+<H3>FileProperty</H3>
+ファイルプロパティオブジェクト。
+<P>
+<UL><LI>toString() ... 文字列にします。</UL>
+<P>
+<UL><LI>attribute ... 整数値。UNIX形式のファイル権限(777,655等の形式)</UL>
+<UL><LI>fileType ... 文字。[d]がディレクトリ、[-]がファイル、[l]がリンク。</UL>
+<UL><LI>lastModified ... Date。更新日。</UL>
+<UL><LI>length ... 整数値。ファイルサイズ。</UL>
+<UL><LI>size ... length。</UL>
+<UL><LI>name ... 文字列。ファイル名。</UL>
+<P>
+<P>
+<A NAME="id6did28"><BR></A>
+<H3>FTP</H3>
+FTPオブジェクト。
+<P>
+<UL><LI>connect() ... 接続します。</UL>
+<UL><LI>disconnect() ... 切断します。</UL>
+<UL><LI>login(文字列A,文字列B) ... AがUserId、BがPasswordを指定して接続します。</UL>
+<UL><LI>quit() ... disconnect。</UL>
+<UL><LI>abort() ... 中止します。</UL>
+<UL><LI>printWorkDir() ... 現在のディレクトリを取得します。</UL>
+<UL><LI>changeDir(文字列) ... カレントディレクトリを変更します。</UL>
+<UL><LI>makeDir(文字列) ... ディレクトリを作成します。</UL>
+<UL><LI>removeDir(文字列) ... ディレクトリを削除します。</UL>
+<UL><LI>list() ... ファイルリストとしてFilePropertyの配列を取得します。</UL>
+<UL><LI>nlist() ... ファイルリストとしてFilePropertyの配列を取得します。</UL>
+<UL><LI>delete(文字列) ... ファイルを削除します。</UL>
+<UL><LI>rename(文字列A,文字列B) ... ファイル名をAからBに変更します。</UL>
+<UL><LI>findFiles(文字列A,文字列B,Bool値) ... Aのディレクトリの中からBのワイルドカードで指定したファイル名をStringsで取得します。Bool値は再帰するかどうか。</UL>
+<UL><LI>download(文字列A,文字列B) ... AのリモートファイルをBのローカルファイルに保存します。</UL>
+<UL><LI>downloadRestore(文字列A,文字列B) ... AのリモートファイルをBのローカルファイルにリジュームします。</UL>
+<UL><LI>upload(文字列A,文字列B) ... AのローカルファイルをBのファイル名でアップロードします。</UL>
+<UL><LI>uploadAppend(文字列A,文字列B) ... AのローカルファイルをBのファイルに追記アップロードします。</UL>
+<UL><LI>uploadRestore(文字列A,文字列B,整数値) ... Aのローカルファイルの整数値の位置からBのファイルに追記します。</UL>
+<UL><LI>uploadUnique(文字列) ... ローカルファイルを確実にアップロードします。</UL>
+<UL><LI>type(['I','A','B']) ... 転送モード切り替え。I(イメージ）A（アスキー）B（バイト）</UL>
+<UL><LI>command(文字列) ... コマンドを送る。</UL>
+<P>
+<UL><LI>host ... 文字列。ホスト名を指定。</UL>
+<UL><LI>port ... 整数値。ポーと番号を指定。</UL>
+<UL><LI>timeout ... 整数値。タイムアウトを秒数で指定。</UL>
+<UL><LI>debug ... Boolean。trueにするとデバッグ出力をします。</UL>
+<UL><LI>password ... 文字列。パスワード。</UL>
+<UL><LI>userid ... 文字列。ユーザ名。</UL>
+<UL><LI>currentDir ... 文字列。現在のカレントディレクトリ。</UL>
+<UL><LI>passiveMode ... Boolean。パッシブモードを使用する。</UL>
+<UL><LI>proxy ... 文字列。プロキシ名をhost:portの形式で指定する。</UL>
+<UL><LI>bytesRead ... 読み込みバイト数。</UL>
+<UL><LI>bytesWrote ... 書き込みバイト数。</UL>
+<UL><LI>bytesTotal ... 書き込み読み込みバイト数。</UL>
+<UL><LI>onConnect ... 接続イベント。function(sender){}</UL>
+<UL><LI>onDisconnect ... 切断イベント。function(sender){}</UL>
+<UL><LI>onError ... ソケットエラーイベント。function(sender,errorcode,errormsg){}</UL>
+<UL><LI>onRead ... 読み込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onWrite ... 書き込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onStatus ... 情報イベント。function(sender,msg){}</UL>
+<UL><LI>onSuccess ... 成功イベント。function(sender,kind){}</UL>
+<UL><LI>onFailure ... 失敗イベント。function(sender,notthrow,kind){}</UL>
+<P>
+<P>
+<P>
+例(1)
+<PRE>  ftp = new FTP;
+  ftp.debug = true;
+  ftp.host = '127.0.0.1';
+  ftp.userid = 'test';
+  ftp.password = 'test';
+<P>
+  ftp.connect();
+  //ftp.login('test','test');
+  try{
+    ftp.passiveMode = true;
+    list = ftp.list();
+    for(i in list)
+      println(list[i]);
+<P>
+    println(ftp.printWorkDir());
+    println(ftp.currentDir);
+<P>
+    ftp.makeDir('test');
+    ftp.changeDir('test');
+    println(ftp.printWorkDir());
+    ftp.type('I');
+    ftp.upload('test.txt','test.txt');
+    ftp.rename('test.txt','t.txt');
+    ftp.delete('t.txt');
+    ftp.changeDir('..');
+    ftp.removeDir('test');
+<P>
+    ff = ftp.findFiles(ftp.currentDir,'*.txt',true);
+    println(ff.text);
+    if(ff.count > 0)
+      ftp.download(ff[0],ff[0]);
+<P>
+    list = ftp.nlist();
+    for(i in list)
+      println(list[i]);
+  } finally{
+    ftp.disconnect();
+    //ftp.quit();
+  }
+</PRE>
+<P>
+<A NAME="id6did29"><BR></A>
+<H3>TCPSocket</H3>
+TCP Socketオブジェクト。
+<P>
+<UL><LI>connect() ... 接続します。</UL>
+<UL><LI>disconnect() ... 切断します。</UL>
+<UL><LI>open() ... connect。</UL>
+<UL><LI>close() ... disconnect。</UL>
+<UL><LI>abort() ... 中止します。</UL>
+<UL><LI>read(整数値) ... 整数値分読み込み文字列を返します。指定しなかった場合はすべて読み込みます。</UL>
+<UL><LI>readln() ... 1行読み込みます。</UL>
+<UL><LI>write(文字列) ... 文字列を書き込みます。</UL>
+<UL><LI>writeln(文字列) ... 文字列を改行付きで書き込みます。</UL>
+<UL><LI>capture(文字列) ... データを読み込み文字列のファイルに書き込みます。</UL>
+<UL><LI>sendFile(文字列) ... 文字列のファイルをSocketに書き込みます。</UL>
+<UL><LI>bind() ... Bindします。</UL>
+<UL><LI>accept() ... Acceptして新しいTCPSocketオブジェクトを返します。</UL>
+<UL><LI>isConnected() ... 接続していれば true。</UL>
+<UL><LI>host ... 文字列。ホスト名を指定。</UL>
+<UL><LI>port ... 整数値。ポーと番号を指定。</UL>
+<UL><LI>timeout ... 整数値。タイムアウトを秒数で指定。</UL>
+<UL><LI>debug ... Boolean。trueにするとデバッグ出力をします。</UL>
+<UL><LI>bytesRead ... 読み込みバイト数。</UL>
+<UL><LI>bytesWrote ... 書き込みバイト数。</UL>
+<UL><LI>bytesTotal ... 書き込み読み込みバイト数。</UL>
+<UL><LI>onConnect ... 接続イベント。function(sender){}</UL>
+<UL><LI>onDisconnect ... 切断イベント。function(sender){}</UL>
+<UL><LI>onError ... ソケットエラーイベント。function(sender,errorcode,errormsg){}</UL>
+<UL><LI>onRead ... 読み込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onWrite ... 書き込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onStatus ... 情報イベント。function(sender,msg){}</UL>
+<P>
+<P>
+例(1)
+<PRE>  s = new TCPSocket;
+  s.host = '127.0.0.1';
+  s.port = 9801;
+  try{
+    s.connect();
+    s.writeln('SEND SSTP/1.1');
+    s.writeln('Sender: DMonkey');
+    s.writeln('Script: \h\s0えんいー。\e');
+    s.writeln('Charset: Shift_JIS');
+    s.writeln('');
+  }
+  finally{
+    s.disconnect();
+  }
+</PRE>
+<P>
+<A NAME="id6did30"><BR></A>
+<H3>Mail</H3>
+Mailデータオブジェクト。STMPとPOP3で使用します。
+<P>
+<UL><LI>clear() ... クリアします。</UL>
+<UL><LI>number ... 整数値。POP3でのメール番号。</UL>
+<UL><LI>length ... 整数値。メールサイズ。</UL>
+<UL><LI>attachments ... Strings。添付ファイルの文字列リスト。</UL>
+<UL><LI>header ... 文字列。読み込み専用のメールヘッダ。</UL>
+<UL><LI>body ... 文字列。読み込み専用のメールのボディ。</UL>
+<UL><LI>message ... 文字列。メールの内容。</UL>
+<P>
+<A NAME="id6did31"><BR></A>
+<H3>POP3</H3>
+POP3オブジェクト。メールの受信に使用します。
+<P>
+<UL><LI>connect() ... 接続します。</UL>
+<UL><LI>disconnect() ... 切断します。</UL>
+<UL><LI>open() ... connect。</UL>
+<UL><LI>close() ... disconnect。</UL>
+<UL><LI>getMail(整数値) ... 整数値の番号のメールを取得します。最初の番号は 1なので注意。</UL>
+<UL><LI>getSummary(整数値) ... 整数値の番号のメールヘッダを取得します。最初の番号は 1なので注意。</UL>
+<UL><LI>delete(整数値) ... 整数値の番号のメールを削除します。最初の番号は 1なので注意。。</UL>
+<P>
+<UL><LI>attachPath ... 文字列。添付ファイルの保存場所を指定。</UL>
+<UL><LI>deleteOnRead ... Boolean。メールを取得した後に削除するかどうか。</UL>
+<UL><LI>mailCount ... 整数値。メール数。</UL>
+<UL><LI>length ... mailCount。</UL>
+<UL><LI>password ... 文字列。パスワード。</UL>
+<UL><LI>userid ... 文字列。ユーザ名。</UL>
+<UL><LI>mail ... Mail。受信したメール。</UL>
+<UL><LI>host ... 文字列。ホスト名を指定。</UL>
+<UL><LI>port ... 整数値。ポーと番号を指定。</UL>
+<UL><LI>timeout ... 整数値。タイムアウトを秒数で指定。</UL>
+<UL><LI>debug ... Boolean。trueにするとデバッグ出力をします。</UL>
+<UL><LI>bytesRead ... 読み込みバイト数。</UL>
+<UL><LI>bytesWrote ... 書き込みバイト数。</UL>
+<UL><LI>bytesTotal ... 書き込み読み込みバイト数。</UL>
+<UL><LI>onConnect ... 接続イベント。function(sender){}</UL>
+<UL><LI>onDisconnect ... 切断イベント。function(sender){}</UL>
+<UL><LI>onError ... ソケットエラーイベント。function(sender,errorcode,errormsg){}</UL>
+<UL><LI>onRead ... 読み込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onWrite ... 書き込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onStatus ... 情報イベント。function(sender,msg){}</UL>
+<UL><LI>onSuccess ... 成功イベント。function(sender){}</UL>
+<UL><LI>onFailure ... 失敗イベント。function(sender){}</UL>
+<P>
+<P>
+例(1)
+<PRE>  p = new POP3;
+  p.host = '127.0.0.1';
+  p.port = 110;
+  p.userid = 'test';
+  p.password = 'test';
+  try{
+    p.connect();
+    for(i = 1;i <= p.length; i++){ //メール番号は1から
+      p.getMail(i);
+      println(p.mail.header);
+      println(p.mail.body);
+    }
+  }
+  finally{
+    p.disconnect();
+  }
+</PRE>
+<P>
+<A NAME="id6did32"><BR></A>
+<H3>SMTP</H3>
+SMTPオブジェクト。メール送信に使用します。
+<P>
+<UL><LI>connect() ... 接続します。</UL>
+<UL><LI>disconnect() ... 切断します。</UL>
+<UL><LI>open() ... connect。</UL>
+<UL><LI>close() ... disconnect。</UL>
+<UL><LI>sendMail() ... メールを送信します。</UL>
+<UL><LI>mail ... Mail。送信するメール。</UL>
+<UL><LI>host ... 文字列。ホスト名を指定。</UL>
+<UL><LI>port ... 整数値。ポーと番号を指定。</UL>
+<UL><LI>timeout ... 整数値。タイムアウトを秒数で指定。</UL>
+<UL><LI>debug ... Boolean。trueにするとデバッグ出力をします。</UL>
+<UL><LI>bytesRead ... 読み込みバイト数。</UL>
+<UL><LI>bytesWrote ... 書き込みバイト数。</UL>
+<UL><LI>bytesTotal ... 書き込み読み込みバイト数。</UL>
+<UL><LI>onConnect ... 接続イベント。function(sender){}</UL>
+<UL><LI>onDisconnect ... 切断イベント。function(sender){}</UL>
+<UL><LI>onError ... ソケットエラーイベント。function(sender,errorcode,errormsg){}</UL>
+<UL><LI>onRead ... 読み込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onWrite ... 書き込みイベント。function(sender,bytes,abort){}</UL>
+<UL><LI>onStatus ... 情報イベント。function(sender,msg){}</UL>
+<P>
+<P>
+例(1)
+<PRE>  s = new SMTP;
+  s.host = '127.0.0.1';
+  s.port = 25;
+  s.mail['To'] = 'gaogao@moemoe.gr.jp';
+  s.mail['From'] = 'gaogao@moemoe.gr.jp';
+  s.mail['Subject'] = 'DMonkey SMTP';
+  s.mail.message = 'テスト';
+  try{
+    s.connect();
+    s.sendMail();
+    println('OK');
+  }
+  finally{
+    s.disconnect();
+  }
+</PRE>
+<P>
+<A NAME="id6did33"><BR></A>
+<H3>ActiveXObject</H3>
+ActiveXオートメーションオブジェクト。
+<P>
+<UL><LI>new ActiveXObject(文字列) ... 文字列はオートメーションサーバの名前。</UL>
+<UL><LI>disp ... IDispatch。ディスパッチインターフェース。</UL>
+<P>
+例(1)
+<PRE>  ie = new ActiveXObject('InternetExplorer.Application');
+  ie.Visible = true;
+  ie.Navigate('http://gaogao.moemoe.gr.jp');
+</PRE>
+例(2)
+<PRE>  iria = new ActiveXObject('Iria.IriaApi');
+  iria.Download('http://127.0.0.1/',1);
+</PRE>
+例(3) JScriptドキュメントから
+<PRE>function ShowDriveInfo1(drvPath){
+  s = '';
+  fso = new ActiveXObject("Scripting.FileSystemObject");
+  drv = fso.GetDrive(fso.GetDriveName(drvPath));
+  s += "ドライブ " + drvPath.toUpperCase()+ " - ";
+  s += drv.VolumeName + "\n";
+  s += "合計サイズ: " + drv.TotalSize / 1024;
+  s += " KB" + "\n";
+  s += "空き領域: " + drv.FreeSpace / 1024;
+  s += " KB" + "\n";
+  println(s);
+}
+<P>
+ShowDriveInfo1('c:\');
+</PRE>
+<P>
+<A NAME="id6did34"><BR></A>
+<H3>Keyboard</H3>
+キーボード状態オブジェクト。
+<P>
+<UL><LI>isDown(文字) ... 文字のキーが押されているか。押されていればtrue。</UL>
+<UL><LI>shift ... Boolean。shiftが押されているか。</UL>
+<UL><LI>alt ... Boolean。altが押されているか。</UL>
+<UL><LI>ctrl ... Boolean。ctrlが押されているか。</UL>
+<P>
+<A NAME="id6did35"><BR></A>
+<H3>Mouse</H3>
+マウス状態オブジェクト。
+<P>
+<UL><LI>x ... 整数。マウスのX座標。</UL>
+<UL><LI>y ... 整数。マウスのY座標。</UL>
+<UL><LI>lbutton ... Boolean。マウスの左ボタンが押されているか。</UL>
+<UL><LI>mbutton ... Boolean。マウスの中ボタンが押されているか。</UL>
+<UL><LI>rbutton ... Boolean。マウスの右ボタンが押されているか。</UL>
+<P>
+<A NAME="id6did36"><BR></A>
+<H3>Clipboard</H3>
+クリップボードオブジェクト。
+<P>
+<UL><LI>hasText() ... クリップボードにテキストが入っているか。入っていればtrue。</UL>
+<UL><LI>asText ... 文字列。クリップボードの文字列。</UL>
+<P>
+<A NAME="id6did37"><BR></A>
+<H3>DynaCall</H3>
+DLL呼び出しオブジェクト。
+<P>
+<UL><LI>register(DLL名,関数名,フラグ1,フラグ2,フラグ3) ... DLL関数を登録する。</UL>
+<UL><LI>sendMessage(数値A,数値B,値C,値D,文字列) ... メッセージを送ります。A はハンドル、B はメッセージ、C、D は 追加パラメータ、文字列は追加パラメータの型。返値は整数値。</UL>
+<UL><LI>postMessage(数値A,数値B,値C,値D,文字列) ... メッセージをポストします。A はハンドル、B はメッセージ、C、D は 追加パラメータ、文字列は追加パラメータの型。返値はブール値。</UL>
+<P>
+例(1)
+<PRE>  dcall = new DynaCall;
+  /*
+  DynaCall.register()
+  第1引数
+    DLLの名前
+  第2引数
+    関数の名前
+  第3引数～第5引数
+    この3つは任意の順番で並べる事ができる
+    i=[flag]*
+      引数を指定する(参照を指定した引数には数値オブジェクトを渡さないと値が反映されない)
+        c  char(1バイト)
+        1  char参照(4バイト)
+        t  short(2バイト)
+        2  short参照(4バイト)
+        l  long(4バイト)
+        4  long参照(4バイト)
+        i  int64(8バイト)
+        8  int64参照(4バイト)
+        p  ポインタ(4バイト)
+        h  ハンドル(4バイト)
+        u  unsigned int(4バイト)
+        b  boolean(4バイト)
+        s  文字列(4バイト)
+        w  ワイド文字列(4バイト)
+        f  4バイト実数(4バイト)
+        d  8バイト実数(8バイト)
+        a  IDispatch(4バイト)
+        k  IUnknown(4バイト)
+<P>
+    f=[flag]*
+      呼び出し規約を指定する
+        m  Microsoft互換
+        b  Borland互換
+        s  stdcall呼び出し(標準)
+        c  cdecl呼び出し
+        4  戻り値が4バイト実数
+        8  戻り値が8バイト実数
+<P>
+    r=[flag]
+      戻り値を指定する
+        引数のフラグと同じ
+  */
+  dcall.register('user32.dll','MessageBox','i=hssu','f=s','r=l');
+<P>
+  //登録した関数はそのまま呼び出すことができます
+  print(dcall.MessageBox(applicationHandle,'これはDynaCallで呼び出しています。','DynaCall',1));
+</PRE>
+<P>
+例(2)
+<PRE>  dcall = new DynaCall;
+  s = new StringBuffer(256);
+  n = new Number(s.length);
+  dcall.register('advapi32','GetUserName','i=s4','f=s','r=b');
+  println(dcall.GetUserName(s,n));
+  //s.delete(s.indexOf(0.toChar()));
+  s.length = n - 1;
+  println(s);
+  println(s.length);
+</PRE>
+<P>
+例(3)
+<PRE>  dcall = new DynaCall;
+  dcall.register('kernel32','GetTickCount','f=s','r=l');
+  println(dcall.GetTickCount());
+</PRE>
+<P>
+<A NAME="id6did38"><BR></A>
+<H3>Struct</H3>
+構造体オブジェクト。DynaCall に登録した関数の引数などに使われます。
+<P>
+<UL><LI>new Struct(文字列1[,文字列2,…]) ... メンバ名と型を : で区切った文字列で指定します。</UL>
+<UL><LI>clear() ... クリアします。メンバとその値はすべて失われます。</UL>
+<UL><LI>define(文字列1[,文字列2,…]) ... 再定義します。その際、現在のメンバとその値はすべて失われます。</UL>
+<UL><LI>sizeOf() ... 構造体のサイズ(バイト数)を返します。</UL>
+<UL><LI>length ... 整数値。メンバ数。</UL>
+<P>
+例(1)
+<PRE>  d = new DynaCall;
+<P>
+  //構造体を渡すパラメータには 's' を指定↓します
+  d.register('user32','GetCursorPos','i=s','r=b');
+  /*
+  new Struct('メンバ名:型'[,'メンバ名:型',...])
+  メンバ名
+    メンバの名前。そのままオブジェクトのメンバ(プロパティ)となる
+  型
+    メンバの型を指定する
+      c   char(1バイト)
+      t   short(2バイト)
+      l   long(4バイト)
+      i   int64(8バイト)
+      p   ポインタ(4バイト)
+      h   ハンドル(4バイト)
+<P>
+      u   unsigned int(4バイト)
+      b   bool(4バイト)
+      s   文字列,Structオブジェクト(4バイト)
+      w   ワイド文字列(4バイト)
+      f   4バイト実数(4バイト)
+      d   8バイト実数(8バイト)
+     数値 文字配列(数値バイト)
+<P>
+  ※引数の順序がそのまま構造体のメンバの並び順となります
+  */
+  point = new Struct('x:l','y:l'); //POINT構造体
+<P>
+  //呼び出し
+  d.GetCursorPos(point);
+  printfln('マウスカーソルの位置は X = %d, Y = %d です.',point.x,point.y);
+</PRE>
+<P>
+例(2)
+<PRE>  NIM_ADD     = 0x00;
+  NIM_MODIFY  = 0x01;
+  NIM_DELETE  = 0x02;
+<P>
+  NIF_MESSAGE = 0x01;
+  NIF_ICON    = 0x02;
+  NIF_TIP     = 0x04;
+<P>
+  IDI_APPLICATION = 32512;
+  IDI_HAND        = 32513;
+  IDI_QUESTION    = 32514;
+  IDI_EXCLAMATION = 32515;
+  IDI_ASTERISK    = 32516;
+  IDI_WINLOGO     = 32517;
+<P>
+  d = new DynaCall;
+  d.register('shell32','Shell_NotifyIcon','i=us','r=b');
+  d.register('user32','LoadIcon','i=hp','r=h');
+<P>
+  icon = new Struct;
+<P>
+  //NOTIFYICONDATA構造体
+  icon.define(
+    'cbSize:u',
+    'hWnd:h',
+    'uID:u',
+    'uFlag:u',
+    'uCallbackMessage:u',
+    'hIcon:h',
+    'szTip:64'); //64バイトの文字配列
+<P>
+  icon.cbSize = icon.sizeOf(); //構造体のサイズはsizeOf()で取得できます
+  icon.hWnd = applicationHandle;
+  icon.uID = 1;
+  icon.uFlag = NIF_ICON | NIF_TIP;
+  icon.hIcon = d.LoadIcon(null,IDI_EXCLAMATION);
+  icon.szTip = 'チップヒント';
+<P>
+  d.Shell_NotifyIcon(NIM_ADD,icon);
+<P>
+  alert('タスクトレイにアイコンを作成しました');
+<P>
+  d.Shell_NotifyIcon(NIM_DELETE,icon);
+  alert('タスクトレイのアイコンを削除しました');
+</PRE>
+<P>
+<A NAME="id6did39"><BR></A>
+<H3>StringBuffer</H3>
+変更可能な文字列オブジェクト。
+<P>
+<UL><LI>new StringBuffer(文字列) ... 文字列で初期化します。</UL>
+<UL><LI>new StringBuffer(数値) ... 数値のバッファサイズを確保します。</UL>
+<UL><LI>append(値) ... 値を文字列として加える。返値は自身。</UL>
+<UL><LI>delete(数値A,数値B) ... インデックスAからB-1まで削除する。返値は自身。</UL>
+<UL><LI>insert(数値,値) ... 数値の位置に値を文字列にして挿入する。返値は自身。</UL>
+<UL><LI>substring(数値A,数値B) ... インデックスAからB-1までの文字列を返す。</UL>
+<UL><LI>replace(数値A,数値B,値) ... インデックスAからB-1まで削除し値を挿入する。返値は自身。</UL>
+<UL><LI>toString() ... 文字列を得る。</UL>
+<UL><LI>indexOf(文字列[,整数]) ... 文字列を指定位置から右に探して、その位置を返します。</UL>
+<UL><LI>lastIndexOf(文字列[,整数]) ... 文字列を指定位置から左に探して、その位置を返します。</UL>
+<UL><LI>slice(整数1[,整数2]) ... 文字列の一部分を返します。</UL>
+<UL><LI>substr(整数A[,整数B]) ... 文字列内の A の位置から B 文字分の文字列を返します。</UL>
+<UL><LI>fill([値]) ... バッファを値で埋めます。</UL>
+<UL><LI>length ... 長さ</UL>
+<UL><LI>text ... 文字列。</UL>
+<P>
+<A NAME="id6did40"><BR></A>
+<H3>WScript</H3>
+WScriptオブジェクト。
+グローバルオブジェクトWScriptが最初から存在します。
+（以下省略）
+<P>
+<A NAME="id6did41"><BR></A>
+<H3>Enumerator</H3>
+Enumeratorオブジェクト。コレクションを列挙します。
+<P>
+<UL><LI>new Enumerator(コレクション) ... コレクションはActiveXObjectまたはIDispatch</UL>
+<UL><LI>item() ... 現在の値を得る。</UL>
+<UL><LI>atEnd() ... 最後に達するとtrue。</UL>
+<UL><LI>moveFirst() ... 最初に戻る。</UL>
+<UL><LI>moveNext() ... 次へ進む。</UL>
+<P>
+<A NAME="id6did42"><BR></A>
+<H3>CheckListBox</H3>
+GUI オブジェクト。チェックボックス付きリストボックスを表示します。
+<P>
+<UL><LI>getChecked(数値) ... Boolean。数値番目の項目がチェックされているかどうか。</UL>
+<UL><LI>setChecked(数値,ブール値) ... 数値番目の項目のチェック状態をブール値に設定します。</UL>
+<UL><LI>execute(文字列A,文字列B[,数値]) ... ダイアログを表示します。A はキャプション、B はラベルに表示する文字列、数値はデフォルトの選択項目。返値はOKボタンが押されれば true。</UL>
+<UL><LI>count ... リストの項目数。</UL>
+<UL><LI>items ... Strings。リストボックスに表示する文字列のリスト。</UL>
+<UL><LI>index ... 選択項目のインデックス。未選択のときは -1。</UL>
+<P>
+<P>
+<A NAME="id7"><BR></A>
+<HR>
+<H2>拡張組込みオブジェクト</H2>
+拡張組込みオブジェクトは簡単に作成することができます。<br>
+<p>
+1.メソッドに足し算、プロパティにアプリケーションファイル名と日付オブジェクトを持つオブジェクトを作成します。
+<PRE>interface
+uses
+  ecma_type,ecma_object;
+<P>
+type
+  //TJObjectを継承します
+  TTestObject = class(TJObject)
+  private
+    FCells: array[0..10] of array[0..10] of String;
+    FDate: TJDateObject;
+    function GetApplicationFilename: String;
+    //メソッドは TJMethod型である必要があります
+    function DoAdd(Param: TJValueList): TJValue;
+    function DoCells(Param: TJValueList): TJValue;
+  protected
+    procedure Notification(AObject: TJNotify); override;
+  public
+    constructor Create(AEngine: TJBaseEngine; Param: TJValueList; RegisteringFactory: Boolean = True); override;
+    destructor Destroy; override;
+  published
+    //propertyはpublishedに設定します
+    property applicationFilename: String read GetApplicationFilename;
+    property date: TJDateObject read FDate;
+  end;
+<P>
+implementation
+<P>
+{ TTestObject }
+<P>
+constructor TTestObject.Create(AEngine: TJBaseEngine;
+  Param: TJValueList; RegisteringFactory: Boolean);
+begin
+  inherited;
+  //objectの名前を設定します
+  RegistName('Test');
+  //メソッドを登録します
+  RegistMethod('add',DoAdd);
+  RegistMethod('Cells',DoCells);
+<P>
+  //Date Objectを作成します
+  //※RegisteringFactoryはFalseにしてFactoryに登録しない
+  FDate := TJDateObject.Create(AEngine,nil,False);
+  {または、登録する場合には終了通知を受ける
+  FDate := TJDateObject.Create(AEngine);
+  FDate.FreeNotification(Self);
+  }
+  //参照カウントを増やす
+  FDate.IncRef;
+end;
+<P>
+procedure TTestObject.Notification(AObject: TJNotify);
+//終了通知を受ける
+begin
+  inherited;
+  {終了通知を受けた場合はFDateをnilにする
+  if AObject = FDate then
+    FDate := nil;
+  }
+end;
+<P>
+destructor TTestObject.Destroy;
+begin
+  //参照カウントを減らす(解放はしない)
+  FDate.DecRef;
+  {終了通知を受けた場合はFDateがnilになっている可能性がある
+  if Assigned(FDate) then
+    FDate.DecRef;
+  }
+  inherited;
+end;
+<P>
+function TTestObject.DoAdd(Param: TJValueList): TJValue;
+var
+  v: TJValue;
+  i,ret: Integer;
+begin
+  //全ての引数を加算する
+  ret := 0;
+  if IsParam1(Param) then
+    for i := 0 to Param.Count - 1 do
+    begin
+      v := Param[i];
+      //TJValueを整数に変換して加算
+      Inc(ret,AsInteger(@v));
+    end;
+  //整数をTJValueに変換する
+  Result := BuildInteger(ret);
+end;
+<P>
+function TTestObject.DoCells(Param: TJValueList): TJValue;
+var
+  row,col: Integer;
+  v: TJValue;
+begin
+  EmptyValue(Result);
+  //引数をチェック
+  if IsParam2(Param) then
+  begin
+    v := Param[0];
+    row := AsInteger(@v);
+    v := Param[1];
+    col := AsInteger(@v);
+    //もう一つあればセットする
+    if IsParam3(Param) then
+    begin
+      //setter
+      Result := Param[2];
+      FCells[row][col] := AsString(@Result);
+    end
+    else begin
+      //getter
+      //s := Format('%s(%d,%d) = %s',['Cells',row,col,FCells[row][col]]);
+      Result := BuildString(FCells[row][col]);
+    end;
+  end;
+end;
+<P>
+function TTestObject.GetApplicationFilename: String;
+begin
+  //普通に文字列を返すとTJValueに変換されます
+  Result := ParamStr(0);
+end;
+<P>
+<P>
+</PRE>
+<P>
+<P>
+</p>
+<p>
+2.TDMonkey.ImportObjectメソッドで登録します。
+<PRE>  DMonkey1.ImportObject('Test',TTestObject);
+</PRE>
+</p>
+<p>
+3.実行
+<PRE>  a = new Test;
+  println(a.add(1,2,3,4,5));
+  println(a.applicationFilename);
+  println(a.date);
+</PRE>
+</p>
+<P>
+<P>
+<hr>
+Delphi Component: DMonkey<br>
+Version: 0.3.9<br>
+Last Modified: 2005/07/29<br>
+Author: Project DMonkey<br>
+<A HREF="http://sourceforge.jp/projects/dmonkey/" target="_top">http://sourceforge.jp/projects/dmonkey/</A>
+<br>
+<A HREF="http://hp.vector.co.jp/authors/VA024591/" target="_top">http://hp.vector.co.jp/authors/VA024591/</A>
+<P>

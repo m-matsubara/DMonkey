@@ -1,0 +1,81 @@
+@set @VERSION7 = true
+  var a = new Array;
+
+  a.add(1);
+  a.add(2);
+  a.add(3);
+  println(a.toString());
+  println(a.reverse().toString());
+  for(var i = a.length - 1; i >= 0; i--)
+    a.delete(i);
+
+  for(var i = 0;i < 10;i++)
+    a.add(i);
+
+  function f(a,b){ return b - a;}
+  println(a.toString());
+  a.sort(f);
+  println(a.toString());
+
+  var c = new Array(a);
+  for(var i in c[0])
+    println(i);
+
+  a.clear();
+  println(c[0].length);
+
+  var a = [5,4,3,2,1,0]; //”z—ñ¶¬
+  for(var i in a)
+    println(i);
+    
+  function p(s){println(s);}
+    
+  function compare(a,b){return b - a;}
+
+  new Array(100);
+  var a = new Array();
+  for(var i=10;i<20;i++) 
+    a.add(i);
+  
+  b = new Array(10);
+  for(var i in b)
+    b[i] = i;
+  
+  var c = a.concat(b);
+  p(c.join());
+  p(c = c.reverse());
+  for(var i=c.length-1;i>=0;i--)
+    c.delete(i);
+    
+  a.sort(compare);
+  p(a);
+  a.sort();
+  p(a);
+  p(a.pop());
+  p(a.push(b));
+  p(a.shift());
+  p(a.unshift(b));
+  a.clear();
+  for(var i=0;i<10;i++) 
+    a.add(i);
+
+  p(a);
+  p(a.slice(4,8));
+  p(a.splice(4,4,'splice'));  
+  p(a);
+  a.clear();
+  b.clear();
+  c.clear();
+  
+  var a = [5,4,3,2,1,0]; //”z—ñ¶¬
+  for(var i in a)
+    p(i);
+
+var sl = new Strings;
+sl.add('a');
+sl.add('b');
+sl.add('c');
+a.assign(sl);
+println(a);
+
+

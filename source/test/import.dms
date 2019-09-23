@@ -1,0 +1,19 @@
+  /*
+  import hello.*;
+  println(a);
+  */
+  
+  /*
+  import hello;
+  println(hello.a);
+  println(a); //Œ»İ‚Ì–¼‘O‹óŠÔ‚É a ‚ª‘¶İ‚µ‚È‚¢ê‡
+  */
+
+  
+  import hello;
+  var a = 10;
+  println(hello.a);
+  println(a); //Œ»İ‚Ì–¼‘O‹óŠÔ‚É a ‚ª‘¶İ‚·‚éê‡
+  println(__MAIN__.a);
+  println(hello.c.a);
+  

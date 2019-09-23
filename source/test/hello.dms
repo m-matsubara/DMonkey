@@ -1,0 +1,9 @@
+println('hello,');
+var a = 'world';
+
+function f(a){
+  this.a = a;
+}
+
+var b = new Array(1,2,3,4,5);
+var c = new f(b);

@@ -1,0 +1,313 @@
+//VCLForm.prototype.onMouseMove = function(a,x,y){lbl.caption = format('onMouseMove: %d %d',x,y);};
+var form = new VCLForm(true);//trueでmain formにする
+form.height = 450;
+form.width = 400;
+form.left = 0;
+form.top = 0;
+form.caption = 'VCLテスト';
+form.onCanResize = 
+  function(sender,a,b,c){
+    println('onCanResize');
+    a.number = 400;
+    b.number = 400;
+    c.boolean = true;
+  };
+form.onMouseDown = function(sender,a,b,x,y){printfln('onMouseDown: %s %d %d',a,x,y);};
+form.onMouseUp = function(sender,a,b,x,y){printfln('onMouseUp: %s %d %d',a,x,y);};
+form.onContextPopup = function(sender,a,b){println('onContextPopup: handled = false'); b.boolean = false;};
+form.onDblClick = function(){println('onDblClick');};
+form.onMouseMove = function(sender,a,x,y){edit.text = format('onMouseMove: %d %d',x,y);};
+form.onResize = function(){println('onResize');};
+form.onMouseWheel = function(sender,a,b,c,d){println('onMouseWheel: ' + b);};
+form.onMouseWheelDown = function(sender,a,b,c){println('onMouseWheelDown');};
+form.onMouseWheelUp = function(sender,a,b,c){println('onMouseWheelUp');};
+//form.onClose = function(act){};
+form.onCloseQuery = function(sender,a){println('onCloseQuery');};
+form.onCreate = function(){println('onCreate');};
+form.onActivate = function(){println('onActivate');};
+form.onDeactivate = function(){println('onDeactivate');};
+form.onDestroy = function(){println('onDestroy');};
+form.onHide = function(){println('onHide');};
+//form.onPaint = function(){println('onPaint');};
+form.onShow = function(){println('onShow');};
+
+form.add = function(){memo.lines.addStrings(arguments);};
+
+lbl = new VCLLabel(form);
+lbl.height = 20;
+lbl.width = 300;
+lbl.left = 30;
+lbl.top = 10;
+lbl.show();
+
+edit = new VCLEdit(form);
+edit.height = 20;
+edit.width = 300;
+edit.text = 'あいうえお';
+edit.left = 30;
+edit.top = 20;
+edit.visible = true;
+edit.onChange = function(){/*println(this.text)*/;};
+edit.onEnter = function(){println('onEnter');};
+edit.onExit = function(){println('onExit');};
+edit.onKeyDown = function(sender,a,b){println('onKeyDown: ' + a.toChar());};
+edit.onKeyUp = function(sender,a,b){println('onKeyUp: ' + a.toChar());};
+edit.onKeyPress = function(sender,a){println('onKeyPress: ' + a.toChar());};
+
+memo = new VCLMemo(form);
+memo.height = 300;
+memo.width = 300;
+memo.text = 'あいうえお';
+memo.left = 30;
+memo.top = 45;
+//memo.scrollBars = 3;//ssBoth
+memo.visible = true;
+
+btn = new VCLButton(form);
+//Left Top Width Height
+btn.setBounds(10,350,80,20);
+btn.caption = 'ボタン１';
+btn.visible = true;
+btn.onClick = function(){
+  memo.lines.add('');
+  memo.lines.add(form.clientToScreen({x:10,y:20}));
+  memo.lines.add(form.screenToClient({x:10,y:20}));
+  memo.lines.add(btn.hasParent());
+  //edit.visible ? edit.hide() : edit.show();
+  form.invalidate;
+  EM_LINELENGTH = 0x00C1;
+  memo.lines.add('line length: ' + edit.perform(EM_LINELENGTH,0,0));
+  memo.lines.add('canfocus: ' + btn.canFocus());
+  memo.lines.add('containsControl: ' + form.containsControl(btn));
+  var pt = new Object; pt.x = 100; pt.y = 100;
+  var m = form.controlAtPos(pt,true,true);
+  m.lines.add('controlAtPos:' + m);
+  //form.flipChildren(true);
+  m.lines.add('focued: ' + btn.focused());
+  //edit.visible ? edit.setFocus() : 0;
+  form.arrangeIcons();
+  form.cascade();
+  form.focusControl(edit);
+
+  edit.clearSelection();
+  edit.clear();
+  edit.pasteFromClipboard();
+  edit.selectAll();
+
+  //memo.clear();
+
+  //form.closeQuery() ? form.close() : 0;
+};
+
+var btn2 = new VCLButton(form);
+//Left Top Width Height
+btn2.setBounds(100,350,80,20);
+btn2.caption = 'ボタン２';
+btn2.visible = true;
+btn2.onClick = function(){
+  form.add(btn2.owner);
+};
+
+var btn3 = new VCLButton(form);
+//Left Top Width Height
+btn3.setBounds(190,350,80,20);
+btn3.caption = 'ボタン３';
+btn3.visible = true;
+btn3.onClick = function(){
+  memo.text = 'test';
+};
+
+var btn4 = new VCLButton(form);
+//Left Top Width Height
+btn4.setBounds(280,350,80,20);
+btn4.caption = 'ボタン４';
+btn4.visible = true;
+btn4.onClick = function(){
+
+};
+
+var timer = new VCLTimer(form);
+timer.onTimer = function(){println('onTimer');};
+timer.interval = 5000;
+timer.enabled = false;
+
+
+
+var test = new VCLForm;
+test.loadFromFile('_testfrm.dfm');
+test.add = function(){test.Memo1.lines.addStrings(arguments);};
+
+
+test.caption = 'VCLテストその２';
+test.Label1.caption = 'VCLテストなんです';
+test.Button1.onClick = function(){test.close();};
+test.Button2.onClick = function(){form.close();};
+test.Button3.onClick = function(){test.Edit1.text = 'test';};
+test.bbb1.onClick = function(){test.Memo1.lines.assign(test.getProperties());};
+test.Memo1.scrollBars = 3;//ssBoth
+test.ToolButton1.onClick = function(){test.Edit1.text = 'Toolボタン';};
+test.ToolButton2.onClick = function(){test.Edit1.text = test.SpinEdit1.Value;};
+test.ToolButton3.onClick = function(){test.activeControl = test.Memo1;};
+test.ToolButton5.onClick = function(){test.borderStyle = 'bsDialog';}; //列挙型を文字列で
+test.ToolButton6.onClick = function(){test.Memo1.Lines.add(test.borderStyle);}; //列挙型を文字列で
+test.ToolButton7.onClick = function(){test.borderIcons = '[biSystemMenu,biMinimize]';}; //集合型を文字列で
+test.ToolButton8.onClick = function(){test.Memo1.Lines.add(test.borderIcons);}; //集合型を文字列で
+test.ToolButton9.onClick = function(){test.Memo1.Lines.add(test.font.name);};
+test.ToolButton10.onClick = function(){test.ListBox1.PopupMenu = test.PopupMenu2;};
+test.ToolButton11.onClick = function(){
+  test.Memo1.lines.add(test.components[0].Name);
+  test.Memo1.lines.add(test.controls[1].Name);  
+};
+test.ToolButton12.onClick = function(){
+  test.MainMenu1.dispatchCommand(test.bbb1.command);
+  test.PopupMenu1.dispatchPopup(test.ddd1.handle);
+  test.add(test.MainMenu1.findItem(test.bbb1.command,'fkCommand').Name);
+  test.add(test.MainMenu1.getHelpContext(test.bbb1.command,true));
+  test.PopupMenu1.popup(Mouse.x,Mouse.y);
+  test.add(test.PopupMenu1.popupComponent);
+};
+
+test.ListBox1.onMouseMove = function(sender,a,x,y){
+    test.caption = x + ': ' + y;
+    var testpt = new Object; testpt.x = x; testpt.y = y;//これは{x:x,y:y}と書ける
+    var i = test.ListBox1.itemAtPos(testpt,false);
+    //test.ListBox1.itemRect(i);
+    var a = test.ListBox1.itemRect(i);
+    test.Label1.caption = i + '  ' + a;
+    //test.Label1.caption  = test.ListBox1.selected[i];
+    a ? a.rect = a.rect : 0;
+    a ? a.topLeft = {x:1,y:2} :0;
+};
+
+test.ToolButton13.onClick = function(){
+  test.ListBox1.items.add('add');
+};
+
+test.ToolButton14.onClick = function(){
+  test.ComboBox1.clear();
+  test.ComboBox1.text = 'あいうえお';
+  test.ComboBox1.selectAll();
+  test.add(test.ComboBox1.charCase);
+  test.ComboBox1.items.assign(memo.lines);
+  test.RadioGroup1.items.add('toolbutton14');
+};
+test.CheckListBox1.onMouseMove = function(sender,a,x,y){
+  test.caption = x + ': ' + y;
+  var i = test.CheckListBox1.itemAtPos({x:x, y:y},true);
+  test.Label1.caption  = test.CheckListBox1.checked[i] + ' ' +
+  test.CheckListBox1.state[i];
+};
+
+test.CheckListBox1.onMouseDown = function(sender,a,b,x,y){
+  var i = test.CheckListBox1.itemAtPos({x:x, y:y},true);
+  test.CheckListBox1.itemEnabled[i] = !test.CheckListBox1.itemEnabled[i];
+};
+
+test.ToolButton15.onClick = function(){
+  test.CheckListBox1.items.add('ddd');
+  test.TabControl1.tabs.add('hhh');
+  test.TabControl1.tabs.add('iii');
+  test.TabControl1.tabs.add('jjj');
+  test.TabControl1.scrollTabs(30);
+  test.add(test.TabControl1.tabRect(1));
+  test.add(test.TabControl1.displayRect);
+};
+
+test.TabControl1.onMouseMove = function(sender,a,x,y){
+  var pt = {x:x, y:y};
+  test.Label1.caption = test.TabControl1.getHitTestInfoAt(x,y);
+  test.Label1.caption += ' : ' + test.TabControl1.indexOfTabAt(x,y);
+};
+
+test.ToolButton16.onClick = function(){
+  var a = test.PageControl1.findNextPage(test.TabSheet1,true,true);
+  test.PageControl1.activePage = a;
+  test.Label1.caption = test.PageControl1.pages[0].Name;
+  test.PageControl1.selectNextPage(true);
+  test.PageControl1.activePageIndex = 1;
+  test.add(test.PageControl1.activePage.name);
+};
+
+test.ToolButton17.onClick = function(){
+  test.ProgressBar1.stepBy(test.SpinEdit1.Value);
+  test.ProgressBar1.stepIt();
+  //var a = test.StatusBar1.panels.add();
+  //a.text = 'テスト';
+  test.StatusBar1.panels.add().text = 'テスト2';
+};
+
+test.ToolButton18.onClick = function(){
+  test.Label1.caption = test.ToolBar1.buttons[0].name;
+  test.ToolBar1.trackMenu(test.ToolButton1);
+};
+
+test.UpDown1.associate = test.Edit1;
+test.UpDown1.onClick = function(sender,a){ test.Label1.Caption = a;};
+//test.UpDown1.onChanging = function(sender,a){ test.add(a);};
+test.UpDown1.onChangingEx = function(sender,a,b,c){ test.add(a,b,c);};
+
+test.ToolButton18.onClick = function(){
+  test.mi1= new VCLMenuItem;
+  test.mi1.caption = 'exit';
+  test.mi1.onClick = function(){
+    test.close();
+  };
+  test.aaa1.add(test.mi1);
+  test.mi2 =  new VCLMenuItem(test);
+  test.mi2.caption = '追加2';
+  test.MainMenu1.items.add(test.mi2);
+  test.add(test.mi2.owner);
+};
+
+test.ToolButton19.onClick = function(){
+  //var pt = test.Memo1.caretPos;
+  //pt.point = '{x:1 , y:1}';
+  //test.Action1.execute();
+  
+  test.add(test.Action1);
+  test.Button4.action = test.Action1;
+  //test.add(test.Button4.action);
+  //test.Button4.action.enabled = true;
+};
+
+test.ToolButton20.onClick = function(){
+  
+  test.Button4.action = null;
+};
+
+test.Button4.onClick = function(){
+  test.Label1.caption = 'Button4 Click';
+};
+
+test.Action1.onExecute = function(){
+  test.Label1.caption = 'Action Execute';
+};
+
+test.ToolButton1.onClick = function(){
+  test.add(test.OpenDialog1.execute());
+};
+
+test.onClose = function(sender,a){
+  println(a);
+  //a.str = 'caFree';
+};
+
+test.show();
+
+memo.lines.addStrings(test.getProperties());
+
+
+//form.showModal();
+//form.visible = true;
+form.main = true; //mainをセットするとonCloseで自動的にterminate()
+form.onClose = function(){
+   terminate();//terminate()しないとイベントループが終了しない
+  };
+form.show();
+
+//イベントループに入る
+//以降はイベントのみ実行
+eventLoop();
+
+
+

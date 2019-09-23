@@ -1,0 +1,15 @@
+if(!isConsole())
+  exit();
+  
+
+while(true){
+  try{
+    var __input__ = prompt('Ž®‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢');
+    __input__ ? println(eval(__input__)) : exit();
+  }catch(e){
+    println(e);
+  }
+}
+
+  
+

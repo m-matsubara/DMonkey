@@ -1,0 +1,23 @@
+WScript.Echo = function(s){println(s);};
+
+var a = ['a','b','c','d'];
+
+@set @VERSION7 = true
+for(var v in a) WScript.Echo(v);
+
+@set @VERSION7 = false
+for(var v in a) WScript.Echo(v);
+
+var a = [0, 1, 2];
+if ((a[0] == 0) || (a[3] == 3)) //デフォルトは短絡評価
+  WScript.Echo('1');
+
+@set @SHORT_CIRCUIT = false;
+try{
+  if ((a[0] == 0) || (a[3] == 3)) //EIndexError
+    WScript.Echo('2');
+} catch(e){WScript.Echo('error: ' + e);}
+
+@set @SHORT_CIRCUIT = true;
+if ((a[0] == 0) || (a[3] == 3))
+  WScript.Echo('3');

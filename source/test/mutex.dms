@@ -1,0 +1,3 @@
+  var mutex = new Mutex('sakura');
+  if (mutex.existed)
+    println('Ç¶ÇÒÇ¢Å[');

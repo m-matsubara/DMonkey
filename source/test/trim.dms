@@ -1,0 +1,5 @@
+var re = new RegExp('\s+$|^\s+','g');
+var a = '     abcd   ';
+println(a.trimLeft());
+println(a.trimRight());
+println(a.trim());

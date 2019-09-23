@@ -1,0 +1,27 @@
+a = 1;
+var a = 2;
+static a = 3;  //Œ»Ý‚Ìstaticƒe[ƒuƒ‹‚É•Ï”‚ª“o˜^‚³‚ê‚Ä‚¢‚éê‡‚Í‰½‚à‚µ‚È‚¢
+println(a);
+
+function aaa(d){
+  static b;
+  var c;
+  b++;
+  c++;
+  d++;
+  printfln('b: %d - c: %d - d: %d',b,c,d); 
+  if(b >= 10)
+    return;
+  else
+    aaa(d);
+}
+
+aaa(0);
+//println(b);//error
+
+function bbb(){
+  global sss = 'bbb';
+}
+bbb();
+println(sss);
+

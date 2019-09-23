@@ -1,0 +1,190 @@
+//dm wsh a b /o:abc
+
+function p(s){println(s);}
+
+WScript.Echo = p;
+
+if(isConsole()){
+  WScript.Echo('*--test arguments');
+  var args = WScript.Arguments;
+  var n = args.length;
+  println(args.Count);
+  println(args.ShowUsage());
+  println(args.Item(0));
+  for(var i = 0; i < n; i++)
+    WScript.Echo(args(i));
+
+  WScript.Echo('*--test Named');
+  var named = WScript.Arguments.Named;
+   if(named.Exists("o"))
+       WScript.Echo("o = " + named("o"));
+  println(named.length);
+  println(named.Count);
+  println(named.Item("o"));      
+
+
+  WScript.Echo('*--test Unnamed');
+  var unnamed = WScript.Arguments.Unnamed;
+   var n = unnamed.length;
+   for(var i = 0; i < n; i++)
+       WScript.Echo(unnamed.Item(i));
+  println(unnamed.Count);
+  println(unnamed.Item(0));      
+}
+  //WScript.Quit();
+  var iv = WScript.CreateObject('Irvine.Api');
+  println(iv.Version);
+
+
+WScript.Sleep(10);
+println(WScript.FullName);
+//println(WScript.Name); //Nameはプロパティに使えない
+println(WScript.Path);
+println(WScript.ScriptFullName);
+println(WScript.ScriptName);
+println(WScript.Version);
+
+
+//WScript.Quit();
+
+var a = WScript.StdOut;
+a.Write('aaaaa');
+a.WriteLine('aaaaa');
+a.WriteBlankLines(10);
+
+var a = WScript.StdErr;
+a.Write('aaaaa');
+a.WriteLine('aaaaa');
+a.WriteBlankLines(10);
+
+if(isConsole()){
+  var a = WScript.StdIn;
+  a.Read(1);
+  a.ReadLine();
+}
+
+var Shell = WScript.CreateObject("Shell.Application");
+var objFolder = Shell.NameSpace(0);         //デスクトップ
+var objFolderItems = objFolder.Items();
+for(var i = 0; i < objFolderItems.Count; i++) {
+    var ofitem = objFolderItems.Item(i);
+    WScript.Echo("Name : " + ofitem.Name);  //名前
+    WScript.Echo("Path : " + ofitem.Path);  //パス
+    WScript.Echo("Size : " + ofitem.Size);  //大きさ
+    WScript.Echo("Type : " + ofitem.Type);  //種類
+    //更新日時
+    WScript.Echo("ModifyDate : " + ofitem.ModifyDate + "\n");
+}
+//exit();
+
+var Shell = WScript.CreateObject("Shell.Application");
+var objFolder = Shell.NameSpace(0);     //デスクトップ
+var objFolderItems = objFolder.Items();
+for(var i = 0; i < objFolderItems.Count; i++)
+    WScript.Echo(objFolderItems.Item(i).Name);
+//exit();
+
+var Shell = WScript.CreateObject("Shell.Application");
+var objFolder = Shell.NameSpace(3);
+WScript.Echo(objFolder.Title);
+var objFolder2 = objFolder.ParentFolder;
+WScript.Echo(objFolder2.Title);
+//exit();
+
+var Shell = WScript.CreateObject("Shell.Application");
+var objFolder = Shell.BrowseForFolder(0, "フォルダを選ぶ", 0, "c:\\");
+if(!objFolder) {
+    WScript.Echo("フォルダを選択してください");
+    WScript.Quit();
+}
+WScript.Echo(objFolder.Items().Item().Path);
+//exit();
+
+var Shell = WScript.CreateObject("Shell.Application");
+Shell.Open(0);
+//exit();
+
+var Shell = WScript.CreateObject("Shell.Application");
+Shell.Open("c:\\");
+
+//exit();
+
+var WShell = WScript.CreateObject("Wscript.Shell");
+var WshEnv = WShell.Environment("PROCESS");
+WScript.Echo(WshEnv("PATH"));
+
+//exit();
+var WShell, fs, fldDesktop, pathname, url, oShellLink;
+
+WShell = WScript.CreateObject("Wscript.Shell");
+fs = WScript.CreateObject("Scripting.FileSystemObject");
+//デスクトップフォルダオブジェクト
+fldDesktop = fs.GetFolder(WShell.SpecialFolders("Desktop"));
+
+//作成するショートカットのパス
+pathname = fldDesktop.Path + "\\wsh.lnk";
+//ショートカットのリンク先
+url = "http://member.nifty.ne.jp/aya/wsh/wsh_frm.thm";
+//ショートカットオブジェクトの作成
+oShellLink = WShell.CreateShortcut(pathname);
+oShellLink.TargetPath = url;          //リンク先
+oShellLink.Save();                    //ショートカットの作成
+
+
+//var WShell = WScript.CreateObject("WScript.Shell");
+//WShell.Run("http://member.nifty.ne.jp/aya/");
+
+//Numberオブジェクト
+var a = 1e-7;
+WScript.Echo(a);                            //0.0000001
+WScript.Echo(a.toString());                 //1e-7
+
+//VBのDate型オブジェクト
+var fs = WScript.CreateObject("Scripting.FileSystemObject");
+var WShell = WScript.CreateObject("Wscript.Shell");
+var dsktop = fs.GetFolder(WShell.SpecialFolders("Desktop"));
+WScript.Echo(dsktop.DateLastModified);      //2000/12/29 18:41:10
+WScript.Echo("" + dsktop.DateLastModified); //Fri Dec 29 18:41:10 UTC+0900 2000
+
+//Booleanオブジェクト
+var b = true;
+WScript.Echo(b);                            //-1
+WScript.Echo(b.toString());                 //true
+
+var fs = WScript.CreateObject("Scripting.FileSystemObject");
+var windir = fs.GetFolder("c:\\winnt");
+var d = windir.DateLastModified;    //VBの日付型
+WScript.Echo(d.getYear());          //エラー not a Date object
+
+
+
+var Shell = WScript.CreateObject("Shell.Application");
+var objFolder = Shell.NameSpace(0);         //デスクトップ
+var objFolderItems = objFolder.Items();
+for(var i = 0; i < objFolderItems.Count; i++) {
+    ofitem = objFolderItems.Item(i);
+    WScript.Echo("Name : " + ofitem.Name);  //名前
+    WScript.Echo("Path : " + ofitem.Path);  //パス
+    WScript.Echo("Size : " + ofitem.Size);  //大きさ
+    WScript.Echo("Type : " + ofitem.Type);  //種類
+    //更新日時
+    WScript.Echo("ModifyDate : " + ofitem.ModifyDate + "\n");
+}
+
+var Shell = WScript.CreateObject("Shell.Application");
+var objFolder = Shell.NameSpace(0);
+var objFolderItems = objFolder.Items();
+for(var i = 0; i < objFolderItems.Count; i++) {
+    ofitem = objFolderItems.Item(i);
+    if(ofitem.Name == "ごみ箱") {
+        WScript.Echo("" + ofitem.IsBrowsable);  //参照できるか
+        WScript.Echo("" + ofitem.IsFileSystem); //FileSystemの一部か
+        WScript.Echo("" + ofitem.IsFolder);     //フォルダか
+        WScript.Echo("" + ofitem.IsLink);       //ショートカットか
+    }
+}
+
+var myDate=new Date();
+day=new Array("日","月","火","水","木","金","土");
+WSHShell = WScript.CreateObject("WScript.Shell");
+WSHShell.Popup("今日は "+day[myDate.getDay()]+"曜日");

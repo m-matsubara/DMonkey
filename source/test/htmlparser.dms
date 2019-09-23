@@ -1,0 +1,19 @@
+@set @VERSION7 = true
+
+var a = new HtmlParser;
+a.parse('<A href="http://host/">abc</a>');
+
+println(a.length);
+println(a.html);
+println(a.text);
+
+for(var i=0; i<a.length;i++){
+  println(a[i]);
+}
+
+for(var tag in a){
+  for(var name in tag){
+    println(name + ': ' + tag[name]);
+  }
+}
+

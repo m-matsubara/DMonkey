@@ -1,0 +1,17 @@
+
+@set @VERSION7 = true;
+/*
+  var ini = new Ini('irvine.ini');
+  var secs = ini.readSections();
+  for(var i in secs){
+    println(i);
+    keys = ini.readSection(i);
+    for(var j in keys){
+      println('  ' + j + '=' + ini.read(i,j,''));
+    }
+  }
+
+*/
+var ini = new Ini('test.ini');
+ini.write('test','test','aaa');
+ini.update();

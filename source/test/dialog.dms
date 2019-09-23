@@ -1,0 +1,9 @@
+@set @VERSION7 = true
+  var d = new Dialog;
+  println(d.openFile('load'));
+  println(d.saveFile('save'));
+  var s = d.openFiles();
+  for(var i in s)
+    println(i);
+
+  println(d.openFolder());

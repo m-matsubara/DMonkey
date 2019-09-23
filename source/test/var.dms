@@ -1,0 +1,33 @@
+var i = 100;
+for(var i = 0;i<1;i++)
+  println(i);
+
+println(i);
+var a = new Array(9,8,7,6,5,4,3,2,1);
+for(var i in a)
+  print(a[i]);
+
+println(i);
+
+var i = 100;
+for(i = 0;i<1;i++)
+  println(i);
+
+println(i);
+var a = new Array(9,8,7,6,5,4,3,2,1);
+for(i in a)
+  print(a[i]);
+
+println(i);
+
+function f(){
+  q = 100;
+}
+f();
+println(q); //error ?
+
+function f(){
+  var w = 100;
+}
+f();
+println(w);//error ?

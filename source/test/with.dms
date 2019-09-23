@@ -1,0 +1,14 @@
+function Obj(){
+  this.a = 'test1';
+  this.b = 'test2';
+  this.c = 'test3';
+  this.f = function(){return this.c;};
+}
+
+var a = new Obj;
+with(a){
+  println(a);
+  println(b);
+  println(f());
+}
+

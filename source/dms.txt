@@ -1,0 +1,4350 @@
+; DMonkeyステートメント
+
+*break
+*case
+*catch
+*class
+*continue
+*default
+*do
+*else
+*finally
+*for
+*function
+*global
+*if
+*import
+*in
+*return
+*switch
+*this
+*throw
+*try
+*var
+*while
+*with
+
+
+; DMonkey 0.3.9 (2005/07/29)
+
+$Object
+*Object
+hasKey;$.%(Key: String): boolean
+hasOwnProperty;$.%(Key: String): boolean
+removeKey;$.%(Key: String): boolean
+getKeys;$.%(): Array
+getProperties;$.%(): Array
+getMethods;$.%(): Array
+getEvents;$.%(): Array
+
+$Global
+*Global
+*escape;$.%(Url: String): String
+*unescape;$.%(Url: String): String
+*eval;$.%(Script: String): int
+*isFinite;$.%(Value): boolean
+*isNaN;$.%(Value): boolean
+*parseFloat;$.%(Value): Float
+*parseInt;$.%(Value): int
+*print;$.%(Value)
+*println;$.%(Value)
+*write;$.%(Value)
+*writeln;$.%(Value)
+*alert;$.%(Text: String)
+*prompt;$.%(Text, Default: String): String
+*confirm;$.%(Text: String): boolean
+*textArea;$.%(Text, Default: String): String
+*exit;$.%()
+*msgBox;$.%(Text: String[, Button: int[, Caption: String]]): int
+*scriptEngine;$.%(): String
+*scriptEngineBuildVersion;$.%(): String
+*scriptEngineMajorVersion;$.%(): String
+*scriptEngineMinorVersion;$.%(): String
+*scriptEngineVersion;$.%(): String
+*read;$.%(Byte: int): String
+*readln;$.%(): String
+*isConsole;$.%(): boolean
+*encodeURI;$.%(S: String): String
+*encodeURIComponent;$.%(S: String): String
+*decodeURI;$.%(S: String): String
+*decodeURIComponent;$.%(S: String): String
+*format;$.%(Format: String, Value1[,Value2[,Value3, ...]]): String
+*formatFloat;$.%(Format: String, Value: double): String
+*printf;$.%(Value): String
+*printfln;$.%(Value): String
+*sprintf;$.%(Format: String, Value1[,Value2[,Value3, ...]]): String
+*eventLoop;$.%()
+*terminate;$.%()
+*doEvents;$.%()
+*sleep;$.%(msec: int)
+*isNull;$.%(Value): boolean
+*isUndefined;$.%(Value): boolean
+*nameOf;$.%(Object): String
+arguments
+*applicationHandle
+*mainFormHandle
+*platform
+
+$Array
+*Array;new $(Length: int)\new $(Value1[, Value2[, ...]])
+delete;$.%(Index: int)
+clear;$.%()
+add;$.%(Value)
+sort;$.%([Function])
+concat;$.%([Item1[, ...]]: Array): Array
+join;$.%([Delimiter: String]): String
+pop;$.%(): Object
+push;$.%([Item1[, ...]]): int
+reverse;$.%()
+shift;$.%(): Object
+slice;$.%(Start[, End]: int): Array
+splice;$.%(Start, Count: int[, Item1[, ...]]): Array
+toString;$.%(): String
+unshift;$.%([Item1[, ...]]): Array
+assign;$.%(Array): Array
+length
+
+$Number
+*Number;new $(Number: int)\new $(Number: double)
+toChar;$.%(): String
+toString;$.%(Radix: int): String
+toExponential;$.%(Digit: int): String
+toFixed;$.%(Digit: int): String
+toPrecision;$.%(Digit: int): String
+NaN
+MAX_VALUE
+MIN_VALUE
+POSITIVE_INFINITY
+NEGATIVE_INFINITY
+number
+int
+asChar
+
+*Boolean;new Boolean(Value: boolean)
+bool
+
+$String
+*String;new $(Value: String)
+charAt;$.%(Index: int): String
+anchor;$.%(): String
+big;$.%(): String
+blink;$.%(): String
+bold;$.%(): String
+charCodeAt;$.%(Index: int): int
+fixed;$.%(): String
+fontcolor;$.%(): String
+fontsize;$.%(): String
+fromCharCode;$.%([Code1[, ...]]: int): String
+indexOf;$.%(subString: String[, Index: int]): int
+italics;$.%(): String
+lastIndexOf;$.%(subString: String[, Index: int]): int
+link;$.%(): String
+match;$.%(regExp): Array
+replace;$.%(regExp, replaceText: String): String
+search;$.%(regExp): int
+small;$.%(): String
+split;$.%(regExp[, Max: int]): Array
+strike;$.%(): String
+sub;$.%(): String
+substr;$.%(Index[, Length]: int): String
+substring;$.%(Start, End: int): String
+slice;$.%(Start,End: int): String
+sup;$.%(): String
+toLowerCase;$.%(): String
+toUpperCase;$.%(): String
+toJIS;$.%(): String
+toSJIS;$.%(): String
+toEUC;$.%(): String
+toUTF8;$.%(): String
+toWide;$.%(): String
+fromJIStoSJIS;$.%(): String
+fromJIStoEUC;$.%(): String
+fromEUCtoSJIS;$.%(): String
+fromEUCtoJIS;$.%(): String
+fromSJIStoEUC;$.%(): String
+fromSJIStoJIS;$.%(): String
+fromUTF8toSJIS;$.%(): String
+crypt;$.%(Salt: String): String
+trim;$.%(): String
+trimLeft;$.%(): String
+trimRight;$.%(): String
+sizeOf;$.%(): int
+toZenkaku;$.%(): String
+toHankaku;$.%(): String
+toHiragana;$.%(): String
+toKatakana;$.%(): String
+multiply;$.%(Count: Int): String
+length
+text
+str
+
+$RegExp
+*RegExp;new $(Re: $[, Option(i,g,m): String])
+exec;$.%(S: String): Array
+test;$.%(S: String): boolean
+replace;$.%(Input: String, ReplaceText: String): String
+split;$.%(Input: String[, Count: int]): Array
+ignoreCase
+global
+multiline
+source
+input
+index
+lastIndex
+lastMatch
+lastParen
+leftContext
+rightContext
+
+$Math
+*Math
+abs;$.%(Num): int
+acos;$.%(Num: double): double
+asin;$.%(Num: double): double
+atan;$.%(Num: double): double
+atan2;$.%(Y, X: double): double
+ceil;$.%(Num: double): int
+cos;$.%(Num: double): double
+exp;$.%(Num: double): double
+floor;$.%(Num: double): int
+log;$.%(Num: double): double
+max;$.%(Num1, Num2: double): double
+min;$.%(Num1, Num2: double): double
+pow;$.%(Num1, Num2: double): double
+random;$.%(): double
+round;$.%(Num: double): int
+sin;$.%(Num: double): double
+sqrt;$.%(Num: double): double
+tan;$.%(Num: double): double
+E
+LN2
+LN10
+LOG2E
+LOG10E
+PI
+SQRT1_2
+SQRT2
+
+$Date
+*Date
+getDate;$.%(): int
+getDay;$.%(): int
+getFullYear;$.%(): int
+getHours;$.%(): int
+getMilliseconds;$.%(): int
+getMinutes;$.%(): int
+getMonth;$.%(): int
+getSeconds;$.%(): int
+getTime;$.%(): double
+getTimezoneOffset;$.%(): int
+getUTCDate;$.%(): int
+getUTCDay;$.%(): int
+getUTCFullYear;$.%(): int
+getUTCHours;$.%(): int
+getUTCMilliseconds;$.%(): int
+getUTCMinutes;$.%(): int
+getUTCMonth;$.%(): int
+getUTCSeconds;$.%(): int
+getUTCYear;$.%(): int
+getYear;$.%(): int
+parse;$.%(Date: String): double
+setDate;$.%(Day: int)
+setFullYear;$.%(Year: int)
+setHours;$.%(Hour: int)
+setMilliseconds;$.%(Millisecond: int)
+setMinutes;$.%(Minute: int)
+setMonth;$.%(Month: int)
+setSeconds;$.%(Second: int)
+setTime;$.%(Time: double)
+setUTCDate;$.%(Day: int)
+setUTCFullYear;$.%(Year: int)
+setUTCHours;$.%(Hour: int)
+setUTCMilliseconds;$.%(Millisecond: int)
+setUTCMinutes;$.%(Minute: int)
+setUTCMonth;$.%(Month: int)
+setUTCSeconds;$.%(Second: int)
+setUTCYear;$.%(Year: int)
+setYear;$.%(Year: int)
+toGMTString;$.%(): String
+toLocaleString;$.%(): String
+toUTCString;$.%(): String
+UTC;$.%(Date: String): double
+valueOf;$.%(): double
+format
+
+$File
+*File;new $(FileName: String)
+open;$.%([Option(w,r,d): String])
+close;$.%()
+isOpened;$.%(): boolean
+read;$.%(Byte: int): String
+readln;$.%(): String
+write;$.%(S: String)
+writeln;$.%(S: String)
+flush;$.%()
+eof;$.%(): boolean
+exists;$.%(): boolean
+remove;$.%()
+renameTo;$.%(NewName: String)
+copyTo;$.%(NewName: String)
+canRead;$.%(): boolean
+canWrite;$.%(): boolean
+seek;$.%(Index: int)
+extractName;$.%(): String
+extractDrive;$.%(): String
+extractDir;$.%(): String
+extractPath;$.%(): String
+extractExt;$.%(): String
+changeExt;$.%(NewExtensionName: String): String
+expandUNCFilename;$.%(): String
+extractShortPathName;$.%(): String
+length
+filename
+lastModified
+path
+
+$Directory
+*Directory;new $(Directory: String)
+make;$.%()
+remove;$.%()
+exists;$.%(): boolean
+changeTo;$.%(Directory: String)
+findFirst;$.%(Wildcard: String): String
+findFirstFile;$.%(Wildcard: String): String
+findFirstDir;$.%(Wildcard: String): String
+findNext;$.%(): String
+findNextFile;$.%(): String
+findNextDir;$.%(): String
+findClose;$.%()
+includePathDelimiter;$.%(): String
+excludePathDelimiter;$.%(): String
+expandUNCFilename;$.%(): String
+clear;$.%([Undo: boolean])
+findFiles;$.%(Wildcard: String): Strings
+dirname
+files
+directories
+path
+
+$Strings
+*Strings;new $(Text: String)
+add;$.%(S: String)
+insert;$.%(Index: int, S: String)
+delete;$.%(Index: int)
+clear;$.%()
+indexOf;$.%(S: String): int
+sort;$.%()
+saveToFile;$.%(FileName: String)
+loadFromFile;$.%(FileName: String)
+assign;$.%(Obj: Strings)
+addStrings;$.%(Obj: Strings)
+text
+commaText
+length
+count
+sorted
+caseSensitive
+duplicates
+
+$Win32
+*Win32
+sleep;$.%(Milliseconds: int)
+winExec;$.%(Command: String): boolean
+WinExec;$.%(Command: String): boolean
+shellExecute;$.%(Operation, File[, Parameters, Drectory]: String): boolean
+getTickCount;$.%(): int
+
+$Ini
+*Ini;new $(FileName: String)
+deleteKey;$.%(Section, Key: String)
+eraseSection;$.%(Section: String)
+readSection;$.%(Section: String): Strings
+readSections;$.%(): Strings
+sectionExists;$.%(Section: String): boolean
+write;$.%(Section, Key, Value: String)
+read;$.%(Section, Key, DefaultValue: String): String
+update;$.%()
+filename
+
+$RegIni
+*RegIni;new $(Key: String)
+deleteKey;$.%(Section, Key: String)
+eraseSection;$.%(Section: String)
+readSection;$.%(Section: String): Strings
+readSections;$.%(): Strings
+sectionExists;$.%(Section: String): boolean
+write;$.%(Section, Key, Value: String)
+read;$.%(Section, Key, Default: String): String
+rootKey
+key
+
+$CRC
+*CRC
+calc;$.%(S: String)
+calcFile;$.%(FileName: String)
+CRC16
+CRC32
+
+$Base64
+*Base64
+encode;$.%(S: String): String
+decode;$.%(S: String): String
+encodeHeader;$.%(S: String): String
+decodeHeader;$.%(S: String): String
+
+$Dialog
+*Dialog
+openFile;$.%(Title, Default: String): String
+openFiles;$.%(Title, Default: String): Strings
+saveFile;$.%(Title, Default: String): String
+openFolder;$.%(Title, Default: String): String
+filters
+
+$Mutex
+*Mutex;new $(MutexName: String)
+lock;$.%()
+unlock;$.%()
+tryLock;$.%()
+timeout
+existed
+
+$URL
+*URL;new $(Url: String)
+expand;$.%([Path: String]): String
+url
+uri
+href
+protocol
+scheme
+username
+user
+userid
+password
+pass
+host
+hostname
+port
+path
+directory
+dir
+filename
+query
+search
+
+$Cookie
+*Cookie
+parse;$.%([Url: String],CookieText: String)
+domain
+path
+expires
+length
+
+;*Response
+cookie
+code
+text
+version
+
+*HTTP
+
+$HTTP
+*HTTPS
+get;$.%(Url: String): String
+getFile;$.%(Url, FileName: String)
+post;$.%(Url, Post: String)
+head;$.%(Url: String)
+request;$.%(Method, Url, Post: String)
+response;$.%()
+disconnect;$.%()
+close;$.%()
+capture;$.%(FileName: String)
+readln;$.%(): String
+read;$.%([Byte: int])
+requestHeader
+responseHeader
+version
+length
+autoRedirect
+proxy
+timeout
+debug
+bytesTotal
+bytesRead
+bytesWrote
+onConnect;Socket.%(Sender: Object)
+onDisconnect;Socket.%(Sender: Object)
+onError;Socket.%(Sender: Object,ErrorNumber: int,ErrorMessage: String)
+onRead;Socket.%(Sender: Object,BytesRead: int,Abort: BooleanObject)
+onWrite;Socket.%(Sender: Object,BytesWrite: int,Abort: BooleanObject)
+onStatus;Socket.%(Sender: Object,Message: String)
+onSuccess;$.%(Sender: Object)
+onFailure;$.%(Sender: Object)
+onRequest;$.%(Sender: Object)
+onResponse;$.%(Sender: Object)
+
+$HtmlParser
+*HtmlParser
+parse;$.%(Html: String): HtmlParser
+parseFile;$.%(FileName: String): HtmlParser
+clear;$.%(): HtmlParser
+length
+count
+html
+text
+
+$TCPSocket
+*TCPSocket
+connect;$.%()
+disconnect;$.%()
+open;$.%()
+close;$.%()
+abort;$.%()
+read;$.%([Byte: int])
+readln;$.%()
+write;$.%(S: String)
+writeln;$.%(S: String)
+capture;$.%(FileName: String)
+sendFile;$.%(FileName: String)
+bind;$.%()
+accept;$.%(): TCPSocket
+isConnected;$.%(): boolean
+host
+port
+timeout
+debug
+bytesTotal
+bytesRead
+bytesWrote
+onConnect;Socket.%(Sender: Object)
+onDisconnect;Socket.%(Sender: Object)
+onError;Socket.%(Sender: Object,ErrorNumber: int,ErrorMessage: String)
+onRead;Socket.%(Sender: Object,BytesRead: int,Abort: BooleanObject)
+onWrite;Socket.%(Sender: Object,BytesWrite: int,Abort: BooleanObject)
+onStatus;Socket.%(Sender: Object,Message: String)
+
+$Mail
+*Mail
+clear;$.%()
+number
+length
+attachments
+header
+body
+message
+
+$POP3
+*POP3
+connect;$.%()
+disconnect;$.%()
+open;$.%()
+close;$.%()
+getMail;$.%(Number: int)
+getSummary;$.%(Number: int)
+delete;$.%(Number: int)
+attachPath
+deleteOnRead
+mailCount
+length
+password
+userid
+mail
+host
+port
+timeout
+debug
+bytesTotal
+bytesRead
+bytesWrote
+onConnect;Socket.%(Sender: Object)
+onDisconnect;Socket.%(Sender: Object)
+onError;Socket.%(Sender: Object,ErrorNumber: int,ErrorMessage: String)
+onRead;Socket.%(Sender: Object,BytesRead: int,Abort: BooleanObject)
+onWrite;Socket.%(Sender: Object,BytesWrite: int,Abort: BooleanObject)
+onStatus;Socket.%(Sender: Object,Message: String)
+onSuccess;$.%(Sender: Object)
+onFailure;$.%(Sender: Object)
+
+$SMTP
+*SMTP
+connect;$.%()
+disconnect;$.%()
+open;$.%()
+close;$.%()
+sendMail;$.%()
+mail
+host
+port
+timeout
+debug
+onConnect;Socket.%(Sender: Object)
+onDisconnect;Socket.%(Sender: Object)
+onError;Socket.%(Sender: Object,ErrorNumber: int,ErrorMessage: String)
+onRead;Socket.%(Sender: Object,BytesRead: int,Abort: BooleanObject)
+onWrite;Socket.%(Sender: Object,BytesWrite: int,Abort: BooleanObject)
+onStatus;Socket.%(Sender: Object,Message: String)
+
+$FileProperty
+;*FileProperty
+toString;$.%(): String
+attribute
+fileType
+lastModified
+length
+size
+name
+
+$FTP
+*FTP;new $(Host: String, Port: int)
+connect;$.%()
+disconnect;$.%()
+login;$.%(UserId,Password: String)
+quit;$.%()
+abort;$.%()
+printWorkDir;$.%(): String
+changeDir;$.%(NewDirectoryPath: String)
+makeDir;$.%(NewDirectoryPath: String)
+removeDir;$.%(DirectoryPath: String)
+list;$.%(): Array
+nlist;$.%(): Array
+delete;$.%(FileName: String)
+rename;$.%(OldFileName,NewFileName: String)
+findFiles;$.%(DirectoryPath,WildCard: String, Recurse: boolean): Strings
+download;$.%(RemoteFileName,LocalFileName: String)
+downloadRestore;$.%(RemoteFileName,LocalFileName: String)
+upload;$.%(LocalFileName,RemoteFileName: String)
+uploadAppend;$.%(LocalFileName,RemoteFileName: String)
+uploadRestore;$.%(LocalFileName,RemoteFileName: String, Position: int)
+uploadUnique;$.%(LocalFileName: String)
+type;$.%(Mode['A','B','I'])
+command;$.%(CommandStr: String): String
+host
+port
+timeout
+debug
+password
+userid
+currentDir
+passiveMode
+proxy
+bytesTotal
+bytesRead
+bytesWrote
+onConnect;Socket.%(Sender: Object)
+onDisconnect;Socket.%(Sender: Object)
+onError;Socket.%(Sender: Object,ErrorNumber: int,ErrorMessage: String)
+onRead;Socket.%(Sender: Object,BytesRead: int,Abort: BooleanObject)
+onWrite;Socket.%(Sender: Object,BytesWrite: int,Abort: BooleanObject)
+onStatus;Socket.%(Sender: Object,Message: String)
+onSuccess;$.%(Sender: Object,CommandType: String)
+onFailure;$.%(Sender: Object,NotRaiseException: BooleanObject,CommandType: String)
+
+
+*ActiveXObject;new ActiveXObject(ServerName: String)
+disp
+
+$Enumerator
+*Enumerator;new $(Collection)
+item;$.%(): Object
+atEnd;$.%(): boolean
+moveFirst;$.%()
+moveNext;$.%()
+
+$Keyboard
+*Keyboard
+isDown;$.%(Key: char): boolean
+shift
+alt
+ctrl
+
+*Mouse
+x
+y
+lbutton
+mbutton
+rbutton
+
+$Clipboard
+*Clipboard
+hasText;$.%(): boolean
+asText
+
+$DynaCall
+*DynaCall
+register;$.%(DLLName, Function, Flag1, Flag2, Flag3: String)
+sendMessage;$.%(Handle, Msg, wParam, lParam): int
+postMessage;$.%(Handle, Msg, wParam, lParam): boolean
+copyMemory;$.%(Dest, Source: Pointer, Length: int)
+fillMemory;$.%(Dest: Pointer, Length: int[, Value: Char])
+moveMemory;$.%(Dest, Source: Pointer, Length: int)
+
+$Struct
+*Struct;new $(Member1: String[,Member2: String, ...])
+clear;$.%()
+define;$.%(Member1: String[,Member2: String, ...])
+sizeOf;$.%(): int
+length
+
+$StringBuffer
+*StringBuffer;new $(Str: String)\new $(Size: int[, Value: int])\new $(Size: int[, Value: char])
+append;$.%(Value): StringBuffer
+delete;$.%(Start,End: int): StringBuffer
+insert;$.%(Index: int,Value): StringBuffer
+substring;$.%(Start,End: int): String
+replace;$.%(Start,End: int,Value): StringBuffer
+indexOf;$.%(subString: String[, Index: int]): int
+lastIndexOf;$.%(subString: String[, Index: int]): int
+substr;$.%(Index[, Length]: int): String
+slice;$.%(Start,End: int): StringBuffer
+fill;$.%([Value: Char]): StringBuffer
+length
+text
+
+$CheckListBox
+*CheckListBox
+getChecked;$.%(Index: int): boolean
+setChecked;$.%(Index: int, Checked: boolean)
+execute;$.%(Caption, Label: String, Default: int): boolean
+count
+items
+index
+
+$WScript
+*WScript
+CreateObject;$.%(ProgID: String): ActiveXObject
+ConnectObject;$.%(Obj: ActiveXObject, Preffix: String)
+DisconnectObject;$.%(Obj: ActiveXObject)
+Echo;$.%(Value1[, Value2, ...]: String)
+Quit;$.%(Code: int)
+Sleep;$.%(MilliSeconds: int)
+Arguments
+FullName
+Name
+Path
+ScriptFullName
+ScriptName
+StdErr
+StdIn
+StdOut
+Version
+
+$WshArguments
+Item;$.%(Index: int): String
+Count
+length
+Named
+Unnamed
+
+$WshNamed
+Item;$.%(Key: String): String
+Exists;$.%(Key: String): boolean
+Count
+length
+
+$WshUnnamed
+Item;$.%(Index: int): String
+Count
+length
+
+$WshReadStream
+Read;$.%(Bytes: int): String
+ReadAll;$.%(): String
+ReadLine;$.%(): String
+
+$WshWriteStream
+Write;$.%(S: String)
+WriteBlankLines;$.%(Lines: int)
+WriteLine;$.%(S : String)
+
+; DMonkey VCLオブジェクト
+
+$VCL
+;$VCLForm
+*VCLForm;new VCLForm(MainForm: boolean)
+
+acceptDrop
+Action
+Active
+ActiveControl
+Align
+AlphaBlend
+AlphaBlendValue
+Anchors
+AutoScroll
+AutoSize
+BiDiMode
+BorderIcons
+BorderStyle
+BorderWidth
+Caption
+ClientHeight
+ClientWidth
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DefaultMonitor
+DockSite
+DragKind
+DragMode
+Enabled
+Font
+FormStyle
+handle
+Height
+HelpContext
+HelpFile
+HelpKeyword
+HelpType
+Hint
+HorzScrollBar
+Icon
+KeyPreview
+Left
+main
+Menu
+Name
+ObjectMenuItem
+OldCreateOrder
+Owner
+parent
+ParentBiDiMode
+ParentFont
+ParentWindow
+PixelsPerInch
+PopupMenu
+Position
+PrintScale
+Scaled
+ShowHint
+Showing
+Tag
+Top
+TransparentColor
+TransparentColorValue
+UseDockManager
+VCLclassName
+VertScrollBar
+Visible
+VisibleDockClientCount
+Width
+WindowMenu
+WindowState
+
+arrangeIcons;$.%()
+doDragDropText;$.%(Text: String)
+release;$.%()
+setFocusedControl;$.%(Control: VCL): Boolean
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+loadFromText;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+previous;$.%()
+closeQuery;$.%()
+saveToText;$.%()
+handleNeeded;$.%()
+tile;$.%()
+canFocus;$.%()
+close;$.%()
+focusControl;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+cascade;$.%()
+print;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+loadFromFile;$.%()
+next;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+doDragDropFiles;$.%(Folder: String, Files: Strings)
+flipChildren;$.%()
+focused;$.%()
+sendCancelMode;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+saveToFile;$.%()
+update;$.%()
+showModal;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onActivate;$.%: function(sender){}
+onCanResize;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onClose;$.%: function(sender){}
+onCloseQuery;$.%: function(sender){}
+onConstrainedResize;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onCreate;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDestroy;$.%: function(sender){}
+onDeactivate;$.%: function(sender){}
+onDockDrop;$.%: function(sender){}
+onDockOver;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onGetSiteInfo;$.%: function(sender){}
+onHide;$.%: function(sender){}
+onHelp;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onMouseWheel;$.%: function(sender){}
+onMouseWheelDown;$.%: function(sender){}
+onMouseWheelUp;$.%: function(sender){}
+onPaint;$.%: function(sender){}
+onResize;$.%: function(sender){}
+onShortCut;$.%: function(sender){}
+onShow;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onUnDock;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLEdit
+*VCLEdit;new VCLEdit(Parent: VCL)
+
+acceptDrop
+Anchors
+AutoSelect
+AutoSize
+BevelEdges
+BevelInner
+BevelKind
+BevelOuter
+BiDiMode
+BorderStyle
+CanUndo
+CharCase
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+HideSelection
+Hint
+ImeMode
+ImeName
+Left
+MaxLength
+Modified
+Name
+OEMConvert
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PasswordChar
+PopupMenu
+ReadOnly
+SelLength
+SelStart
+SelText
+ShowHint
+Showing
+TabOrder
+TabStop
+Tag
+Text
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+selectAll;$.%()
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+pasteFromClipboard;$.%()
+repaint;$.%()
+copyToClipboard;$.%()
+cutToClipboard;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+clearUndo;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+undo;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+clearSelection;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+clear;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onChange;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLButton
+*VCLButton;new VCLButton(Parent: VCL)
+
+acceptDrop
+Action
+Anchors
+BiDiMode
+Cancel
+Caption
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Cursor
+Default
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Left
+ModalResult
+Name
+Owner
+parent
+ParentBiDiMode
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ShowHint
+Showing
+TabOrder
+TabStop
+Tag
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+click;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLMemo
+*VCLMemo;new VCLMemo(Parent: VCL)
+
+acceptDrop
+Align
+Alignment
+Anchors
+BevelEdges
+BevelInner
+BevelKind
+BevelOuter
+BiDiMode
+BorderStyle
+CanUndo
+caretPos
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+HideSelection
+Hint
+ImeMode
+ImeName
+Left
+Lines
+MaxLength
+Modified
+Name
+OEMConvert
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ReadOnly
+ScrollBars
+SelLength
+SelStart
+SelText
+ShowHint
+Showing
+TabOrder
+TabStop
+Tag
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+WantReturns
+WantTabs
+Width
+WordWrap
+text
+
+selectAll;$.%()
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+pasteFromClipboard;$.%()
+repaint;$.%()
+copyToClipboard;$.%()
+cutToClipboard;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+clearUndo;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+undo;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+clearSelection;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+clear;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onChange;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLLabel
+*VCLLabel;new VCLLabel(Parent: VCL)
+
+Align
+Alignment
+Anchors
+AutoSize
+BiDiMode
+Caption
+Color
+ComponentCount
+ComponentIndex
+Constraints
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+FocusControl
+Font
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Layout
+Left
+Name
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentFont
+ParentShowHint
+PopupMenu
+ShowAccelChar
+ShowHint
+Tag
+Top
+Transparent
+VCLclassName
+Visible
+Width
+WordWrap
+
+clientToScreen;$.%()
+hasParent;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+show;$.%()
+bringToFront;$.%()
+refresh;$.%()
+valueOf;$.%()
+toString;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onMouseEnter;$.%: function(sender){}
+onMouseLeave;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+
+
+;$VCLTimer
+*VCLTimer;new VCLTimer(Parent: VCL)
+
+ComponentCount
+ComponentIndex
+Enabled
+Interval
+Name
+Owner
+Tag
+VCLclassName
+
+assign;$.%()
+valueOf;$.%()
+toString;$.%()
+components;$.%()
+
+onTimer;$.%: function(sender){}
+
+
+;$VCLMenuItem
+*VCLMenuItem;new VCLMenuItem(Parent: VCL)
+
+Action
+AutoCheck
+AutoHotkeys
+AutoLineReduction
+Bitmap
+Break
+Caption
+Checked
+Command
+ComponentCount
+ComponentIndex
+Count
+Default
+Enabled
+GroupIndex
+Handle
+HelpContext
+Hint
+ImageIndex
+MenuIndex
+Name
+Owner
+Parent
+RadioItem
+ShortCut
+SubMenuImages
+Tag
+VCLclassName
+Visible
+
+remove;$.%()
+newBottomLine;$.%()
+isLine;$.%()
+assign;$.%()
+getParentMenu;$.%()
+indexOf;$.%()
+initiateAction;$.%()
+insert;$.%()
+items;$.%()
+valueOf;$.%()
+newTopLine;$.%()
+rethinkLines;$.%()
+toString;$.%()
+click;$.%()
+delete;$.%()
+clear;$.%()
+find;$.%()
+rethinkHotkeys;$.%()
+add;VCLMenuItem.%(Item1[, Item2, ...]: VCLMenuItem)
+insertNewLineAfter;$.%()
+components;$.%()
+insertNewLineBefore;$.%()
+
+onClick;$.%: function(sender){}
+onDrawItem;$.%: function(sender){}
+onAdvancedDrawItem;$.%: function(sender){}
+onMeasureItem;$.%: function(sender){}
+
+
+;$VCLMainMenu
+*VCLMainMenu;new VCLMainMenu(Parent: VCL)
+
+AutoHotkeys
+AutoLineReduction
+AutoMerge
+BiDiMode
+ComponentCount
+ComponentIndex
+Handle
+Images
+Items
+Name
+Owner
+OwnerDraw
+ParentBiDiMode
+Tag
+VCLclassName
+WindowHandle
+
+getHelpContext;$.%()
+unmerge;$.%()
+assign;$.%()
+dispatchPopup;$.%()
+merge;$.%()
+valueOf;$.%()
+toString;$.%()
+findItem;$.%()
+components;$.%()
+dispatchCommand;$.%()
+
+onChange;$.%: function(sender){}
+
+
+;$VCLPopupMenu
+*VCLPopupMenu;new VCLPopupMenu(Parent: VCL)
+
+Alignment
+AutoHotkeys
+AutoLineReduction
+AutoPopup
+BiDiMode
+ComponentCount
+ComponentIndex
+Handle
+HelpContext
+Images
+Items
+MenuAnimation
+Name
+Owner
+OwnerDraw
+ParentBiDiMode
+PopupComponent
+Tag
+TrackButton
+VCLclassName
+WindowHandle
+
+getHelpContext;$.%()
+assign;$.%()
+dispatchPopup;$.%()
+popup;$.%()
+valueOf;$.%()
+toString;$.%()
+findItem;$.%()
+components;$.%()
+dispatchCommand;$.%()
+
+onChange;$.%: function(sender){}
+onPopup;$.%: function(sender){}
+
+
+;$VCLCheckBox
+*VCLCheckBox;new VCLCheckBox(Parent: VCL)
+
+acceptDrop
+Action
+Alignment
+AllowGrayed
+Anchors
+BiDiMode
+Caption
+Checked
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Left
+Name
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ShowHint
+Showing
+State
+TabOrder
+TabStop
+Tag
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLRadioButton
+*VCLRadioButton;new VCLRadioButton(Parent: VCL)
+
+acceptDrop
+Action
+Alignment
+Anchors
+BiDiMode
+Caption
+Checked
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Left
+Name
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ShowHint
+Showing
+TabOrder
+TabStop
+Tag
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLListBox
+*VCLListBox;new VCLListBox(Parent: VCL)
+
+acceptDrop
+Align
+Anchors
+AutoComplete
+BevelEdges
+BevelInner
+BevelKind
+BevelOuter
+BiDiMode
+BorderStyle
+Color
+Columns
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+ExtendedSelect
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+ImeMode
+ImeName
+IntegralHeight
+ItemHeight
+ItemIndex
+Items
+Left
+MultiSelect
+Name
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ScrollWidth
+SelCount
+ShowHint
+Showing
+Sorted
+Style
+TabOrder
+TabStop
+TabWidth
+Tag
+Top
+TopIndex
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+itemRect;$.%()
+screenToClient;$.%()
+selected;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+itemAtPos;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+clear;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+clearSelection;$.%()
+deleteSelected;$.%()
+selectAll;$.%()
+
+
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onData;$.%: function(sender){}
+onDataFind;$.%: function(sender){}
+onDataObject;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onDrawItem;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMeasureItem;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLComboBox
+*VCLComboBox;new VCLComboBox(Parent: VCL)
+
+acceptDrop
+Anchors
+AutoComplete
+AutoDropDown
+BevelEdges
+BevelInner
+BevelKind
+BevelOuter
+BiDiMode
+CharCase
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragKind
+DragMode
+DropDownCount
+DroppedDown
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+ImeMode
+ImeName
+ItemHeight
+ItemIndex
+Items
+Left
+MaxLength
+Name
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+SelLength
+SelStart
+SelText
+ShowHint
+Showing
+Sorted
+Style
+TabOrder
+TabStop
+Tag
+Text
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+selectAll;$.%()
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+clear;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onChange;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onCloseUp;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onDrawItem;$.%: function(sender){}
+onDropDown;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMeasureItem;$.%: function(sender){}
+onSelect;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLGroupBox
+*VCLGroupBox;new VCLGroupBox(Parent: VCL)
+
+acceptDrop
+Align
+Anchors
+BiDiMode
+Caption
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DockSite
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Left
+Name
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ShowHint
+Showing
+TabOrder
+TabStop
+Tag
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDockDrop;$.%: function(sender){}
+onDockOver;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onGetSiteInfo;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onUnDock;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLRadioGroup
+*VCLRadioGroup;new VCLRadioGroup(Parent: VCL)
+
+acceptDrop
+Align
+Anchors
+BiDiMode
+Caption
+Color
+Columns
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+ItemIndex
+Items
+Left
+Name
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ShowHint
+Showing
+TabOrder
+TabStop
+Tag
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLPanel
+*VCLPanel;new VCLPanel(Parent: VCL)
+
+acceptDrop
+Align
+Alignment
+Anchors
+AutoSize
+BevelInner
+BevelOuter
+BevelWidth
+BiDiMode
+BorderStyle
+BorderWidth
+Caption
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DockSite
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+FullRepaint
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Left
+Locked
+Name
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ShowHint
+Showing
+TabOrder
+TabStop
+Tag
+Top
+UseDockManager
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onCanResize;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onConstrainedResize;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDockDrop;$.%: function(sender){}
+onDockOver;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onGetSiteInfo;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onResize;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onUnDock;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLSplitter
+*VCLSplitter;new VCLSplitter(Parent: VCL)
+
+Align
+AutoSnap
+Beveled
+Color
+ComponentCount
+ComponentIndex
+Constraints
+Cursor
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Left
+MinSize
+Name
+Owner
+parent
+ParentColor
+ResizeStyle
+Tag
+Top
+VCLclassName
+Visible
+Width
+
+clientToScreen;$.%()
+hasParent;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+show;$.%()
+bringToFront;$.%()
+refresh;$.%()
+valueOf;$.%()
+toString;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+
+onCanResize;$.%: function(sender){}
+onMoved;$.%: function(sender){}
+onPaint;$.%: function(sender){}
+
+
+;$VCLCheckListBox
+*VCLCheckListBox;new VCLCheckListBox(Parent: VCL)
+
+acceptDrop
+Align
+AllowGrayed
+Anchors
+AutoComplete
+BevelEdges
+BevelInner
+BevelKind
+BevelOuter
+BevelWidth
+BiDiMode
+BorderStyle
+Color
+Columns
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+Flat
+Font
+handle
+HeaderBackgroundColor
+HeaderColor
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+ImeMode
+ImeName
+IntegralHeight
+ItemHeight
+ItemIndex
+Items
+Left
+Name
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+SelCount
+ShowHint
+Showing
+Sorted
+Style
+TabOrder
+TabStop
+TabWidth
+Tag
+Top
+TopIndex
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+itemRect;$.%()
+screenToClient;$.%()
+selected;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+itemAtPos;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+clear;$.%()
+checked;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+itemEnabled;$.%()
+state;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onClickCheck;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onData;$.%: function(sender){}
+onDataFind;$.%: function(sender){}
+onDataObject;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onDrawItem;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMeasureItem;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLImage
+*VCLImage;new VCLImage(Parent: VCL)
+
+Align
+Anchors
+AutoSize
+Center
+ComponentCount
+ComponentIndex
+Constraints
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+IncrementalDisplay
+Left
+Name
+Owner
+parent
+ParentShowHint
+Picture
+PopupMenu
+Proportional
+ShowHint
+Stretch
+Tag
+Top
+Transparent
+VCLclassName
+Visible
+Width
+
+clientToScreen;$.%()
+hasParent;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+show;$.%()
+bringToFront;$.%()
+refresh;$.%()
+valueOf;$.%()
+toString;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onProgress;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+
+
+;$VCLTabControl
+*VCLTabControl;new VCLTabControl(Parent: VCL)
+
+acceptDrop
+Align
+Anchors
+BiDiMode
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Cursor
+DisplayRect
+DockSite
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+HotTrack
+Images
+Left
+MultiLine
+MultiSelect
+Name
+Owner
+OwnerDraw
+parent
+ParentBiDiMode
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+RaggedRight
+RowCount
+ScrollOpposite
+ShowHint
+Showing
+Style
+TabHeight
+TabIndex
+TabOrder
+TabPosition
+Tabs
+TabStop
+TabWidth
+Tag
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+scrollTabs;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+tabRect;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+getHitTestInfoAt;$.%()
+indexOfTabAt;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onChange;$.%: function(sender){}
+onChanging;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDockDrop;$.%: function(sender){}
+onDockOver;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onDrawTab;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onGetImageIndex;$.%: function(sender){}
+onGetSiteInfo;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onResize;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onUnDock;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLTabSheet
+*VCLTabSheet;new VCLTabSheet(Parent: VCL)
+
+acceptDrop
+BorderWidth
+Caption
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Cursor
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Highlighted
+Hint
+ImageIndex
+Left
+Name
+Owner
+PageControl
+PageIndex
+parent
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ShowHint
+Showing
+TabIndex
+TabVisible
+Tag
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onContextPopup;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onHide;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onResize;$.%: function(sender){}
+onShow;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLPageControl
+*VCLPageControl;new VCLPageControl(Parent: VCL)
+
+acceptDrop
+ActivePage
+ActivePageIndex
+Align
+Anchors
+BiDiMode
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Cursor
+DisplayRect
+DockSite
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+HotTrack
+Images
+Left
+MultiLine
+Name
+Owner
+OwnerDraw
+PageCount
+parent
+ParentBiDiMode
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+RaggedRight
+RowCount
+ScrollOpposite
+ShowHint
+Showing
+Style
+TabHeight
+TabIndex
+TabOrder
+TabPosition
+tabs
+TabStop
+TabWidth
+Tag
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+findNextPage;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+selectNextPage;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+scrollTabs;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+tabRect;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+getHitTestInfoAt;$.%()
+indexOfTabAt;$.%()
+pages;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onChange;$.%: function(sender){}
+onChanging;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDockDrop;$.%: function(sender){}
+onDockOver;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onDrawTab;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onGetImageIndex;$.%: function(sender){}
+onGetSiteInfo;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onResize;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onUnDock;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLProgressBar
+*VCLProgressBar;new VCLProgressBar(Parent: VCL)
+
+acceptDrop
+Align
+Anchors
+BorderWidth
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Left
+Max
+Min
+Name
+Orientation
+Owner
+parent
+ParentShowHint
+ParentWindow
+PopupMenu
+Position
+ShowHint
+Showing
+Smooth
+Step
+TabOrder
+TabStop
+Tag
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+stepBy;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+stepIt;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onContextPopup;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLTreeView
+*VCLTreeView;new VCLTreeView(Parent: VCL)
+
+acceptDrop
+Align
+Anchors
+AutoExpand
+BevelEdges
+BevelInner
+BevelKind
+BevelOuter
+BevelWidth
+BiDiMode
+BorderStyle
+BorderWidth
+ChangeDelay
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragKind
+DragMode
+DropTarget
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+HideSelection
+Hint
+HotTrack
+Images
+Indent
+Items
+Left
+MultiSelect
+MultiSelectStyle
+Name
+Owner
+parent
+ParentBiDiMode
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ReadOnly
+RightClickSelect
+RowSelect
+Selected
+ShowButtons
+ShowHint
+Showing
+ShowLines
+ShowRoot
+SortType
+StateImages
+TabOrder
+TabStop
+Tag
+ToolTips
+Top
+TopItem
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+alphaSort;$.%()
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+fullExpand;$.%()
+screenToClient;$.%()
+isEditing;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+loadFromFile;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+fullCollapse;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+getHitTestInfoAt;$.%()
+realign;$.%()
+saveToFile;$.%()
+update;$.%()
+getNodeAt;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onAddition;$.%: function(sender){}
+onAdvancedCustomDraw;$.%: function(sender){}
+onAdvancedCustomDrawItem;$.%: function(sender){}
+onChange;$.%: function(sender){}
+onChanging;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onCollapsed;$.%: function(sender){}
+onCollapsing;$.%: function(sender){}
+onCompare;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onCreateNodeClass;$.%: function(sender){}
+onCustomDraw;$.%: function(sender){}
+onCustomDrawItem;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDeletion;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEdited;$.%: function(sender){}
+onEditing;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onExpanding;$.%: function(sender){}
+onExpanded;$.%: function(sender){}
+onGetImageIndex;$.%: function(sender){}
+onGetSelectedIndex;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLListView
+*VCLListView;new VCLListView(Parent: VCL)
+
+acceptDrop
+Action
+Align
+AllocBy
+Anchors
+BevelEdges
+BevelInner
+BevelKind
+BevelOuter
+BevelWidth
+BiDiMode
+BorderStyle
+BorderWidth
+BoundingRect
+Checkboxes
+Color
+column
+ColumnClick
+Columns
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragKind
+DragMode
+DropTarget
+Enabled
+FlatScrollBars
+Font
+FullDrag
+GridLines
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+HideSelection
+Hint
+HotTrack
+HotTrackStyles
+HoverTime
+IconOptions
+ItemFocused
+ItemIndex
+Items
+LargeImages
+Left
+MultiSelect
+Name
+Owner
+OwnerData
+OwnerDraw
+parent
+ParentBiDiMode
+ParentColor
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ReadOnly
+RowSelect
+SelCount
+Selected
+ShowColumnHeaders
+ShowHint
+Showing
+ShowWorkAreas
+SmallImages
+SortType
+StateImages
+TabOrder
+TabStop
+Tag
+Top
+TopItem
+VCLclassName
+ViewOrigin
+ViewStyle
+Visible
+VisibleDockClientCount
+VisibleRowCount
+Width
+
+alphaSort;$.%()
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+getNextItem;$.%()
+repaint;$.%()
+updateItems;$.%()
+findData;$.%()
+hide;$.%()
+arrange;$.%()
+assign;$.%()
+screenToClient;$.%()
+findCaption;$.%()
+isEditing;$.%()
+handleNeeded;$.%()
+scroll;$.%()
+stringWidth;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+getNearestItem;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+getSearchString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+getHitTestInfoAt;$.%()
+realign;$.%()
+update;$.%()
+getItemAt;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onAdvancedCustomDraw;$.%: function(sender){}
+onAdvancedCustomDrawItem;$.%: function(sender){}
+onAdvancedCustomDrawSubItem;$.%: function(sender){}
+onChange;$.%: function(sender){}
+onChanging;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onColumnClick;$.%: function(sender){}
+onColumnDragged;$.%: function(sender){}
+onColumnRightClick;$.%: function(sender){}
+onCompare;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onCustomDraw;$.%: function(sender){}
+onCustomDrawItem;$.%: function(sender){}
+onCustomDrawSubItem;$.%: function(sender){}
+onData;$.%: function(sender){}
+onDataFind;$.%: function(sender){}
+onDataHint;$.%: function(sender){}
+onDataStateChange;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDeletion;$.%: function(sender){}
+onDrawItem;$.%: function(sender){}
+onEdited;$.%: function(sender){}
+onEditing;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onGetImageIndex;$.%: function(sender){}
+onGetSubItemImage;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onInfoTip;$.%: function(sender){}
+onInsert;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onResize;$.%: function(sender){}
+onSelectItem;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLStatusBar
+*VCLStatusBar;new VCLStatusBar(Parent: VCL)
+
+acceptDrop
+Action
+Align
+Anchors
+AutoHint
+BiDiMode
+BorderWidth
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Cursor
+DragCursor
+DragKind
+DragMode
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Left
+Name
+Owner
+Panels
+parent
+ParentBiDiMode
+ParentColor
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ShowHint
+Showing
+SimplePanel
+SimpleText
+SizeGrip
+Tag
+Top
+UseSystemFont
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onCreatePanelClass;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onHint;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onDrawPanel;$.%: function(sender){}
+onResize;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLToolButton
+*VCLToolButton;new VCLToolButton(Parent: VCL)
+
+Action
+AllowAllUp
+AutoSize
+Caption
+ComponentCount
+ComponentIndex
+Cursor
+Down
+DragCursor
+DragKind
+DragMode
+DropdownMenu
+Enabled
+Grouped
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+ImageIndex
+Indeterminate
+Index
+Left
+Marked
+MenuItem
+Name
+Owner
+parent
+ParentShowHint
+PopupMenu
+ShowHint
+Style
+Tag
+Top
+VCLclassName
+Visible
+Width
+Wrap
+
+clientToScreen;$.%()
+hasParent;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+show;$.%()
+bringToFront;$.%()
+refresh;$.%()
+valueOf;$.%()
+toString;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+
+
+;$VCLToolBa
+*VCLToolBa;new VCLToolBa(Parent: VCL)
+
+acceptDrop
+Align
+Anchors
+AutoSize
+BorderWidth
+ButtonCount
+ButtonHeight
+ButtonWidth
+Caption
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+Customizable
+DisabledImages
+DockSite
+DragCursor
+DragKind
+DragMode
+EdgeBorders
+EdgeInner
+EdgeOuter
+Enabled
+Flat
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+HotImages
+Images
+Indent
+Left
+List
+Menu
+Name
+Owner
+parent
+ParentColor
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+RowCount
+ShowCaptions
+ShowHint
+Showing
+TabOrder
+TabStop
+Tag
+Top
+Transparent
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+Wrapable
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+buttons;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+trackMenu;$.%()
+
+onAdvancedCustomDraw;$.%: function(sender){}
+onAdvancedCustomDrawButton;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onCustomDraw;$.%: function(sender){}
+onCustomDrawButton;$.%: function(sender){}
+onCustomizeAdded;$.%: function(sender){}
+onCustomizeCanInsert;$.%: function(sender){}
+onCustomizeCanDelete;$.%: function(sender){}
+onCustomized;$.%: function(sender){}
+onCustomizeDelete;$.%: function(sender){}
+onCustomizing;$.%: function(sender){}
+onCustomizeNewButton;$.%: function(sender){}
+onCustomizeReset;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDockDrop;$.%: function(sender){}
+onDockOver;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onGetSiteInfo;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onResize;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onUnDock;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLCoolBar
+*VCLCoolBar;new VCLCoolBar(Parent: VCL)
+
+acceptDrop
+Align
+Anchors
+AutoSize
+BandBorderStyle
+BandMaximize
+Bands
+Bitmap
+BorderWidth
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DockSite
+DragCursor
+DragKind
+DragMode
+EdgeBorders
+EdgeInner
+EdgeOuter
+Enabled
+FixedOrder
+FixedSize
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Images
+Left
+Name
+Owner
+parent
+ParentColor
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ShowHint
+Showing
+ShowText
+Tag
+Top
+VCLclassName
+Vertical
+Visible
+VisibleDockClientCount
+Width
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onChange;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDockDrop;$.%: function(sender){}
+onDockOver;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDock;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onGetSiteInfo;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onResize;$.%: function(sender){}
+onStartDock;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onUnDock;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLAction
+*VCLAction;new VCLAction(Parent: VCL)
+
+AutoCheck
+Caption
+Category
+Checked
+ComponentCount
+ComponentIndex
+Enabled
+GroupIndex
+HelpContext
+HelpKeyword
+HelpType
+Hint
+ImageIndex
+Name
+Owner
+SecondaryShortCuts
+ShortCut
+Tag
+VCLclassName
+Visible
+
+assign;$.%()
+valueOf;$.%()
+toString;$.%()
+execute;$.%()
+update;$.%()
+components;$.%()
+
+onExecute;$.%: function(sender){}
+onHint;$.%: function(sender){}
+onUpdate;$.%: function(sender){}
+
+
+;$VCLOpenDialog
+*VCLOpenDialog;new VCLOpenDialog(Parent: VCL)
+
+ComponentCount
+ComponentIndex
+Ctl3D
+DefaultExt
+FileName
+Filter
+FilterIndex
+HelpContext
+InitialDir
+Name
+Options
+OptionsEx
+Owner
+Tag
+Title
+VCLclassName
+
+assign;$.%()
+valueOf;$.%()
+toString;$.%()
+execute;$.%()
+components;$.%()
+
+onClose;$.%: function(sender){}
+onShow;$.%: function(sender){}
+onCanClose;$.%: function(sender){}
+onFolderChange;$.%: function(sender){}
+onSelectionChange;$.%: function(sender){}
+onTypeChange;$.%: function(sender){}
+onIncludeItem;$.%: function(sender){}
+
+
+;$VCLSaveDialog
+*VCLSaveDialog;new VCLSaveDialog(Parent: VCL)
+
+ComponentCount
+ComponentIndex
+Ctl3D
+DefaultExt
+FileName
+Filter
+FilterIndex
+HelpContext
+InitialDir
+Name
+Options
+OptionsEx
+Owner
+Tag
+Title
+VCLclassName
+
+assign;$.%()
+valueOf;$.%()
+toString;$.%()
+execute;$.%()
+components;$.%()
+
+onClose;$.%: function(sender){}
+onShow;$.%: function(sender){}
+onCanClose;$.%: function(sender){}
+onFolderChange;$.%: function(sender){}
+onSelectionChange;$.%: function(sender){}
+onTypeChange;$.%: function(sender){}
+onIncludeItem;$.%: function(sender){}
+
+
+;$VCLFontDialog
+*VCLFontDialog;new VCLFontDialog(Parent: VCL)
+
+ComponentCount
+ComponentIndex
+Ctl3D
+Device
+Font
+HelpContext
+MaxFontSize
+MinFontSize
+Name
+Options
+Owner
+Tag
+VCLclassName
+
+assign;$.%()
+valueOf;$.%()
+toString;$.%()
+execute;$.%()
+components;$.%()
+
+onClose;$.%: function(sender){}
+onShow;$.%: function(sender){}
+onApply;$.%: function(sender){}
+
+
+;$VCLFindDialog
+*VCLFindDialog;new VCLFindDialog(Parent: VCL)
+
+ComponentCount
+ComponentIndex
+Ctl3D
+FindText
+HelpContext
+Name
+Options
+Owner
+Tag
+VCLclassName
+
+assign;$.%()
+valueOf;$.%()
+toString;$.%()
+closeDialog;$.%()
+execute;$.%()
+components;$.%()
+
+onClose;$.%: function(sender){}
+onShow;$.%: function(sender){}
+onFind;$.%: function(sender){}
+
+
+;$VCLReplaceDialog
+*VCLReplaceDialog;new VCLReplaceDialog(Parent: VCL)
+
+ComponentCount
+ComponentIndex
+Ctl3D
+FindText
+HelpContext
+Name
+Options
+Owner
+ReplaceText
+Tag
+VCLclassName
+
+assign;$.%()
+valueOf;$.%()
+toString;$.%()
+closeDialog;$.%()
+execute;$.%()
+components;$.%()
+
+onClose;$.%: function(sender){}
+onShow;$.%: function(sender){}
+onFind;$.%: function(sender){}
+onReplace;$.%: function(sender){}
+
+
+;$VCLSpinEdit
+*VCLSpinEdit;new VCLSpinEdit(Parent: VCL)
+
+acceptDrop
+Anchors
+AutoSelect
+AutoSize
+CanUndo
+Color
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Ctl3D
+Cursor
+DragCursor
+DragMode
+EditorEnabled
+Enabled
+Font
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Increment
+Left
+MaxLength
+MaxValue
+MinValue
+Modified
+Name
+Owner
+parent
+ParentColor
+ParentCtl3D
+ParentFont
+ParentShowHint
+ParentWindow
+PopupMenu
+ReadOnly
+SelLength
+SelStart
+SelText
+ShowHint
+Showing
+TabOrder
+TabStop
+Tag
+Top
+Value
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+
+selectAll;$.%()
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+pasteFromClipboard;$.%()
+repaint;$.%()
+copyToClipboard;$.%()
+cutToClipboard;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+clearUndo;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+undo;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+clearSelection;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+clear;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onChange;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onDblClick;$.%: function(sender){}
+onDragDrop;$.%: function(sender){}
+onDragOver;$.%: function(sender){}
+onEndDrag;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onKeyDown;$.%: function(sender: VCL, key: Number, shift: String){}
+onKeyPress;$.%: function(sender: VCL, key: Number){}
+onKeyUp;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onStartDrag;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+;$VCLUpDown
+*VCLUpDown;new VCLUpDown(Parent: VCL)
+
+acceptDrop
+AlignButton
+Anchors
+ArrowKeys
+Associate
+ComponentCount
+ComponentIndex
+Constraints
+ControlCount
+Cursor
+Enabled
+handle
+Height
+HelpContext
+HelpKeyword
+HelpType
+Hint
+Increment
+Left
+Max
+Min
+Name
+Orientation
+Owner
+parent
+ParentShowHint
+ParentWindow
+PopupMenu
+Position
+ShowHint
+Showing
+TabOrder
+TabStop
+Tag
+Thousands
+Top
+VCLclassName
+Visible
+VisibleDockClientCount
+Width
+Wrap
+
+clientToScreen;$.%()
+controls;$.%()
+enableAlign;$.%()
+hasParent;$.%()
+scrollBy;$.%()
+invalidate;$.%()
+repaint;$.%()
+hide;$.%()
+assign;$.%()
+screenToClient;$.%()
+handleNeeded;$.%()
+canFocus;$.%()
+sendToBack;$.%()
+setBounds;$.%()
+handleAllocated;$.%()
+show;$.%()
+bringToFront;$.%()
+containsControl;$.%()
+controlAtPos;$.%()
+refresh;$.%()
+valueOf;$.%()
+disableAlign;$.%()
+flipChildren;$.%()
+focused;$.%()
+toString;$.%()
+setFocus;$.%()
+findChildControl;$.%()
+realign;$.%()
+update;$.%()
+components;$.%()
+perform;$.%()
+scaleBy;$.%()
+
+onChanging;$.%: function(sender){}
+onChangingEx;$.%: function(sender){}
+onContextPopup;$.%: function(sender){}
+onClick;$.%: function(sender){}
+onEnter;$.%: function(sender){}
+onExit;$.%: function(sender){}
+onMouseDown;$.%: function(sender){}
+onMouseMove;$.%: function(sender){}
+onMouseUp;$.%: function(sender){}
+onDragDropText;$.%: function(sender){}
+onDragDropFiles;$.%: function(sender){}
+
+
+; VxEditor 0.4.8 (2004/06/20)
+
+$Editor
+*Editor
+GetLineString;$.%(idx: int): String
+SetLineString;$.%(idx: int, str: String)
+LineDelete;$.%(idx: int)
+BeginUpdate;$.%()
+EndUpdate;$.%()
+FindSet;$.%(option: int, fstr: String)
+ReplaceSet;$.%(option: int, rstr: String)
+Find;$.%(down: boolean): boolean
+Replace;$.%(all: boolean)
+FindNext;$.%(r, c: int)
+FindPrev;$.%(r, c: int)
+MatchData;$.%(idx: int): String
+IsMarked;$.%(idx: int): boolean
+SetMarked;$.%(idx: int, flg: boolean)
+RowToLines;$.%(row: int): int
+ColToChar;$.%(row: int, col: int): int
+Undo;$.%()
+Redo;$.%()
+Cut;$.%()
+Copy;$.%()
+Paste;$.%()
+Delete;$.%()
+QuoteCopy;$.%()
+QuotePaste;$.%()
+BoxPaste;$.%()
+SelectAll;$.%()
+TabIndent;$.%()
+TabUnIndent;$.%()
+SpaceIndent;$.%()
+SpaceUnIndent;$.%()
+DeleteTopSpace;$.%()
+DeleteLastSpace;$.%()
+WrapRetInsert;$.%()
+WrapRetDelete;$.%()
+SpaceToTab;$.%()
+TabToSpace;$.%()
+UpperCase;$.%()
+LowerCase;$.%()
+HanToZen;$.%()
+ZenToHan;$.%()
+Hiragana;$.%()
+Katakana;$.%()
+InsertDate;$.%()
+InsertTime;$.%()
+InsertDateTime;$.%()
+InsertText;$.%()
+MemoryPaste;$.%()
+InsertPageNext;$.%()
+LineDelete;$.%()
+LineCopy;$.%()
+DeleteLeft;$.%()
+DeleteRight;$.%()
+
+WindowNo
+Row
+Col
+TopRow
+TopCol
+Text
+SelText
+SelStart
+SelLength
+SelSr
+SelEr
+SelSc
+SelEc
+Selected
+LineCount
+RowCount
+ColCount
+WrapType
+WrapByte
+TabSpaceCount
+Modified
+OverWrite
+SelMode
+TokenString
+FindRow
+FindCol
+FindLength
+
+$Window
+*Window
+Open;$.%(): int
+Close;$.%()
+Focus;$.%()
+ListNoToWindowNo;$.%(idx: int): int
+FileLoad;$.%(fname: String, ctype: int)
+FileSave;$.%(fname: String, ctype, rtype: int)
+Reload;$.%(ctype: int)
+KeyMacro;$.%(fname: String)
+KeyMacroLoad;$.%(fname: String)
+KeyMacroRun;$.%()
+ExecMenuCommand;$.%(no: int)
+
+WindowNo
+FileOptionName
+CodeType
+RetType
+Left
+Top
+Width
+Height
+Status
+FileName
+ExecFileName
+ScriptRetCode
+Handle
+WindowCount
+
+
+; Irvine拡張オブジェクト
+
+*Action
+caption
+hint
+checked
+enabled
+visible
+shortcut
+tag
+
+$IrvineCookieManager
+*IrvineCookieManager;new $()
+getCookie;$.%(URL: String): String
+setCookie;$.%(URL: String, CookieStr: String): String
+
+*IrvineInfo;new IrvineInfo()
+version
+build
+hinstance
+
+*IrvineItem;new IrvineItem([String ItemData])
+data
+url
+folder
+filename
+referer
+cookie
+check
+splitcount
+authorization
+userid
+password
+registdate
+success
+comment
+filesize
+dlsize
+error
+downloadedfilename
+successDate
+queue
+
+$MD5
+*MD5;new $()
+calc;$.%(Str: String): String
+calcFile;$.%(FileName: String): String
+
+$Misc
+*Misc;new $()
+urlEncode;$.%(Str: String, Ignore: String, Space2Plus: Boolean): String
+urlDecode;$.%(Str: String, Plus2Space: Boolean): String
+getFileSize;$.%(FileName: String): Integer
+
+*Timer
+enabled
+interval
+tag
+
+*IrvineUrlInfo
+Url
+Proxy
+ErrorCode
+Redirect
+RedirectUrl
+StatusCode
+StatusMessage

@@ -1,0 +1,12 @@
+  function p(s){println(s);}
+
+  var a = true;
+  var b = false;
+  new Boolean(true);
+  var c = new Boolean(false);
+  p(a);
+  p(b);
+  p(c);
+  p(parseInt(a));
+  p(parseFloat(b));
+  p(parseInt(c));  

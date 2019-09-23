@@ -1,0 +1,29 @@
+function p(s){println(s);}
+
+var a = '‚ ‚¢‚¤‚¦ ‚¨';
+var b = 'http://aaa.eee.rrr/~‚ ‚¢‚¤‚¦ ‚¨/aaa#aaa?bbb';
+
+function es(){
+  p(c = escape(a));
+  p(unescape(c));
+  p(c = escape(b));
+  p(unescape(c));
+}
+
+function en(){
+  p(c = encodeURI(a));
+  p(decodeURI(c));
+  p(c = encodeURI(b));
+  p(decodeURI(c));
+}
+
+function co(){
+  p(c = encodeURIComponent(a));
+  p(decodeURIComponent(c));
+  p(c = encodeURIComponent(b));
+  p(decodeURIComponent(c));
+}
+
+es();
+//en();
+//co();

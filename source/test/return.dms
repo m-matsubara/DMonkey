@@ -1,0 +1,6 @@
+function f(){
+  var a = new Array(arguments);
+  return a;
+}
+
+println(f(1,2,3,4,5,6));

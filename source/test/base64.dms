@@ -1,0 +1,14 @@
+  var b64 = new Base64;
+  var a = '‚ ‚¢‚¤‚¦‚¨';
+  var b = b64.encode(a);
+  println(b);
+  println(b64.decode(b));
+
+
+  var b64 = new Base64;
+  var a = '‚ ‚¢‚¤‚¦‚¨';
+  var c = b64.encodeHeader(a);
+  println(c);
+  var d = b64.decodeHeader(c);
+  println(d);
+

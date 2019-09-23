@@ -1,0 +1,78 @@
+  function p(s){println(s);}
+
+  var a = Date.getTime();
+  p(a);
+  Date.setTime(a);
+  p(Date.toString());
+  Win32.sleep(200);
+  var a = new Date;
+  p(a.toString());
+  
+  new Date();
+  var a = new Date();
+  var b = new Date("December 31, 1999 23:59:59");
+  p(a.toLocaleString());
+  p(a.toGMTString());
+  
+  p(a.getFullYear());
+  p(a.getYear());
+  p(a.getMonth());
+  p(a.getDate());
+  p(a.getHours());
+  p(a.getMinutes());
+  p(a.getSeconds());
+  p(a.getMilliseconds());  
+  p(a.getDay());
+  
+  p(a.setFullYear(2000));
+  p(a.setYear(00));
+  p(a.setMonth(1));
+  p(a.setDate(1));
+  p(a.setHours(1));
+  p(a.setMinutes(1));
+  p(a.setSeconds(1));
+  p(a.setMilliseconds(1));
+  
+  p(a.toLocaleString());
+  p(a.toGMTString());
+
+  p(a.getUTCFullYear());
+  p(a.getUTCYear());
+  p(a.getUTCMonth());
+  p(a.getUTCDate());
+  p(a.getUTCDay());
+  p(a.getUTCHours());
+  p(a.getUTCMinutes());
+  p(a.getUTCSeconds());
+  p(a.getUTCMilliseconds());  
+  
+  p(a.setUTCFullYear(2000));
+  p(a.setUTCYear(00));
+  p(a.setUTCMonth(1));
+  p(a.setUTCDate(1));
+  p(a.setUTCHours(1));
+  p(a.setUTCMinutes(1));
+  p(a.setUTCSeconds(1));
+  p(a.setUTCMilliseconds(1));
+  
+  p(a.toLocaleString());
+  p(a.toGMTString());
+
+  p(a.getTime());
+  p(a.setTime(a.getTime()));
+  p(a.getTimezoneOffset());
+  p(a.UTC(2000,1,1,1,1,1,1));
+  p(a.parse(b.toLocaleString()));
+  p(a.valueOf(b.toGMTString()));
+  
+  var a = new Date;
+  Win32.sleep(1000);
+  var b = new Date;
+  println(b.getTime() - a.getTime());
+  println(b - a);
+  
+a = new Date;
+//a.setHours(a.getHours() - 6);
+println(a);
+a.format = 'ggee yyyy/mm/dd(aaaa) ampm hh:nn:ss';
+println(a);

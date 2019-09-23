@@ -1,0 +1,15 @@
+  var s = new SMTP;
+  s.host = '127.0.0.1';
+  s.port = 25;
+  s.mail['To'] = 'gaogao@moemoe.gr.jp';
+  s.mail['From'] = 'gaogao@moemoe.gr.jp';
+  s.mail['Subject'] = 'DMonkey SMTP';
+  s.mail.message = 'ƒeƒXƒg';
+  try{
+    s.connect();
+    s.sendMail();
+    println('OK');
+  }
+  finally{
+    s.disconnect();
+  }

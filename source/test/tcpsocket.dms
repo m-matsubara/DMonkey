@@ -1,0 +1,45 @@
+  var s = new TCPSocket;
+  s.host = 'www.google.co.jp';
+  s.port = 80;
+  //ƒCƒxƒ“ƒg
+  //s.onConnect = function(sender){
+  //  println('connect');
+  //};
+  s.onConnect = "println('Connnnnnnnnected')"; //“à•”‚Åeval()‚ðŒÄ‚Ô
+  s.onDisconnect = function(sender){
+    println('disconnect');
+  };
+  s.onError = function(sender,error,msg){
+    printfln('error %d:%s',error,msg);
+  };
+  s.onRead = function(sender,bytes,stop){
+    printfln('read %d bytes',bytes);
+  };
+  s.onWrite = function(sender,bytes,stop){
+    printfln('write %d bytes',bytes);
+  };
+  s.onStatus = function(sender,msg){
+    printfln('msg: %s',msg);
+  };
+  
+  
+  try{
+    s.connect();
+    s.writeln('GET / HTTP/1.0');
+    s.writeln('Host: www.google.co.jp');
+    s.writeln('User-Agent: DMonkey');
+    s.writeln('Connection: close');
+    s.writeln('Accept: */*');
+    s.writeln('');
+    
+    println(s.read());
+  }
+  finally{
+    s.disconnect();
+  }
+  
+println(s.getEvents().join("\n"));
+
+
+
+

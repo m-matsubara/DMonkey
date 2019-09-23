@@ -1,0 +1,154 @@
+d = new DynaCall;
+
+// TEST 1
+
+//構造体を渡すパラメータには's'を指定します
+d.register('user32','GetCursorPos','i=s','r=b');
+//POINT構造体を作成
+point = new Struct('X:l','Y:l');
+//呼び出し
+d.GetCursorPos(point);
+println('TEST 1');
+println('X = ' + point.X);
+println('Y = ' + point.Y);
+
+
+// TEST 2
+
+class Point extends Struct
+//Pointオブジェクト
+{
+  function Point(x,y)
+  {
+    this.define('x:l','y:l');
+    this.x = x;
+    this.y = y;
+  }
+}
+
+// 直接定義
+p1 = new Struct('x:l','y:l');
+//msgBox(p1.toString());
+
+// 後から定義
+p2 = new Struct;
+//msgBox(p2.toString());
+p2.define('x:l','y:l');
+//msgBox(p2.toString());
+
+// 定義済みオブジェクトから
+p3 = new Point;
+//msgBox(p3.toString());
+
+// メンバ名を省略して定義
+p4 = new Struct('l','l');
+//msgBox(p4.toString());
+
+d.GetCursorPos(p1);
+d.GetCursorPos(p2);
+d.GetCursorPos(p3);
+d.GetCursorPos(p4);
+
+println('TEST 2');
+println('p1.x  = ' + p1.x  + ', p1.y  = ' + p1.y);
+println('p2.x  = ' + p2[0] + ', p2.y  = ' + p2[1]); //添字でもアクセス可
+println('p3.x  = ' + p3.x  + ', p3.y  = ' + p3.y);
+println('p4[0] = ' + p4[0] + ', p4[1] = ' + p4[1]);
+
+
+// TEST 3
+
+GWL_HINSTANCE = -6;
+
+MB_OK               = 0;
+MB_OKCANCEL         = 1;
+MB_ABORTRETRYIGNORE = 2;
+MB_YESNOCANCEL      = 3;
+MB_YESNO            = 4;
+MB_RETRYCANCEL      = 5;
+MB_ICONHAND         = 0x10;
+MB_ICONQUESTION     = 0x20;
+MB_ICONEXCLAMATION  = 0x30;
+MB_ICONASTERISK     = 0x40;
+MB_USERICON         = 0x80;
+
+d.register('user32','GetWindowLong','i=hl','r=l');
+d.register('user32','MessageBoxIndirect','i=s','r=l');
+
+hInstance = d.GetWindowLong(applicationHandle,GWL_HINSTANCE);
+
+//MSGBOXPARAMS構造体
+mbp = new Struct(
+   'cbSize:u',
+   'hwndOwner:h',
+   'hInstance:h',
+   'lpszText:s',
+   'lpszCaption:s',
+   'dwStyle:u',
+   'lpszIcon:' + ((platform == 'nt') ? 'w' : 's'),
+   'dwContextHelpId:u',
+   'lpfnMsgBoxCallback:l',
+   'dwLanguageId:u'
+);
+/*
+   作成された構造体は0で初期化されているので
+   すべてのメンバに値を代入する必要はない
+*/
+mbp.cbSize = mbp.sizeOf(); //構造体のサイズはsizeOf()で取得できます
+mbp.hwndOwner = applicationHandle;
+mbp.hInstance = hInstance;
+mbp.lpszText = 'MessageBoxIndirect';
+mbp.lpszCaption = 'TEST 3';
+mbp.dwStyle = isConsole() ? MB_ICONASTERISK : MB_USERICON;
+mbp.lpszIcon = 'MAINICON';
+
+d.MessageBoxIndirect(mbp);
+
+
+// TEST 4
+
+IMAGE_ICON = 1;
+
+NIM_ADD     = 0;
+NIM_MODIFY  = 1;
+NIM_DELETE  = 2;
+
+NIF_MESSAGE = 1;
+NIF_ICON    = 2;
+NIF_TIP     = 4;
+
+IDI_APPLICATION = 32512;
+IDI_HAND        = 32513;
+IDI_QUESTION    = 32514;
+IDI_EXCLAMATION = 32515;
+IDI_ASTERISK    = 32516;
+IDI_WINLOGO     = 32517;
+
+d.register('user32','LoadImage','i=hsullu','r=h');
+d.register('user32','LoadIcon','i=hp','r=h');
+d.register('shell32','Shell_NotifyIcon','i=us','r=b');
+
+//NOTIFYICONDATA構造体
+icon = new Struct(
+   'cbSize:u',
+   'hWnd:h',
+   'uID:u',
+   'uFlag:u',
+   'uCallbackMessage:u',
+   'hIcon:h',
+   'szTip:64' //64バイト確保(char[64])
+);
+
+icon.cbSize = icon.sizeOf();
+icon.hWnd = applicationHandle;
+icon.uID = 1;
+icon.uFlag = NIF_ICON | NIF_TIP;
+icon.hIcon = isConsole() ? d.LoadIcon(null,IDI_ASTERISK)
+                         : d.LoadImage(hInstance,'MAINICON',IMAGE_ICON,16,16,0);
+icon.szTip = 'TEST 4';
+
+d.Shell_NotifyIcon(NIM_ADD,icon);
+msgBox('タスクトレイにアイコンを作成しました',MB_ICONASTERISK);
+
+d.Shell_NotifyIcon(NIM_DELETE,icon);
+msgBox('タスクトレイのアイコンを削除しました',MB_ICONASTERISK);

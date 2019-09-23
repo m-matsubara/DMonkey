@@ -1,0 +1,27 @@
+@set @VERSION7 = true
+
+  var sl = new Strings;
+  sl.add('aaa');
+  sl.add('bbb');
+  sl.insert(0,'ccc');
+  sl.insert(1,'ddd');
+  print(sl.text);
+  println(sl.commaText);
+  sl.saveToFile('temp.txt');
+
+
+  var sl = new Strings;
+  sl.loadFromFile('temp.txt');
+  for(var i in sl)
+    println(i);
+  
+  print(sl.text);
+  sl.clear();
+  
+
+var f = new File('temp.txt');
+if(f.exists()){
+  sl.loadFromFile(f);
+  println("\n" + 'file: ' + sl);
+}
+

@@ -1,0 +1,8 @@
+function p(s){println(s);}
+
+var objNumber = new Number(273.16);
+p(objNumber.toExponential(10));
+p(objNumber.toFixed(10));
+p(objNumber.toPrecision(10));
+
+p(0x41.toChar());

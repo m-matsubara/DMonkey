@@ -1,0 +1,120 @@
+function Circle (xPoint, yPoint, radius) {
+  this.x = xPoint;  // 円の中心点の x 要素。
+  this.y = yPoint;  // 円の中心点の y 要素。
+  this.r = radius;  // 円の半径。
+}
+
+Circle.prototype.pi = Math.PI;
+function ACirclesArea () {
+  return this.pi * this.r * this.r; // 円の面積を求める式は πr2 です。
+}
+Circle.prototype.area = ACirclesArea; // 円の面積を求める式が、プロトタイプ オブジェクト Circle のメソッドとなりました。
+
+var ACircle = new Circle(5, 11, 99);
+var a = ACircle.area();     
+println(a);
+
+// trim と呼ばれる関数を
+// String コンストラクタのプロトタイプ オブジェクトにメソッドとして追加します。
+String.prototype._trim = function()
+{
+// 先頭、または末尾のスペースを空の文字列で置換するには、
+// 正規表現を使用します。
+    return this.replace(/(^\s*)|(\s*$)/g, "");
+};
+
+// 次に示すように前後にスペースのある文字列は
+var s = "    前後にスペースがあります    ";
+
+// "    前後にスペースがあります     (35)" のように表示されます。
+println(s + " (" + s.length + ")");
+
+// 前後のスペースを削除すると、
+s = s._trim();
+// "前後にスペースがあります (27)" のように表示されます。
+println(s + " (" + s.length + ")");
+
+
+var a = String.prototype;
+a.test = 100;
+println(''.test);
+
+String.prototype.a = new String('aaa');
+println('a'.a);
+
+function F(){}
+
+F.prototype = Math;
+F.prototype = null;
+F.prototype = Math;
+F.prototype.a = Math.random;
+var a = new F;
+println(a.random(1000));
+
+function Document(){  
+  this.writeln = println;
+}
+var document = new Document;
+
+// コンストラクタ関数 CF
+function CF () {
+    this.q1 = 'q1 by CF';
+    this.q2 = 'q2 by CF';
+}
+
+// CF からオブジェクト cf1 を生成
+var cf1 = new CF();
+
+// cf1 のプロパティを出力
+document.writeln( 'cf1.q1 = '   + cf1.q1 );
+document.writeln( 'cf1.q2 = '   + cf1.q2 );
+
+// 新規オブジェクト生成
+var CFP = new Object();
+CFP.CFP1 = 'CFP.CFP1';
+CFP.q1   = 'CFP.q1';
+
+// CFP, cf1 のプロパティ CFP1 を出力
+document.writeln( 'CFP.CFP1 = ' + CFP.CFP1 );
+//document.writeln( 'cf1.CFP1 = ' + cf1.CFP1 );
+
+// CF の prototype プロパティを設定
+CF.prototype = CFP;
+
+// 改めて CF からオブジェクトを生成
+var cf2 = new CF();
+
+// cf2 のプロパティを出力
+document.writeln( 'cf2.q1  = ' + cf2.q1 );
+document.writeln( 'cf2.q2  = ' + cf2.q2 );
+document.writeln( 'cf2.CFP1= ' + cf2.CFP1 );
+
+//無限ループチェック
+function F(){}
+function G(){}
+function H(){}
+
+F.prototype = new G;
+G.prototype = new H;
+//H.prototype = new F; //Array;
+var a = new F;
+//println(a.push(10));
+
+
+function MemoEdit(main){
+  this.fm = this.prototype;
+  //this.fm = this;
+}
+
+//MemoEdit.prototype = new VCLForm;
+var a = new MemoEdit(true);
+
+Array.prototype = new Object;
+function aa(){
+}
+aa.prototype = new Object;
+
+println(Array.prototype);
+println(aa.prototype);
+
+

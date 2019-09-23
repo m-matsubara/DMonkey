@@ -1,0 +1,4 @@
+  var crc = new CRC;
+  crc.calc('‚ ‚¢‚¤‚¦‚¨');
+  println(crc.CRC16.toString(16).substr(4,4));
+  println(crc.CRC32.toString(16));

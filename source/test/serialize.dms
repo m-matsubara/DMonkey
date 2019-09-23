@@ -1,0 +1,8 @@
+class Test{
+  function get(){
+    return 0;
+  }
+}
+
+var a = new Test;
+println(a.get());

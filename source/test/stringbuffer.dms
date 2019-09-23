@@ -1,0 +1,35 @@
+var a = new StringBuffer;
+a.append('abc');
+a.append('def');
+println(a);
+
+a.delete(1,4);
+println(a);
+a.delete(1,1);
+println(a);
+
+a.insert(1,'b').insert(2,'c').insert(3,'d');
+println(a);
+
+println(a.substring(1,4));
+
+var a = new StringBuffer(a.toString());
+println(a);
+
+a.replace(1,4,'AAA');
+println(a);
+a.replace(0,6,'abcdef');
+println(a);
+
+println(a[2]);
+a[2] = 'A';
+println(a);
+
+for(var i in a)
+  println(i + ' : ' + a[i]);
+
+println(a.length);
+
+var a = new StringBuffer(10);
+println(a.length);
+println(a);

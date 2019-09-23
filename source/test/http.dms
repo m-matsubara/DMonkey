@@ -1,0 +1,81 @@
+var a = new HTTP;
+//a.debug = true;
+a.onConnect = function(sender){
+  println('connect');
+};
+a.onDisconnect = function(sender){
+  println('disconnect');
+};
+a.onError = function(sender,error,msg){
+  printfln('error %d:%s',error,msg);
+};
+a.onRead = function(sender,bytes,stop){
+  printfln('read %d bytes',bytes);
+};
+a.onWrite = function(sender,bytes,stop){
+  printfln('write %d bytes',bytes);
+};
+a.onStatus = function(sender,msg){
+  printfln('msg: %s',msg);
+};
+a.onSuccess = function(sender){
+  println('success');
+};
+a.onFailure = function(sender){
+  println('failure');
+};
+a.onRequest = function(sender){
+  println('request');
+};
+a.onResponse = function(sender){
+  println('response');
+};
+
+
+a.get('http://www.google.co.jp/');
+println(a.responseHeader);
+println(a.responseHeader.cookie);
+println(a.responseHeader.cookie.data);
+for(var i in a.responseHeader.cookie)
+  println(i + ': ' + a.responseHeader.cookie[i]);
+  
+  
+  var u = new URL('http://openirvine.sourceforge.jp/index.html');
+  var http = new HTTP;
+  println(http.get(u.url).fromEUCtoSJIS().replace(String.fromCharCode(10),'igm',"\n"));
+  http.getFile(u.url,u.filename);
+
+
+  var http = new HTTP;
+  http.debug = true;
+  http.requestHeader['User-Agent'] = 'dmonkey';
+  http.requestHeader['Referer'] = 'referer';
+  http.requestHeader['Cookie'] = 'name=value';
+  try{
+    http.request('GET','http://hp.vector.co.jp/authors/VA024591/');
+    http.response();
+    for(var i in http.responseHeader){
+      println(i + ' = ' + http.responseHeader[i]);
+    }
+    
+    if(http.responseHeader.code == 200){
+      println("\nOK\n");
+      while(true){
+        var s = http.readln();
+        if(s)
+          println(s);
+        else
+          break;
+      }
+    }
+  }
+  finally{
+    http.disconnect();
+  }
+
+
+
+
+var c = new Cookie;
+c.parse('http://hp.vector.co.jp/authors/VA024591/','data1=value1;data2=value2');
+println(c);

@@ -1,0 +1,78 @@
+class Foo{ //指定しない場合は Objectを継承
+  var aaa = 10;
+  function Foo(){
+    println('Foo: ' + this);
+  }
+  function f1(a){
+    println(a + ',world'); 
+  }
+}
+class Bar extends Foo{
+  bbb = 20;
+  function Bar(){
+    println('Bar: ' + this);
+  }
+  function f2(){
+    println(this.aaa);
+  }
+}
+class Hoge extends Bar{
+  ccc = new Array(5,6,7,8,9,10);
+  function Hoge(){
+    println('Hoge: ' + this);
+  }
+  function f3(){
+    println(this.bbb);
+  }
+}
+
+var a = new Hoge;
+println(a.getProperties());
+a.f1('hello');
+a.f2();
+a.f3();
+for(var i in a.ccc)
+  print(i + ',');
+  
+  
+class TArray extends Array{
+  arguments = new Array(11,12,13,14,15,16,17,18,19,20);
+}
+
+var b = new TArray;
+println(b.arguments);
+b.push(b.arguments.reverse());
+println(b);
+  
+  
+class IE {
+  ie = new ActiveXObject('InternetExplorer.Application');
+  win32 = new Win32;
+  function IE(){  //コンストラクタを指定すると作成時に呼ばれます。
+    if(arguments.length > 0)
+      this.ie.Visible = arguments[0];
+    else
+      this.ie.Visible = true;
+  }
+  function goGoogle(){
+    this.ie.Navigate('http://www.google.com/intl/ja/');
+  }
+  function go(url){
+    this.ie.Navigate(url);
+  }
+  function quit(){
+    this.ie.Quit();
+  }
+}
+  ie = new IE(true);
+  //ie.goGoogle();
+  for(;;){
+    a = prompt('URLを指定してください');
+    if(a)
+      ie.go(a);
+    else{
+      ie.quit();
+      exit();
+    }    
+  }
+

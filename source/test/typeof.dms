@@ -1,0 +1,5 @@
+println(typeof a);
+println(typeof a = 1);
+println(typeof a = new Object);
+println(typeof function(){});
+println(typeof eval('100'));

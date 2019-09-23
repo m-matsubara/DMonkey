@@ -1,0 +1,5 @@
+  var reg = new RegIni('\software\wildforce\irvine');
+  println(reg.readSections().text);
+
+  if(reg.sectionExists('path'))
+    println(reg.read('path','Application',''));

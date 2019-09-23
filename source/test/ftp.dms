@@ -1,0 +1,121 @@
+@set @VERSION7 = true
+
+var ftp = new FTP;
+//ftp.debug = true;
+ftp.onConnect = function(sender){
+  println('connect');
+};
+ftp.onDisconnect = function(sender){
+  println('disconnect');
+};
+ftp.onError = function(sender,error,msg){
+  printfln('error %d:%s',error,msg);
+};
+ftp.onRead = function(sender,bytes,stop){
+  printfln('read %d bytes',bytes);
+};
+ftp.onWrite = function(sender,bytes,stop){
+  printfln('write %d bytes',bytes);
+};
+ftp.onStatus = function(sender,msg){
+  printfln('msg: %s',msg);
+};
+ftp.onSuccess = function(sender,type){
+  printfln('success: %s',type);
+};
+ftp.onFailure = function(sender,keep,type){
+  println('failure: %s',type);
+};
+
+  
+  
+ftp.host = '127.0.0.1';
+ftp.userid = 'test';
+ftp.password = 'test';
+try{
+  ftp.connect();
+  //ftp.login('test','test');
+  try{
+    ftp.passiveMode = true;  
+    var list = ftp.list();
+    for(var i in list)
+      println(i);
+
+    println(ftp.printWorkDir());
+    println(ftp.currentDir);
+    
+    try{
+      ftp.removeDir('test');
+    }catch(){}
+
+    ftp.makeDir('test');
+    ftp.changeDir('test');
+    println(ftp.printWorkDir());
+    ftp.type('I');
+    ftp.download('test.txt','test.txt');
+    ftp.delete('test.txt');
+    ftp.upload('test.txt','test.txt');
+    ftp.rename('test.txt','t.txt');
+    ftp.delete('t.txt');
+    ftp.changeDir('..');
+    ftp.removeDir('test');
+
+    var ff = ftp.findFiles(ftp.currentDir,'*.txt',true);
+    println(ff.text);
+    if(ff.count > 0)
+      ftp.download(ff[0],ff[0]);
+
+    var list = ftp.nlist();
+    for(var i in list)
+      println(i);  
+  }
+  catch{
+  }  
+  finally{
+    ftp.disconnect();
+    //ftp.quit();
+  }
+}
+catch{
+}
+
+var u = new URL('ftp://ftp.vector.co.jp/pack/win95/net/www/download/irvine1_0_0.lzh');
+ftp.host = u.host;
+ftp.userid = 'anonymous';
+ftp.password = 'test@dmonkey.sourceforge.jp';
+try{
+  //ftp.login('anonymous','test@dmonkey.sourceforge.jp');
+  ftp.connect();
+  ftp.changeDir(u.dir);
+  //ftp.command('SIZE ' +  u.filename);//.match(/200.*([0-9]+)/);
+  //println(a);  
+  //ファイルサイズを取得
+  var list = ftp.list();
+  var size = 0;
+  for(var e in list){
+    if(e.name == u.filename){
+      size = e.size;
+      break;
+    }
+  }
+  //println(size);
+  ftp.type('I');//バイナリモード
+  
+  var readbytes = 0;
+  //イベントで割り込み
+  ftp.onRead = function(sender,bytes,stop){
+    readbytes += bytes;
+    try{
+      printfln('downloading... %0.f %%',(readbytes / size) * 100);
+    }catch{}
+  };
+  
+  ftp.downloadRestore(u.filename,u.filename);
+  ftp.onRead = null;
+  
+}
+finally{
+  ftp.disconnect();
+}
+
+

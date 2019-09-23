@@ -1,0 +1,11 @@
+function searchPrime (max) {
+    var Composit = new Array();
+    var primeArray = [1,2];
+    for (var n=3; n<=max; n+=2) {
+        if (Composit[n]) continue;
+        primeArray.push(n);
+        for (var i=n; i*n<=max; i+=2) Composit[i*n] = true;
+    }
+    return primeArray;
+}
+println(searchPrime(1000));

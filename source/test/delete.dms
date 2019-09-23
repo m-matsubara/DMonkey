@@ -1,0 +1,6 @@
+var a = new Object;
+a.b = new Object;
+a.b.c = 'abc';
+println(a.b.c);
+delete(a.b.c);
+println(a.b.c);

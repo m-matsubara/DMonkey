@@ -1,0 +1,65 @@
+  var dcall = new DynaCall;  
+  /*
+  DynaCall.register()
+  第1引数 
+    DLLの名前
+  第2引数
+    関数の名前
+  第3引数～第5引数
+    この3つは任意の順番で並べる事ができる
+    i=[flag]*
+      引数を指定する(参照を指定することはできるが現在のところ値は変化しない)
+        c  char(1バイト)
+        1  char参照(4バイト) 
+        t  short(2バイト)
+        2  short参照(4バイト)
+        l  long(4バイト)
+        4  long参照(4バイト)
+        i  int64(8バイト)
+        8  int64参照(4バイト)
+        p  ポインタ(4バイト)
+        h  ハンドル(4バイト)
+        u  unsigned int(4バイト)
+        b  boolean(4バイト)
+        s  文字列(4バイト)
+        w  ワイド文字列(4バイト)
+        f  4バイト実数(4バイト)
+        d  8バイト実数(8バイト)
+        a  IDispatch(4バイト)
+        k  IUnknown(4バイト)         
+
+    f=[flag]*
+      呼び出し規約を指定する
+        m  Microsoft互換
+        b  Borland互換
+        s  stdcall呼び出し(標準)
+        c  cdecl呼び出し
+        4  戻り値が4バイト実数
+        8  戻り値が8バイト実数
+
+    r=[flag]    
+      戻り値を指定する  
+        引数のフラグと同じ
+  */
+  dcall.register('user32.dll','MessageBox','i=hssu','f=s','r=l');
+
+  //登録した関数はそのまま呼び出すことができます
+  println(dcall.MessageBox(applicationHandle,'これはDynaCallで呼び出しています。','DynaCall',1));
+
+
+  var dcall = new DynaCall;
+  var s = new StringBuffer(256);
+  dcall.register('advapi32','GetUserName','i=s4','f=s','r=b');
+  println(dcall.GetUserName(s,s.length));
+  s.delete(s.toString().indexOf(0.toChar()));
+  println(s);
+  println(s.length);
+
+
+  var dcall = new DynaCall;
+  dcall.register('kernel32','GetTickCount','f=s','r=l');
+  println(dcall.GetTickCount());
+
+
+
+

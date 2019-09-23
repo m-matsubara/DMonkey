@@ -1,0 +1,24 @@
+@set @VERSION7 = true
+
+var a = 1;
+switch(a){
+  case 1: case 5:println(1);break;
+  case 4: case 3:println(3);break;
+  case 2:println(2);break;
+  default:println(100);
+}
+
+var u = new URL('https://sourceforge.jp/projects/dmonkey');
+var a = HTTP.get(u);
+var ss = a.split(/>/g);
+
+for(var s in ss){
+  switch(s){
+    /*case /<a .*href="((http|https|ftp):\/\/[^"]+)"/i:
+      println(RegExp.$1);
+      break;*/
+    case /<a .*href="([^"]+)"/i:
+      println(u.expand(RegExp.$1));
+      break;
+  }
+}

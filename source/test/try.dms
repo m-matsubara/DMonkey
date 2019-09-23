@@ -1,0 +1,101 @@
+Global.print = Global.println;
+
+try{
+  throw new Array(1,2,3,4,5);      
+}catch(e){
+  println(e);
+}
+
+try {
+  print("Outer try running..");
+  try {
+    print("Nested try running...");
+    throw "an error";
+  }
+  catch(e) {
+    print("Nested catch caught " + e);
+    throw e + " re-thrown";
+  }
+  finally {
+    print("Nested finally is running...");
+  }   
+}
+catch(e) {
+  print("Outer catch caught " + e);
+}
+finally {
+  print("Outer finally running");
+}
+/*
+Outer try running..
+Nested try running...
+Nested catch caught an error
+Nested finally is running...
+Outer catch caught an error re-thrown
+Outer finally running
+*/
+
+
+function TryCatchDemo(x){
+   try {
+      try {
+      if (x == 0)   // 引数を評価します。
+         throw "x equals zero";   // エラーをスローします。
+      else
+         throw "x does not equal zero";   // 別のエラーをスローします。
+      }
+      catch(e) {   // "x = 0" のエラーを処理します。
+         if (e == "x equals zero")   // 処理対象のエラーかどうかを判断します。
+            return(e + " はローカルに処理されます。");   // オブジェクトにエラーメッセージを返します。
+         else   // エラーを処理できません。
+            throw e;   // 次のエラー ハンドラに
+      }   // エラーを再度スローします。
+   }
+   catch(e) {   // 他のエラーを処理します。
+      return(e + " は上位の階層で処理されます。");   // エラー メッセージを返します。
+   }
+}
+writeln(TryCatchDemo(0));
+writeln(TryCatchDemo(1));
+
+
+try{ //error
+ println(100);
+ throw;
+}
+//0;
+catch(e){
+  println(typeof e);
+  println('catch: ' + e);
+}
+finally{
+  println('finally');
+}
+
+while( true )
+{
+  try
+    {
+      break;
+      WScript.Echo();
+    }
+      catch( e )
+    {
+    }
+}
+
+for( var index = 10; 0 <= index; --index )
+{
+  if (index == 5)
+    break;
+}
+
+println(index);
+
+for( var index = 10; 0 <= index; --index )
+{
+  println(index);
+  continue;
+}
+
+println(index);

@@ -1,0 +1,10 @@
+var a = new Test;
+a.Cells(0,0) = 'a';
+a.Cells(0,1) = 'b';
+a.Cells(0,2) = 'c';
+a.Cells(0,3) = 'd';
+a.Cells(0,4,'E');
+a.Cells(0,5,'F');
+a.Cells(0,6,'G');
+for(var i=0;i<7;i++)
+  println(a.Cells(0,i));

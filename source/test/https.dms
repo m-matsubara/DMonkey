@@ -1,0 +1,30 @@
+  var u = new URL('https://sourceforge.jp/projects/dmonkey');
+  var http = new HTTPS;
+  http.debug = true;
+  println(http.get(u.url).fromEUCtoSJIS());
+  http.getFile(u.url,u.filename);
+
+
+  var http = new HTTPS;
+  http.debug = true;
+  http.requestHeader['User-Agent'] = 'dmonkey';
+  http.requestHeader['Referer'] = 'referer';
+  http.requestHeader['Cookie'] = 'name=value';
+  try{
+    http.request('GET','https://sourceforge.jp/projects/dmonkey');
+    http.response();
+    if(http.responseHeader.code == 200){
+      println("\nOK\n");
+      while(true){
+        var s = http.readln();
+        if(s)
+          println(s);
+        else
+          break;
+      }
+    }
+  }
+  finally{
+    http.disconnect();
+  }
+

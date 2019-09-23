@@ -1,0 +1,154 @@
+Global.print = function (s){
+  println(s);
+};
+
+function repeat_print( n, str )
+{
+	for( i=0; i<n; ++i )
+		print( str );
+}
+
+repeat_print( 10, "hello!" );
+
+var s = new String( "Hello" );
+print( s.toUpperCase() );
+
+var s = new String( 'Hello' );
+var t;
+with( s )
+{
+	t = toUpperCase();
+}
+print( t );
+
+var repeat_print = function( n, str )
+{
+	for( var i=0; i<n; ++i )
+		print( str );
+};
+
+repeat_print( 10, "hello!" );
+
+
+function repeat_call( n, f )
+{
+	for( var i=0; i<n; ++i )
+		f(i);
+}
+
+repeat_call( 10, function(x){print('hello'+x);});
+
+function repeat_call( n, f )
+{
+	for( var i=0; i<n; ++i )
+		f(i);
+}
+
+repeat_call( 10, function print_hello(x){print('hello'+x);} );
+
+function f( x ) { return x*x; }
+//print( 'f is ' + f.length + '-ary function' );
+
+//function f( x ) { return x*x; }
+//var n = f(1, 2) + f(); // 1 + NaN
+//print( n );
+
+function add(x, y) { return x+y; }
+print( add.call(null, 10, 20) );
+
+function add(x, y) { return x+y; }
+print( add.apply(null, [10, 20]) );
+
+function accumulate()
+{
+	var sum = 0;
+	for( var i=0; i<arguments.length; ++i )
+		sum += arguments[i];
+	return sum;
+}
+print( accumulate(1,2,3,4,5,6,7,8,9,10) );
+
+var x = ( function(a, b) {
+		return (a==0 ? b : arguments.callee(b%a, a));
+	} )( 60, 84 );
+print( x );
+
+
+function map( arr, f )
+{
+	var newArr = new Array(arr.length);
+	for( var i=0; i<arr.length; ++i )
+		newArr[i] = f( arr[i] );
+	return newArr;
+}
+
+function mem_fn( mf )
+{
+	return function(obj) {
+		var args = new Array(arguments.length-1);
+		for( var i=1; i<arguments.length; ++i )
+			args[i-1] = arguments[i];
+		return mf.apply( obj, args );
+	};
+}
+
+/*
+x = map(
+	['hoge', 'fuga', 'hagyo'],
+	mem_fn( String.prototype.toUpperCase )
+);
+map( x, print );
+*/
+
+function Point()
+{
+	this.x = 0;
+	this.y = 0;
+	this.distanceFromOrigin = function()
+	{
+		return Math.sqrt( this.x*this.x + this.y*this.y );
+	};
+}
+
+var pt = new Point();
+pt.x = 5;
+pt.y = -12;
+
+print( pt.distanceFromOrigin() );
+
+function Point()
+{
+	this.x = 0;
+	this.y = 0;
+}
+
+Point.prototype.distanceFromOrigin = function()
+{
+	return Math.sqrt( this.x*this.x + this.y*this.y );
+};
+
+var pt = new Point();
+pt.x = 5;
+pt.y = -12;
+
+print( pt.distanceFromOrigin() );
+
+
+function f1()
+{
+	var x = 1;
+	function f2()
+	{
+		var y = 2;
+		function f3(z)
+		{
+			return x + y * z;
+		}
+		return f3;
+	}
+	return f2();
+}
+
+var f = f1();
+print( f(10) );
+

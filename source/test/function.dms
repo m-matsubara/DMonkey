@@ -1,0 +1,142 @@
+function fac(n){
+  return n <= 0 ? 1 : n * fac(n-1);
+}
+
+function factrial( n ){
+    if( n <= 0 ){
+        return 1 ;
+    }else{
+        return n*arguments.callee( n-1 );
+    }
+}
+
+
+println('fac: ' + fac(10));
+println('fac2: ' + factrial(10));
+
+function createFunction( n ){
+    return function( i ){
+        if( i > 0 ){
+            return Math.pow( i, n )+arguments.callee( i-1 );
+        }else{
+            return 0 ;
+        }
+    };
+}
+
+var sum2 = createFunction( 2 );
+var sum4 = createFunction( 4 );
+
+println( sum2( 5 ) ); // Œ‹‰Ê‚Í 55 = 1^2+2^2+3^2+4^2+5^2 = 1+4+9+16+25
+println( sum4( 3 ) ); // Œ‹‰Ê‚Í 98 = 1^4+2^4+3^4 = 1+16+81
+
+
+
+function fc(){
+  //println(a);
+  return function fe(a){
+    println(a);
+  };
+}
+
+function fa(_a){
+
+  var b = function (){
+    //println(a); 
+    function fd(){
+      println(a);
+    }
+    fc()(_a);
+  };
+
+  b();
+  return b;
+}
+//fb();
+var c = fa(7);
+c(6);
+fa(9);
+c(9);
+
+
+function make_adder(x)
+{ 
+  return function(y){
+    return function(z){
+      return x+y+z;
+    }; 
+  };
+}
+
+println(make_adder(1)(2)(3));
+println(make_adder(4)(5)(6));
+
+var fa = function(){
+  var a = new Object;
+  a.aa = 'aa';
+  return a.getMethods;
+};
+
+println(fa()());
+
+
+
+function Obj(){
+  println('constructor: ' + arguments);
+  println(this);
+  this.a = 'test1';
+  this.b = 'test2';
+  this.c = 'test3';
+  this.f = function(){
+    println('this: ' + this);
+    return this.c;
+  };
+}
+
+var a = new Obj(1,2,3,4,5);
+println(a);
+println(a.a);
+println(a.f());
+
+with(a){
+  println('with: ' + this);
+  println(a);
+  println(b);
+  println(f());
+}
+
+var a = function(){return function(){ return 100;}();}();
+println(a);
+
+var a = function(){Global.b = 200; return function(){ return b;}();}();
+println(a);
+
+
+var a = new Object;
+Obj.call(a,5,4,3,2,1);
+println(a.b);
+
+Obj.call(); //this == Global
+println(Global.b);
+
+Obj.call('StrinG');
+Obj.call(101010);
+Obj.call(false);
+Obj.call(/abcd/);
+
+var b = new Array(6,7,8,9,0);
+var a = new Object;
+Obj.apply(a,b);
+
+var c = 'a';
+//Obj.apply(a,c);  //error
+
+function aaa(){
+  this.bbb = this;
+  this.bbb.ccc = this;
+  println(this);
+  println(this.bbb);
+  println(this.bbb.ccc);
+}
+
+var a = new aaa;

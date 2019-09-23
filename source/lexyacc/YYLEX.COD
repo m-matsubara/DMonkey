@@ -1,0 +1,181 @@
+//
+// Lex テンプレート for Delphi
+//      by Osamu TAKEUCHI <osamu@big.or.jp>
+//         http://www2.big.or.jp/~osamu/
+//
+//
+//  この Lex テンプレートを使うと、語彙解析を実装する TLex というクラスを
+//  含むユニットを *.L ファイルから自動生成することができます。
+//
+//  TLex はこのテンプレートとともに配布される LexLib に実装される TLexBase
+//  クラスの子孫となります。
+//
+//  ただし、LexLib.TLexBase は仮想クラスとして宣言されますので、実際の入出力を
+//  実装し、また、その他動作をカスタマイズするため TLexBase から派生したクラスを
+//  用意し、TLex はそれらのクラスから派生させる必要があります。
+//
+//  自動生成されるコードは、これら継承された LexLib.TLexBase の子孫クラスも必ず
+//  SomeUnit.TLexBase の形の名前を持つものと仮定します。
+//
+//  TStream 及び string に対する入出力を行う TLexBase が LexLib_Stream ユニットに
+//  実装されています。通常の用途にはこれを使用すれば用が足りるかもしれません。
+//
+//  .L の definitions セクションには必ず
+//  %{
+//      unit UnitName;
+//      interface
+//      uses SomeLexLib, MyYacc;
+//  %}
+//  の５行を記述してください。
+//  UnitName は *.l ファイルの * 部分と同じ名前
+//  SomeLexLib は実際の入出力ルーチンを実装する TLexBase クラスを提供するユニット名
+//  MyYacc は *.l と組み合わせて使う *.y ファイルから生成されるユニット名
+//  その他必要なユニットをここで uses することができます
+//  その他必要なグローバル宣言をここに追加することができます
+//
+//  .L の rules セクションの先頭で TLex のメンバー宣言を追加することができます。
+//    private
+//      procedure SomeUtility;
+//  行頭にホワイトスペースを入れなければならないことに注意してください。
+//
+//  .L の axiliary procedures セクションには rules セクションで追加した宣言に
+//  対応する定義を書くことができます。
+//      procedure TLex.SomeUtility;
+//      begin
+//
+//      end;
+//
+//  出来上がった SomeLex.pas ユニットは次のようにして使うことができます。
+//  ここでは TLexBase として LexLib_Stream.TLexBase を使用したと仮定します。
+//
+//    uses
+//      SomeLex,        // lex  により SomeLex.l  から自動生成される
+//      SomeYacc;       // yacc により SomeYacc.y から自動生成される
+//
+//    var lex: TLex;    // lex  により自動生成された SomeLex  に実装される
+//        yacc: TYacc;  // yacc により自動生成された SomeYacc に実装される
+//    begin
+//        lex := nil;
+//        yacc:= nil;
+//        try
+//            lex := TLex.Create;
+//            lex.InputString:= 'x=2*(3+2)'#10'x*3'#10;
+//            yacc:= TYacc.Create(lex); // yacc に lex が割り当てられる
+//            yacc.yyparse;             // パースを実行！
+//        finally
+//            yacc.Free;
+//            lex.Free;
+//        end;
+//    end.
+//
+
+{$B-}
+
+///////////////////////////////////////////////////////
+// .L に記述されたされた unit/interface/uses
+///////////////////////////////////////////////////////
+
+%%
+///////////////////////////////////////////////////////
+  
+type
+  TLex = class(TLexBase)
+%%
+  public
+    yylval: YYSType;
+    function yylex: Integer; override;
+    constructor Create;
+  end;
+
+implementation
+
+constructor TLex.Create;
+begin
+  inherited Create;
+  //ポインタを入れる
+  pyylval := @yylval;
+  start(INITIAL);
+end;
+
+function TLex.yylex : Integer;
+//yyactionはメソッド内ローカル関数になる
+  procedure yyaction ( yyruleno : Integer );
+  begin
+    (* actions: *)
+    case yyruleno of
+%%
+    end;
+  end(*yyaction*);
+
+  (* DFA table: *)
+%%
+
+  (* yylex *)
+label
+  start, scan, action;
+var
+    yyn : Integer;
+begin
+
+start:
+
+  (* initialize: *)
+
+  yynew;
+
+scan:
+
+  (* mark positions and matches: *)
+
+  for yyn := yykl[yystate] to yykh[yystate] do
+    yymark (yyk[yyn]);
+
+  for yyn := yymh[yystate] downto yyml[yystate] do
+    yymatch(yym[yyn]);
+
+  if yytl[yystate] > yyth[yystate] then
+    goto action; (* dead state *)
+
+  (* get next character: *)
+
+  yyscan;
+
+  (* determine action: *)
+
+  yyn := yytl[yystate];
+  while (yyn<=yyth[yystate]) and not (yyactchar in yyt[yyn].cc) do
+    inc(yyn);
+
+  if yyn>yyth[yystate] then
+    goto action;
+    (* no transition on yyactchar in this state *)
+
+  (* switch to new state: *)
+
+  yystate := yyt[yyn].s;
+
+  goto scan;
+
+action:
+
+  (* execute action: *)
+
+  if yyfind(yyrule) then
+  begin
+    yyaction(yyrule);
+    if yyreject then
+      goto action;
+  end
+  else
+    if not yydefault and yywrap then
+    begin
+      yyclear;
+      return(0);
+    end;
+
+  if not yydone then
+    goto start;
+
+  Result:= yyretval;
+
+end(*yylex*);

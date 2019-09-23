@@ -1,0 +1,43 @@
+println(eval(1));
+//println(function(){return 1;}());
+
+var x = 1;
+var s = 'x';
+function f(){
+	var x = 0;
+	print(eval(s));
+}
+f();
+print(eval(s));
+
+var a = 
+  'function x(){
+    return function y(){
+      var b = 100 * Math.pi;
+      return function z(){
+        return Math.pow(b,2);
+      };
+    };
+  }';
+
+var b = eval(a);
+println(b);
+println(b());
+println(b()());
+println(b()()());
+
+var c = eval('111');
+println(typeof c);
+println(c - 10);
+
+try{
+  eval(')))');
+}catch(a){
+  println(a);
+}
+
+try{
+  eval('_x');
+}catch(a){
+  println(a);
+}

@@ -1,0 +1,674 @@
+@set @VERSION7 = true
+
+class TreeListView(VCLForm){
+  
+  function println(s){
+    this.Memo1.lines.add(s);
+  }
+  function TreeListView(main){
+    this.main = main;
+    this.loadFromFile('_vcltreelist.dfm');
+    //D&D
+    this.ListView2.onDragDropFiles = __onDragDropFiles;
+    this.ListView2.onDragDropText = __onDragDropText;
+    this.TreeView1.onDragDropFiles = __onTVDragDropFiles;
+    this.TreeView1.onDragDropText = __onTVDragDropText;
+    
+    this.ListView2.onColumnClick = __onColumnClick;
+    this.ListView2.onChange = __onChange;
+    this.ListView2.onChanging = __onChanging;
+    this.ListView2.onColumnRightClick = __onColumnRightClick;
+    //this.ListView2.onAdvancedCustomDraw = __onAdvancedCustomDraw;
+    //this.ListView2.onAdvancedCustomDrawItem = __onAdvancedCustomDrawItem;
+    //this.ListView2.onAdvancedCustomDrawSubItem = __onAdvancedCustomDrawSubItem;
+    this.ListView2.onChange = __onChange;
+    this.ListView2.onChanging = __onChanging;
+    this.ListView2.onClick = __onClick;
+    this.ListView2.onColumnClick = __onColumnClick;
+    //this.ListView2.onColumnDragged = __onColumnDragged;
+    this.ListView2.onColumnRightClick = __onColumnRightClick;
+    this.ListView2.onCompare = __onCompare;
+    //this.ListView2.onContextPopup = __onContextPopup;
+    //this.ListView2.onCustomDraw = __onCustomDraw;
+    //this.ListView2.onCustomDrawItem = __onCustomDrawItem;
+    //this.ListView2.onCustomDrawSubItem = __onCustomDrawSubItem;
+    this.ListView2.onData = __onData;
+    this.ListView2.onDataFind = __onDataFind;
+    this.ListView2.onDataHint = __onDataHint;
+    this.ListView2.onDataStateChange = __onDataStateChange;
+    this.ListView2.onDblClick = __onDblClick;
+    this.ListView2.onDeletion = __onDeletion;
+    //this.ListView2.onDragDrop = __onDragDrop;
+    //this.ListView2.onDragOver = __onDragOver;
+    //this.ListView2.onDrawItem = __onDrawItem;
+    this.ListView2.onEdited = __onEdited;
+    this.ListView2.onEditing = __onEditing;
+    //this.ListView2.onEndDock = __onEndDock;
+    //this.ListView2.onEndDrag = __onEndDrag;
+    this.ListView2.onEnter = __onEnter;
+    this.ListView2.onExit = __onExit;
+    //this.ListView2.onGetImageIndex = __onGetImageIndex;
+    //this.ListView2.onGetSubItemImage = __onGetSubItemImage;
+    this.ListView2.onInfoTip = __onInfoTip;
+    this.ListView2.onInsert = __onInsert;
+    //this.ListView2.onKeyDown = __onKeyDown;
+    //this.ListView2.onKeyPress = __onKeyPress;
+    //this.ListView2.onKeyUp = __onKeyUp;
+    //this.ListView2.onMouseDown = __onMouseDown;
+    this.ListView2.onMouseMove = __onMouseMove;
+    //this.ListView2.onMouseUp = __onMouseUp;
+    //this.ListView2.onResize = __onResize;
+    this.ListView2.onSelectItem = __onSelectItem;
+    //this.ListView2.onStartDock = __onStartDock;
+    //this.ListView2.onStartDrag = __onStartDrag;
+    
+    //TreeView
+    //this.TreeView1.onAdvancedCustomDraw = __onTVAdvancedCustomDraw;
+    //this.TreeView1.onAdvancedCustomDrawItem = __onTVAdvancedCustomDrawItem;
+    this.TreeView1.onChange = __onTVChange;
+    this.TreeView1.onChanging = __onTVChanging;
+    this.TreeView1.onClick = __onTVClick;
+    this.TreeView1.onCollapsed = __onTVCollapsed;
+    this.TreeView1.onCollapsing = __onTVCollapsing;
+    this.TreeView1.onCompare = __onTVCompare;
+    //this.TreeView1.onContextPopup = __onTVContextPopup;
+    //this.TreeView1.onCustomDraw = __onTVCustomDraw;
+    //this.TreeView1.onCustomDrawItem = __onTVCustomDrawItem;
+    this.TreeView1.onDblClick = __onTVDblClick;
+    this.TreeView1.onDeletion = __onTVDeletion;
+    //this.TreeView1.onDragDrop = __onTVDragDrop;
+    //this.TreeView1.onDragOver = __onTVDragOver;
+    this.TreeView1.onEdited = __onTVEdited;
+    this.TreeView1.onEditing = __onTVEditing;
+    //this.TreeView1.onEndDock = __onTVEndDock;
+    //this.TreeView1.onEndDrag = __onTVEndDrag;
+    this.TreeView1.onEnter = __onTVEnter;
+    this.TreeView1.onExit = __onTVExit;
+    this.TreeView1.onExpanded = __onTVExpanded;
+    this.TreeView1.onExpanding = __onTVExpanding;
+    //this.TreeView1.onGetImageIndex = __onTVGetImageIndex;
+    //this.TreeView1.onGetSelectedIndex = __onTVGetSelectedIndex;
+    //this.TreeView1.onKeyDown = __onTVKeyDown;
+    //this.TreeView1.onKeyPress = __onTVKeyPress;
+    //this.TreeView1.onKeyUp = __onTVKeyUp;
+    //this.TreeView1.onMouseDown = __onTVMouseDown;
+    this.TreeView1.onMouseMove = __onTVMouseMove;
+    //this.TreeView1.onMouseUp = __onTVMouseUp;
+    //this.TreeView1.onStartDock = __onTVStartDock;
+    //this.TreeView1.onStartDrag = __onTVStartDrag;
+    
+    this.ListView2.checkboxes = true;
+    this.ToolButton1.onClick = btn1;
+    this.ToolButton2.onClick = btn2;
+    this.ToolButton3.onClick = btn3;
+    this.ToolButton4.onClick = btn4;
+    this.ToolButton5.onClick = btn5;
+    this.ToolButton6.onClick = btn6;
+    this.ToolButton7.onClick = btn7;
+    this.ToolButton8.onClick = btn8;
+    this.ToolButton9.onClick = btn9;
+    this.ToolButton10.onClick = btn10;
+    this.ToolButton11.onClick = btn11;
+    this.ToolButton12.onClick = btn12;
+    this.ToolButton13.onClick = btn13;
+    this.ToolButton14.onClick = btn14;
+    this.ToolButton15.onClick = btn15;
+    this.ToolButton16.onClick = btn16;
+    this.ToolButton17.onClick = btn17;
+    this.ToolButton18.onClick = btn18;
+    this.ToolButton19.onClick = btn19;
+    this.ToolButton20.onClick = btn20;
+    this.ToolButton21.onClick = btn21;
+    this.ToolButton22.onClick = btn22;
+    this.ToolButton23.onClick = btn23;
+    this.ToolButton24.onClick = btn24;
+    this.ToolButton25.onClick = btn25;
+    this.ToolButton26.onClick = btn26;
+    this.ToolButton27.onClick = btn27;
+    this.ToolButton28.onClick = btn28;
+    this.ToolButton29.onClick = btn29;
+    this.ToolButton30.onClick = btn30;
+    this.ToolButton31.onClick = btn31;
+    this.ToolButton32.onClick = btn32;
+    this.ToolButton33.onClick = btn33;
+    this.ToolButton34.onClick = btn34;
+    this.ToolButton35.onClick = btn35;
+    this.ToolButton36.onClick = btn36;
+    this.ToolButton37.onClick = btn37;
+    this.ToolButton38.onClick = btn38;
+    this.ToolButton39.onClick = btn39;
+    this.ToolButton40.onClick = btn40;
+    this.ToolButton41.onClick = btn41;
+    this.ToolButton42.onClick = btn42;
+    this.ToolButton43.onClick = btn43;
+    this.ToolButton44.onClick = btn44;
+    this.ToolButton45.onClick = btn45;
+    this.ToolButton46.onClick = btn46;
+    this.ToolButton47.onClick = btn47;
+    this.ToolButton48.onClick = btn48;
+    this.ToolButton49.onClick = btn49;
+    this.ToolButton50.onClick = btn50;
+  }
+  
+  function btn1(){
+    this.ListView2.items.add().caption = 'add' + this.ListView2.items.count;
+  }
+  function btn5(){
+    this.ListView2.items[0].editCaption();
+  }
+  function btn4(){
+    for(var i in this.ListView2)
+      println('ListView: ' + i + ' = ' + this.ListView2[i]);
+      
+    for(var item in this.ListView2.items)
+      for(var i in item)
+        println('ListItem: ' + i + ' = ' + item[i]);
+  }
+  function btn3(){
+    this.ListView2.items[0].cancelEdit();
+    println(this.ListView2.items[0].displayRect('drBounds'));
+  }
+  function btn2(){
+    this.ListView2.items[0].delete();
+  }
+  function btn6(){
+    this.ListView2.items[0].makeVisible(true);
+    this.ListView2.items[0].update();
+  }
+  function btn7(){
+    this.ListView2.items[0].subitems.commaText = 'aaa,bbb,ccc,ddd';
+  }
+  function btn8(){
+    println(this.ListView2.items[0].subItemImages[0]);
+  }
+  function btn9(){
+    this.ListView2.items[0].data = new Object;
+  }
+  function btn10(){
+    println(this.ListView2.items[0].data);
+  }
+  function btn11(){
+    println(this.ListView2.owner);
+    this.tag = 20;
+  }
+  function btn12(){
+    //this.ListView2;
+    println(this.tag);
+    this.ListView2.items.beginUpdate();
+    try{
+      this.ListView2.items.clear();
+    }finally{
+      this.ListView2.items.endUpdate();
+    }
+  }
+  function btn13(){
+    println(this.ListView2.items.indexOf(this.ListView2.selected));
+  }
+  function btn14(){
+    with(this.ListView2.items.insert(3)){
+      this.caption = 'insert';
+      this.data = this;
+    }
+    this.ListView2.items[3] = this.ListView2.items[2];
+  }
+  function btn15(){
+    this.ListView2.column.add().caption = '‚ ‚ ‚ ';
+    println(this.ListView2.columns.count);
+  }
+  function btn16(){
+    with(this.ListView2.items){
+      for(var i= 0;i<10;i++)
+        add().caption = format('random%d',i);
+    }
+  }
+  function btn17(){
+    this.ListView2.alphaSort();
+    println(this.ListView2.stringWidth('‚ ‚¢‚¤‚¦‚¨'));
+    this.ListView2.updateItems(0,10);
+  }
+  function btn18(){
+    this.ListView2.items[0].data = this;
+    this.ListView2.items[1].data = this;
+    this.ListView2.items[1] = this.ListView2.items[0];
+  }
+  function btn19(){
+    this.ListView2.items[0].data = this.ListView2.items[0];
+    this.ListView2.items[1].data = this.ListView2.items[1];
+    this.ListView2.items[1] = this.ListView2.items[0];
+  }
+  function btn20(){
+    this.ListView2.items[0].data = this.ListView2;
+    this.ListView2.items[1].data = this.ListView2;
+    this.ListView2.items[1] = this.ListView2.items[0];
+  }
+  function btn21(){
+    this.ListView2;
+  }
+  function btn22(){
+    //this.ListView2;
+    println(this.getEvents().join("\n"));
+  }
+  function btn23(){
+    Global.println(saveToText());
+  }
+  function btn24(){
+    this.ListView2.acceptDrop = true;
+  }
+  function btn25(){
+    this.ListView2.acceptDrop = false;
+  }
+  //TreeView
+  function topnode(){
+    return this.TreeView1.topItem;
+  }
+  function selectnode(){
+    return this.TreeView1.selected;
+  }
+  function btn26(){
+    this.TreeView1.items.add(topnode(),'add' + Math.random(1000));
+    this.TreeView1.fullExpand();
+  }
+  function btn27(){
+    this.TreeView1.items.addChild(selectnode(),'add' + Math.random(1000));
+    this.TreeView1.fullExpand();
+  }
+  function btn28(){
+    this.TreeView1.alphaSort();
+  }
+  function btn29(){
+    selectnode().alphaSort();
+    
+    
+  }
+  function btn30(){
+    println(selectnode().displayRect(true));
+    this.TreeView1.isEditing() ? selectnode().endEdit(false) : selectnode().editText();
+  }
+  function btn31(){
+    this.TreeView1.items.beginUpdate();
+    try{
+      selectnode().delete();
+    }finally{
+      this.TreeView1.items.endUpdate();
+    }
+    
+  }
+  function btn32(){
+    selectnode().deleteChildren();
+  }
+  function btn33(){
+    selectnode().expanded ? selectnode().collapse(true) : selectnode().expand(true);
+  }
+  function btn34(){
+    println(selectnode().getFirstChild().text);
+    println(selectnode().getLastChild().text);
+    println(selectnode().getNextChild(selectnode()).text);    
+    println(selectnode().getNextSibling().text);
+    println(selectnode().getNextVisible().text);
+  }
+  function btn35(){
+    println(selectnode().getPrev().text);
+    println(selectnode().getPrevChild(selectnode()).text);
+    println(selectnode().getPrevSibling().text);
+    println(selectnode().getPrevVisible().text);
+  }
+  function btn36(){
+    this.TreeView1.selected = selectnode().getNext();
+  }
+  function btn37(){
+    println(selectnode().hasAsParent(this.TreeView1.topItem));
+    println(this.TreeView1.topItem.indexOf(selectnode()));
+  }
+  function btn38(){
+    for(var item in selectnode()){
+      for(var i in item.getProperties())
+        println(i + ' : ' + item[i]);      
+    }
+  }
+  function btn39(){
+    this.TreeView1.topItem[0].data = this;
+    this.TreeView1.selected[0].data = this;
+    this.TreeView1.selected[0] = this.TreeView1.topItem[0];
+  }
+  function btn40(){
+    this.TreeView1.topItem[0].makeVisible();
+    selectnode().moveTo(topnode(),'naAddChild');
+  }
+  function btn41(){
+    this.TreeView1.items.addChildFirst(selectnode(),'addchildfirst' + Math.random(1000));
+    this.TreeView1.items.addChildObject(selectnode(),'addchildObject' + Math.random(1000),this);
+    this.TreeView1.items.addChildObjectFirst(selectnode(),'addchildObjectfirst' + Math.random(1000),this);
+    this.TreeView1.items.addFirst(selectnode(),'addfirst' + Math.random(1000));
+    this.TreeView1.items.addObject(selectnode(),'addObject' + Math.random(1000),this);
+    this.TreeView1.items.addObjectFirst(selectnode(),'addObjectfirst' + Math.random(1000),this);
+    this.TreeView1.items.insert(selectnode(),'insert' + Math.random(1000));
+    this.TreeView1.items.insertObject(selectnode(),'insertObject' + Math.random(1000),this);
+
+    this.TreeView1.fullExpand();
+  }
+  function btn42(){
+    this.TreeView1.items.beginUpdate();
+    try{
+      this.TreeView1.items.clear();
+    }finally{
+      this.TreeView1.items.endUpdate();
+    }
+  }
+  function btn43(){
+    this.TreeView1.items.delete(selectnode());
+  }
+  function btn44(){
+    this.TreeView1.items.getFirstNode().makeVisible();
+    println(this.TreeView1.items.getNode(selectnode().itemId));
+  }
+  function btn45(){
+    this.TreeView1.fullCollapse();
+  }
+  function btn46(){
+    println(this.TreeView1.isEditing());
+  }
+  function btn47(){
+    this.TreeView1.saveToFile('node.txt');
+  }
+  function btn48(){
+    this.TreeView1.loadFromFile('node.txt');
+  }
+  function btn49(){
+    this.TreeView1.acceptDrop = true;
+  }
+  function btn50(){
+    this.TreeView1.acceptDrop = false;
+  }
+
+  
+  
+  function __onChange(sender,item,change){
+    println('change: ' + item.caption + ' - ' + change);
+  }
+  function __onChanging(sender,item,change,allow){
+    println('changing: ' + item.caption + ' - ' + change + ' - ' + allow);
+  }  
+  function __onColumnClick(sender,column){
+    println('colmn click: ' + column.caption);
+  }
+  function __onColumnRightClick(sender,column,point){
+    println('colmn click: ' + column.caption + ' - ' + point);
+  }
+  function __onAdvancedCustomDraw(sender,rect,stage){
+    println('__onAdvancedCustomDraw: ');
+  }
+  function __onAdvancedCustomDrawItem(sender,item,state,stage,ref_defaultdraw){
+    println('__onAdvancedCustomDrawItem: ');
+  }
+  function __onAdvancedCustomDrawSubItem(sender,item,sub,state,stage,ref_defaultdraw){
+    println('__onAdvancedCustomDrawSubItem: ');
+  }
+  function __onChange(sender,item,change){
+    println('__onChange: ' + item.caption + ' ' + change);
+  }
+  function __onChanging(sender,item,change,ref_allowchange){
+    println('__onChanging: ' + format('%s %s %s',item.caption,change,ref_allowchange));
+  }
+  function __onClick(sender){
+    println('__onClick: ');
+  }
+  function __onCompare(sender,item1,item2,data,ref_compare){
+    println('__onCompare: ' + format('%s %s',item1.caption,item2.caption));
+  }
+  function __onContextPopup(sender){
+    println('__onContextPopup: ');
+  }
+  function __onCustomDraw(sender){
+    println('__onCustomDraw: ');
+  }
+  function __onCustomDrawItem(sender){
+    println('__onCustomDrawItem: ');
+  }
+  function __onCustomDrawSubItem(sender){
+    println('__onCustomDrawSubItem: ');
+  }
+  function __onData(sender,item){
+    println('__onData: ' + item.caption);
+  }
+  function __onDataFind(sender,find,findstr,findpos,finddata,start,end,direction,wrap,ref_index){
+    println('__onDataFind: ');
+  }
+  function __onDataHint(sender,start,end){
+    println('__onDataHint: ' + format('%d %d',start,end));
+  }
+  function __onDataStateChange(sender,start,end,oldstate,newstate){
+    println('__onDataStateChange: ');
+  }
+  function __onDblClick(sender){
+    println('__onDblClick: ');
+  }
+  function __onDeletion(sender,item){
+    println('__onDeletion: ' + item.caption);
+  }
+  function __onDragDrop(sender){
+    println('__onDragDrop: ');
+  }
+  function __onDragOver(sender){
+    println('__onDragOver: ');
+  }
+  function __onDrawItem(sender){
+    println('__onDrawItem: ');
+  }
+  function __onEdited(sender,item,ref_str){
+    println('__onEdited: ' + format('%s %s',item.caption,ref_str));
+  }
+  function __onEditing(sender,item,ref_allowedit){
+    println('__onEditing: ' + format('%s %s',item.caption,ref_allowedit));
+  }
+  function __onEndDock(sender){
+    println('__onEndDock: ');
+  }
+  function __onEndDrag(sender){
+    println('__onEndDrag: ');
+  }
+  function __onEnter(sender){
+    println('__onEnter: ');
+  }
+  function __onExit(sender){
+    println('__onExit: ');
+  }
+  function __onGetImageIndex(sender,item){
+    println('__onGetImageIndex: ' + item.caption);
+  }
+  function __onGetSubItemImage(sender,item,sub,ref_imageindex){
+    println('__onGetSubItemImage: ' + format('%s %d %d',item.caption,sub,ref_imageindex));
+  }
+  function __onInfoTip(sender,item,ref_infotip){
+    println('__onInfoTip: ' + format('%s %s'),item.caption,ref_infotip);
+  }
+  function __onInsert(sender,item){
+    println('__onInsert: ' + item.caption);
+  }
+  function __onKeyDown(sender){
+    println('__onKeyDown: ');
+  }
+  function __onKeyPress(sender){
+    println('__onKeyPress: ');
+  }
+  function __onKeyUp(sender){
+    println('__onKeyUp: ');
+  }
+  function __onMouseDown(sender){
+    println('__onMouseDown: ');
+  }
+  function __onMouseMove(sender,shift,x,y){
+    //println('__onMouseMove: ');
+    Edit1.text = ListView2.getHitTestInfoAt(x,y);
+  }
+  function __onMouseUp(sender){
+    println('__onMouseUp: ');
+  }
+  function __onResize(sender){
+    println('__onResize: ');
+  }
+  function __onSelectItem(sender,item,selected){
+    println('__onSelectItem: ' + format('%s %s',item.caption,selected));
+  }
+  function __onStartDock(sender){
+    println('__onStartDock: ');
+  }
+  function __onStartDrag(sender){
+    println('__onStartDrag: ');
+  }
+  //TreeView
+  function __onTVAdvancedCustomDraw(sender,rect,stage){
+    println('__onTVAdvancedCustomDraw: ' + format(''));
+  }
+  function __onTVAdvancedCustomDrawItem(sender,node,state,stage,r_paintimages,r_defaultdraw){
+    println('__onTVAdvancedCustomDrawItem: ' + format(''));
+  }
+  function __onTVChange(sender,node){
+    println('__onTVChange: ' + format('%s',node.text));
+  }
+  function __onTVChanging(sender,node,r_allowchange){
+    println('__onTVChanging: ' + format('%s %s',node.text,r_allowchange));
+  }
+  function __onTVClick(sender){
+    //println('__onTVClick: ' + format(''));
+    var f = new File(selectnode().data);
+    if(f.exists())
+      Memo2.lines.loadFromFile(f.filename);    
+  }
+  function __onTVCollapsed(sender,node){
+    println('__onTVCollapsed: ' + format('%s',node.text));
+  }
+  function __onTVCollapsing(sender,node,r_allow){
+    println('__onTVCollapsing: ' + format('%s %s',node.text,r_allow));
+  }
+  function __onTVCompare(sender,node1,node2,data,r_compare){
+    println('__onTVCompare: ' + format('%s %s %d %s',node1.text,node2.text,data,r_compare));
+  }
+  function __onTVContextPopup(sender){
+    println('__onTVContextPopup: ' + format(''));
+  }
+  function __onTVCustomDraw(sender){
+    println('__onTVCustomDraw: ' + format(''));
+  }
+  function __onTVCustomDrawItem(sender){
+    println('__onTVCustomDrawItem: ' + format(''));
+  }
+  function __onTVDblClick(sender){
+    println('__onTVDblClick: ' + format(''));
+  }
+  function __onTVDeletion(sender,node){
+    println('__onTVDeletion: ' + format('%s',node.text));
+  }
+  function __onTVDragDrop(sender){
+    println('__onTVDragDrop: ' + format(''));
+  }
+  function __onTVDragOver(sender){
+    println('__onTVDragOver: ' + format(''));
+  }
+  function __onTVEdited(sender,node,r_s){
+    println('__onTVEdited: ' + format('%s %s',node.text,r_s));
+  }
+  function __onTVEditing(sender,node,r_allow){
+    println('__onTVEditing: ' + format('%s %s',node.text,r_allow));
+  }
+  function __onTVEndDock(sender){
+    println('__onTVEndDock: ' + format(''));
+  }
+  function __onTVEndDrag(sender){
+    println('__onTVEndDrag: ' + format(''));
+  }
+  function __onTVEnter(sender){
+    println('__onTVEnter: ' + format(''));
+  }
+  function __onTVExit(sender){
+    println('__onTVExit: ' + format(''));
+  }
+  function __onTVExpanded(sender,node){
+    println('__onTVExpanded: ' + format('%s',node.text));
+  }
+  function __onTVExpanding(sender,node,r_allow){
+    println('__onTVExpanding: ' + format('%s %s',node.text,r_allow));
+  }
+  function __onTVGetImageIndex(sender,node){
+    println('__onTVGetImageIndex: ' + format('%s',node.text));
+  }
+  function __onTVGetSelectedIndex(sender,node){
+    println('__onTVGetSelectedIndex: ' + format('%s',node.text));
+  }
+  function __onTVKeyDown(sender){
+    println('__onTVKeyDown: ' + format(''));
+  }
+  function __onTVKeyPress(sender){
+    println('__onTVKeyPress: ' + format(''));
+  }
+  function __onTVKeyUp(sender){
+    println('__onTVKeyUp: ' + format(''));
+  }
+  function __onTVMouseDown(sender){
+    println('__onTVMouseDown: ' + format(''));
+  }
+  function __onTVMouseMove(sender,shift,x,y){
+    //println('__onTVMouseMove: ' + format(''));
+    Edit2.text = TreeView1.getHitTestInfoAt(x,y);
+    var a = TreeView1.getNodeAt(x,y);
+    a ? Edit3.text = a.text : 0; 
+      
+  }
+  function __onTVMouseUp(sender){
+    println('__onTVMouseUp: ' + format(''));
+  }
+  function __onTVStartDock(sender){
+    println('__onTVStartDock: ' + format(''));
+  }
+  function __onTVStartDrag(sender){
+    println('__onTVStartDrag: ' + format(''));
+  }
+  //D&D
+  function __onDragDropFiles(sender,x,y,files){
+    for(var file in files)
+      ListView2.items.add().caption = file;
+  }
+  function __onDragDropText(sender,x,y,url){
+    ListView2.items.add().caption = url;
+  }
+  function __onTVDragDropFiles(sender,x,y,files){
+    var f = new File;
+    TreeView1.items.beginUpdate();
+    try{    
+      function search(directory,node){
+        var d = new Directory(directory);
+        for(var file in d.files){
+          f.filename = file;
+          var tmp = TreeView1.items.addChild(node,f.extractName());
+          tmp.data = new String(file);
+        }
+        
+        for(var dir in d.directories){
+          f.filename = dir;
+          search(dir,TreeView1.items.add(node,f.extractName()));
+        }
+      }
+      
+      //for(var file in files)
+      //  TreeView1.items.addChild(null,file);
+      f.filename = files[0];
+      search(f.extractDir(),null);
+    }finally{
+      TreeView1.items.endUpdate();
+    }
+    
+  }
+  function __onTVDragDropText(sender,x,y,url){
+    TreeView1.items.add(null,url);
+  }
+  
+
+}
+
+
+
+
+
+var a = new TreeListView(true);
+a.show();
+
+eventLoop();

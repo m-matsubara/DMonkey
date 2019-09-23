@@ -1,0 +1,5 @@
+
+
+var shell = new ActiveXObject('WScript.Shell'); 
+var exe = shell.Exec('ipconfig.exe');
+println(exe.StdOut.ReadAll());

@@ -1,0 +1,182 @@
+@set @VERSION7 = true
+
+var re = new RegExp('\{x\:([0-9]+)\,y\:([0-9]+)\}');
+var s = '{x:100,y:200}';
+re.test(s);
+for(var i in re)
+  println(i + ':' + re[i]);
+
+  var re = new RegExp('(((;)))','igm');
+  var a = '100;200;300;400';
+  println(re.test(a));
+  for(var i in re)
+    println(i + ': ' + re[i]);
+
+  for(var i in RegExp)
+    println(i + ': ' + RegExp[i]);  
+
+  var b = re.split(a);
+  for(var i in b)
+    println(i);
+
+  println(b.join().replace(/\,/igm,'*')); //100*200*300*400
+
+  var re = new RegExp('a+','g');
+  var a = 'akgatranavayakhahjajatdaa';
+  var b = re.exec(a);
+  println(b);
+
+// JScriptのみ...
+function p(s){println(s);}
+
+p("JScript and VBScript".match(/Script/));  // 返り値は"Script"
+p("JScript and VBScript".match(/Script/g)); // 返り値は"Script,Script"
+
+p("JScript and javascript".match(/(\w*script)/));  // RegExp.$1は"javascript"
+p("JScript and javascript".match(/(\w*script)/i)); // RegExp.$1は"JScript"
+
+p("JScript\nVBScript".match(/Script$/g));  // 返り値は"Script"
+p("JScript\nVBScript".match(/Script$/gm)); // 返り値は"Script,Script"
+
+
+
+var a = 'abcDEF';
+println(a.replace(/(abc)(DEF)/,"$2$1"));
+println(RegExp.$1);
+RegExp.aaa = function(){return this.$1;};
+println(RegExp.aaa());
+
+
+function ReplaceDemo(){
+   var r, re;                    //変数を宣言します。
+   var ss = "The man hit the ball with the bat.\n";
+   ss += "while the fielder caught the ball with the glove.";
+   re = /The/g;             //正規表現パターンを作成します。
+   r = ss.replace(re, "A");    //"A" を "The" に置換します。
+   return(r);                   //置換後の文字列を返します。
+}
+println(ReplaceDemo());
+
+function ReplaceDemo(){
+   var r, re;                    //変数を宣言します。
+   var ss = "The rain in Spain falls mainly in the plain.";
+   re = /(\S+)(\s+)(\S+)/g;             //正規表現パターンを作成します。
+   r = ss.replace(re, "$3$2$1");   // 単語の各ペアを交換します。
+   return(r);                      // 結果の文字列を返します。
+}
+println(ReplaceDemo());
+
+xx2 = "ABc".replace(/(.)(.)/ig,
+    function(str, p1, p2) {
+        println(str + ' ' + p1 + ' ' + p2);
+        return(p2 + p1);
+    });
+println(xx2);
+
+function f2c(s) {
+var test = /(\d+(\.\d*)?)F/g;    // パターンを初期化します。
+  return(s.replace
+    (test,
+      function($0,$1,$2) { 
+        println($1);
+        return((($1-32) * 5/9) + "C");
+      }
+    )
+  );
+}
+println(f2c("Water freezes at 32F and boils at 212F."));
+println(RegExp.$_);
+println(RegExp.$&);
+println(RegExp.$`);
+println(RegExp.$");
+println(RegExp.$+);
+println(RegExp.$*);
+$ = 10;
+println($+2);
+
+function alert(s){println(s);}
+function Doc(){
+  this.write = Global.println;
+}
+var document = new Doc;
+
+str = "ABCDEFG";
+re = new RegExp("DEF", "i");
+if (str.match(re)) {
+    alert("DEFを含んでいます。");
+}
+
+str = "ABCDEF";
+if (str.match(/DEF/i)) {
+    alert("DEFを含んでいます。");
+}
+
+str = "12:34:56";
+if (str.match(/^[0-9][0-9]:[0-9][0-9]:[0-9][0-9]$/) ){
+  alert("マッチしました。");
+}
+
+re = new RegExp("DEF", "ig");
+document.write(re.ignoreCase + "<br>");   // → true
+document.write(re.global + "<br>");       // → true
+document.write(re.source + "<br>");       // → DEF
+
+if ("abc".match(/ABC/)) { alert("マッチ!!1"); }    // マッチしない
+if ("abc".match(/ABC/i)) { alert("マッチ!!2"); }   // マッチする
+
+xx = "12:34:56".match(/\d+/g);
+document.write(xx.length + "<br>"); // → 3
+document.write(xx[0] + "<br>"); // → "12"
+document.write(xx[1] + "<br>"); // → "34"
+document.write(xx[2] + "<br>"); // → "56"
+
+str = "123\n456\n789";                           // \n は改行
+if (str.match(/^456/)) { alert("マッチ!!3"); }    // マッチしない
+if (str.match(/^456/m)) { alert("マッチ!!4"); }   // マッチする
+
+xx = "12:34:56".match(/(\d+):(\d+):(\d+)/);
+document.write(RegExp.$1 + "<br>"); // → 12
+document.write(RegExp.$2 + "<br>"); // → 34
+document.write(RegExp.$3 + "<br>"); // → 56
+
+re = new RegExp("[0-9]+");
+//document.write(re("abc123") + "<br>");              // → 123
+document.write(re.exec("abc123") + "<br>");         // → 123
+document.write("abc123".match(re) + "<br>");        // → 123
+document.write("abc123".match(/[0-9]+/) + "<br>");  // → 123
+
+re = new RegExp("[0-9]+");
+if (re.test("abc123")) { alert("マッチ!!"); }
+
+re = new RegExp("[0-9]+");
+RegExp.input = "abc123";
+document.write(re.exec());
+RegExp.input = "xyz456";
+document.write(re.exec());
+
+//RegExp.multiline = false;
+document.write("123\n456\n789".match(/^456/) + "<br>");
+//RegExp.multiline = true;
+document.write("123\n456\n789".match(/^456/m) + "<br>");
+
+"12:34:56".match(/(\d+):(\d+):(\d+)/);
+document.write(RegExp.$1 + "<br>");   // → 12
+document.write(RegExp.$2 + "<br>");   // → 34
+document.write(RegExp.$3 + "<br>");   // → 56
+
+re = new RegExp("123");
+"abc123def".match(re);
+document.write(RegExp.index);     // → 3
+document.write(RegExp.lastIndex); // → 6
+document.write(re.lastIndex);     // → 6
+
+"abc123def".match(/(123)/);
+document.write(RegExp.lastMatch + "<br>");    // → 123
+document.write(RegExp.leftContext + "<br>");  // → abc
+document.write(RegExp.rightContext + "<br>"); // → def
+document.write(RegExp.lastParen + "<br>");    // → 123
+
+
+a = 'abcde'.replace(/(abc)/,"$1\n");
+println(a);
+

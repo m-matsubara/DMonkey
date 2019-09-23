@@ -1,0 +1,20 @@
+
+function ShowDriveInfo1(drvPath){
+  var s = '';
+  var fso = new ActiveXObject("Scripting.FileSystemObject");
+  var drv = fso.GetDrive(fso.GetDriveName(drvPath));
+  s += "ドライブ " + drvPath.toUpperCase()+ " - ";
+  s += drv.VolumeName + "\n";
+  s += "合計サイズ: " + drv.TotalSize / 1024;
+  s += " KB" + "\n";
+  s += "空き領域: " + drv.FreeSpace / 1024;
+  s += " KB" + "\n";
+  println(s);
+}
+
+ShowDriveInfo1('c:\');
+
+var oIE = WScript.CreateObject("InternetExplorer.Application");
+oIE.Navigate2("about:blank");
+var s = oIE.document.parentWindow.prompt("何か");
+println(s);

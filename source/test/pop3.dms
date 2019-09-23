@@ -1,0 +1,16 @@
+  var p = new POP3;
+  p.host = '127.0.0.1';
+  p.port = 110;
+  p.userid = 'test';
+  p.password = 'test';
+  try{
+    p.connect();
+    for(i = 1;i <= p.length; i++){ //ƒ[ƒ‹”Ô†‚Í1‚©‚ç
+      p.getMail(i);
+      println(p.mail.header);
+      println(p.mail.body);
+    }
+  }
+  finally{
+    p.disconnect();
+  }

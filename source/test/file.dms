@@ -1,0 +1,38 @@
+  var f = new File('temp.txt');
+  try{
+    f.open('w'); //書き込みモードで開く
+    f.writeln('hello,'); 
+    f.write('world');
+  }
+  catch(e){
+    println(e);
+  }
+  finally{
+    f.close();
+  }
+
+
+  var f = new File('temp.txt');
+  try{
+    f.open('r'); //読み込みモードで開く
+    var s = f.read();//すべて読む
+    println(s);
+    f.seek(0);  //最初に戻る
+    s = f.readln(); //1行読む
+    println(s);
+  }
+  catch(e){
+    println(e);
+  }
+  finally{
+    f.close();
+  }
+
+  var f = new File('c:\program files\irvine\irvine.exe');
+  println(f.extractName());
+  println(f.extractPath());
+  println(f.extractDir());
+  println(f.extractDrive());
+  println(f.extractExt());
+  println(f.changeExt('.jpg'));
+

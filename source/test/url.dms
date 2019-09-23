@@ -1,0 +1,18 @@
+  var u = new URL('http://127.0.0.1/dir/index.html?qqq');
+  println(u.url);
+  println(u.protocol);
+  println(u.host);
+  println(u.path);
+  println(u.dir);
+  println(u.filename);
+  println(u.query);
+  
+var u = new URL('http://127.0.0.1/dir1/dir2/dir3/dir4/index.html');
+println(u);
+println(u.expand('new'));
+println(u.expand('/new'));
+println(u.expand('./new'));
+println(u.expand('../new'));
+println(u.expand('../../new')); 
+
+

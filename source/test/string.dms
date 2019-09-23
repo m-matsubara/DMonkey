@@ -1,0 +1,84 @@
+var a = 'ｱｲｳｴｵ';
+println(a);
+println(a = a.toZenkaku());
+println(a = a.toHiragana());
+println(a = a.toKatakana());
+println(a.toHankaku());
+
+var a = 'あいうえおあいうえお';
+println(a.indexOf('い'));
+println(a.lastIndexOf('い'));
+println(a.localeCompare('感じ123'));
+println(a.length);
+println(a.sizeOf());
+println(a[2,5]);
+
+var a = new String(a);
+a[2,5] = 'かきくけこ';
+println(a);
+
+println("JScript and VBScript are terminated in MS".replace(/script/ig, "スクリプト"));
+//println("The man has lived in the world".replace(/lived/, "$&".reverse()));
+println("JScript and VBScript".match(/script/ig));
+println("JScript and VBScript".search(/script/i));
+println("<acroあnym>".slice(1));
+
+var objString = new String("developer.netscape.com/evangelism/docs/technotes/");
+
+println(objString.split("/") );
+println(objString.split("/", 2));
+println(objString.split(/.o./));
+
+var objString = new String("JavaScript");
+println(objString.substr(4));
+println(objString.substr(0, 4));
+
+println(objString.substring(4, 10));
+println(objString.substring(10, 4));
+
+  var b = a.toEUC();
+  var c = a.toJIS();
+  println(b);
+  println(c);
+  println(b.fromEUCtoSJIS());
+  println(c.fromJIStoSJIS());
+
+  var s = new String('あいうえお');
+  println(s.toString());
+  
+  @set @VERSION7 = true
+  for(var i in s)
+    println(i);  
+
+  var s = 'aあbいcうdえeお';
+  for(var i = 0; i < s.length; i++)
+    print(s[i]);
+ /*
+  var pass = prompt('パスワードを入力してください','');
+  //saltは最初の二文字
+  var salt = pass;
+  */
+  /*chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTQVWXYZ';
+  salt = chars[Math.floor(Math.random() * chars.length)] + 
+         chars[Math.floor(Math.random() * chars.length)];
+  */;
+  //暗号化
+  /*
+  println(c = pass.crypt(salt));
+  var a = prompt('確認のパスワードを入力してください','');
+  if(a){ 
+    //暗号化された文字をsaltに使う
+    if(c == a.crypt(c))
+      println('正解です');
+    else
+      println('違います');
+  }
+*/
+  
+
+
+b='123';
+println('abcdefg'.substr(b.length));
+
+var a = 'abcdefg';
+println(a.lastIndexOf('cd'));

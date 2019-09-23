@@ -1,0 +1,110 @@
+  @set @VERSION7 = true
+  
+  var a = new Object;
+  a['hello'] = 'world';
+  println(a['hello']);
+  println(a.hello);
+  println(a.hasOwnProperty('hello'));
+
+  var obj = {hello : 'world', foo : 10, 1 : 'abc' , '2' : 3}; //object生成
+  println(obj.hello);
+  println(obj.foo);
+  println(obj[1]);
+  println(obj[2]);
+
+  for(var i in obj.getProperties())
+    println(i + ' : ' + obj[i]);
+
+function _inc(){
+  return this.counter += 1;
+}
+function _dec(){
+  return this.counter -= 1;
+}
+  //擬似的なオブジェクト定義
+  var a = {counter: 0,
+       inc: _inc,
+       dec: _dec
+      };
+  var b = {counter: 0,
+       inc: _inc,
+       dec: _dec
+      };
+
+  for(var i = 0; i < 10; i++)
+    a.inc();
+
+  for(var i = 0; i < 10; i++)
+    b.dec();
+
+  println(a.counter);
+  println(b.counter);
+
+
+function ForInDemo(){
+   // Create some variables.
+   var a, key, s = "";
+   // Initialize object.
+   a = {"a" : "Athens" , "b" : "Belgrade", "c" : "Cairo"};
+   // Iterate the properties.
+   for (key in a)   {
+      s += a[key] + "\n";
+   }
+   return(s);
+}
+println(ForInDemo());
+
+
+//コンストラクタ
+function StringBuffer(){
+	this.buffer = new Array();
+}
+
+//バッファに文字列を追記する
+function StringBuffer_append(strAppend){
+
+	this.buffer[this.buffer.length] = strAppend;
+}
+
+//バッファの内容を返す
+function StringBuffer_toString(){
+
+	return this.buffer.join("");
+
+}
+
+//バッファをクリアする
+function StringBuffer_clear(){
+
+	this.buffer = new Array();
+
+}
+
+//バッファ文字列の長さを得る
+function StringBuffer_length(){
+
+	var len = 0;
+	for(var i = 0 ; i < this.buffer.length ; i++){
+		len += this.buffer[i].length;
+	}
+	return len;
+	//return this.buffer.join("").length
+}
+
+StringBuffer.prototype.append = StringBuffer_append;
+StringBuffer.prototype.toStr = StringBuffer_toString;
+StringBuffer.prototype.clear = StringBuffer_clear;
+StringBuffer.prototype.length = StringBuffer_length;
+
+
+var sb = new StringBuffer();
+sb.append("aaaaa");
+sb.append("bbbbb");
+println(sb.toStr());
+
+
+function ret1(){
+  return new StringBuffer();
+}
+
+println(ret1());

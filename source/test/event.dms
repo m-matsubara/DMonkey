@@ -1,0 +1,22 @@
+function on_DownloadBegin(){
+  var date = new Date;
+  println("Download begins at " + date);
+}
+function on_DownloadComplete(){
+  var date = new Date;
+  println("Download complete at " + date);
+}
+function on_OnVisible(b){println('visible: ' + b);}
+function on_OnQuit(){println('Quit'); terminate();}
+function on_StatusTextChange(text){ println(text);}
+
+var IE = WScript.CreateObject("InternetExplorer.Application", "on_");
+//var IE = WScript.CreateObject("InternetExplorer.Application");
+//WScript.ConnectObject(IE,'on_');
+IE.Visible = true;
+IE.Navigate ("http://www.google.com");
+//WScript.DisconnectObject(IE);//	'Undo the event connection.
+//IE = null;
+
+eventLoop();
+

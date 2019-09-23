@@ -1,0 +1,21 @@
+var fs = WScript.CreateObject("Scripting.FileSystemObject");
+var f = fs.GetFolder(".");
+println(f.SubFolders.Count);
+//すべてのサブフォルダを表示
+var subfc = new Enumerator(f.SubFolders);
+for(; !subfc.atEnd(); subfc.moveNext())
+    println("[" + subfc.item().Name + "]");
+
+
+
+//すべてのファイルを表示
+var fc = new Enumerator(f.Files);
+for(; !fc.atEnd(); fc.moveNext())
+    println(fc.item().Name);
+
+
+var fso = new ActiveXObject("Scripting.FileSystemObject");
+var objEnum = new Enumerator(fso.GetFolder("C:\\").files);
+
+for(; !objEnum.atEnd(); objEnum.moveNext())
+  println(objEnum.item().Name);

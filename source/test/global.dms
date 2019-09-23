@@ -1,0 +1,76 @@
+  var a = 'Ç†Ç¢Ç§Ç¶Ç®';
+  var b = escape(a);
+  println(b);
+  println(unescape(b));
+
+  var ret = eval('10*10;');
+  println(ret);
+
+  var a = 10;
+  if (! isNaN(a))
+    println('number');
+
+  var a = '0.9';
+  var b = 0.1;
+  println(a + b);
+  println(parseFloat(a) + b);
+
+  var a = '0xa'; //10
+  var b = 1;
+  println(a + b);
+  println(parseInt(a) + b);
+
+  alert('hello');
+  if(confirm('prompt?'))
+    a = prompt('prompt','');
+  else
+    a = textArea('textArea','');
+
+  if(a)
+    println(a);
+  else {
+    println('exit');
+    exit();
+  }
+
+   var s = ""; // ï∂éöóÒÇòAåãÇµÇ‹Ç∑ÅB
+   s += scriptEngine() + " Version ";
+   s += scriptEngineMajorVersion() + ".";
+   s += scriptEngineMinorVersion() + ".";
+   s += scriptEngineBuildVersion();
+   println(s);
+
+function p(s){println(s);}
+
+  p(escape('escape'));
+  p(unescape('%41%42%43'));
+  p(eval('print("eval");'));
+  p(isFinite(1));
+  p(isNaN(1));
+  p(parseFloat(1.1));
+  p(parseInt(1));
+  print('print');
+  p('println');
+  alert('alert');
+  p(prompt('prompt','def'));
+  p(confirm('confirm'));
+  p(textArea('textarea','def'));
+  //exit()
+  p(msgBox('msgbox',0));
+  p(scriptEngine());
+  p(scriptEngineBuildVersion());
+  p(scriptEngineMajorVersion());
+  p(scriptEngineMinorVersion());
+  try{
+    p(read(10));
+    p(readln());
+  }
+  catch(e){}
+  p(scriptEngineVersion());
+  p(applicationHandle);
+  p(mainFormHandle);
+  p(Global.arguments);
+
+
+
+

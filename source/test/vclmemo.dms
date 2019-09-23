@@ -1,0 +1,210 @@
+MB_OK = 0;
+MB_YESNOCANCEL = 0x00000003;
+ID_CANCEL = 2;
+ID_YES = 6;
+ID_NO = 7;
+UNTITLED = '無題.txt';
+
+class MemoEdit(VCLForm){
+  updated = false;
+  filename = UNTITLED;
+    
+  function MemoEdit(main){
+    this.loadFromFile('_vclmemo.dfm');
+    //loadFromText(MEMOEDIT_FORM);
+    this.main = main;
+    //D&Dサポート
+    this.acceptDrop = true;
+    this.onDragDropFiles = __onDragDropFiles;
+    this.onDragDropText = __onDragDropText;
+    memo.onMouseMove = __onMouseMove;
+    //event
+    this.memo.onChange = __onChange;
+    this.actFile.onUpdate = __onFileUpdate;
+    this.actFileNew.onExecute = __onNew;
+    this.actFileOpen.onExecute = __onOpen;
+    this.actFileSave.onExecute = __onSave;
+    this.actFileSaveAs.onExecute = __onSaveAs;
+    this.actFilePage.onExecute = __onPage;
+    this.actFilePrint.onExecute = __onPrint;
+    this.actFileClose.onExecute = __onClose;
+    this.actEditUndo.onExecute = __onUndo;
+    this.actEditCut.onExecute = __onCut;
+    this.actEditCopy.onExecute = __onCopy;
+    this.actEditPaste.onExecute = __onPaste;
+    this.actEditDelete.onExecute = __onDelete;
+    this.actEditFind.onExecute = __onFind;
+    this.actEditFindNext.onExecute = __onFindNext;
+    this.actEditReplace.onExecute = __onReplace;
+    this.actEditGoto.onExecute = __onGoto;
+    this.actEditSelectAll.onExecute = __onSelectAll;
+    this.actEditDateTime.onExecute = __onDateTime;
+    this.actFormatWordWrap.onExecute = __onWordWrap;
+    this.actFormatWordWrap.onUpdate = __onWordWrapUpdate;
+    this.actFormatFont.onExecute = __onFont;
+    this.actHelpTopic.onExecute = __onTopic;
+    this.actHelpAbout.onExecute = __onAbout;
+    
+    updateCaption();
+  }
+  
+  function checkUpdate(){
+    if(this.updated){
+      switch(msgBox("更新されています。保存しますか？",MB_YESNOCANCEL)){
+        case ID_YES: save(); break;
+        case ID_CANCEL: return false; 
+      }
+    }
+    this.updated = false;
+    return true;
+  }
+  function save(){
+    __onSaveAs();
+  }
+  function updateCaption(){
+    var f = new File(this.filename);
+    this.caption = "VCLメモ帳 - " + f.extractName();
+  }
+  function notimpl(){
+    alert('未実装です');
+  }
+  
+  function __onDragDropFiles(sender,x,y,files){
+    //D&Dを受ける
+    memo.lines.loadFromFile(files[0]);
+  }
+
+  function __onDragDropText(sender,x,y,text){
+    //D&Dを受ける
+    memo.lines.add(text);
+  }
+  
+  function __onMouseMove(sender,shift,x,y){
+    //D&Dを開始
+    if(shift.match(/ssRight/) && (memo.selLength > 0)){
+      doDragDropText(memo.selText); memo.selText = '';   //テキスト
+      //doDragDropFiles(memo.selText.split(/\n/));//ファイルのArray
+      
+    }
+  }
+
+  function __onFileUpdate(){
+    //this.updateCaption();
+  }
+  
+  function __onChange(sender){ 
+    this.updated = true;
+  }  
+  function __onNew(){
+    if (this.checkUpdate()){
+      this.memo.clear();
+      this.updated = false;
+      this.filename = UNTITLED;
+    }
+  }
+  function __onOpen(){
+    if(this.checkUpdate()){
+      this.openDialog.Filename = this.filename;
+      if(this.openDialog.execute()){
+        var f = new File(this.openDialog.Filename);
+        if(f.exists()){
+          this.memo.lines.loadFromFile(f.filename);
+          this.filename = f.filename;
+          this.updateCaption();
+        }
+      }
+    }
+  }
+  function __onSave(){
+    if(this.filename == UNTITLED)
+      __onSaveAs();
+    else
+      this.memo.lines.saveToFile(this.filename);
+      
+    this.updated = false;
+  }
+  function __onSaveAs(){
+    this.saveDialog.Filename = this.filename;
+    if(this.saveDialog.execute()){
+      this.memo.lines.saveToFile(this.saveDialog.Filename);
+      this.filename = this.saveDialog.Filename;
+      updateCaption();
+      this.updated = false;
+    }
+  }
+  function __onPage(){
+    notimpl();
+  }
+  function __onPrint(){
+    notimpl();
+  }
+  function __onClose(){
+    if(this.checkUpdate())
+      this.close();
+  }
+  function __onUndo(){
+    this.memo.undo();
+  }
+  function __onCut(){
+    this.memo.cutToClipboard();
+  }
+  function __onCopy(){
+    this.memo.copyToClipboard();
+  }
+  function __onPaste(){
+    this.memo.pasteFromClipboard();
+  }
+  function __onDelete(){
+    this.memo.selText = '';
+  }
+  function __onFind(){
+    notimpl();
+  }
+  function __onFindNext(){
+    notimpl();
+  }
+  function __onReplace(){
+    notimpl();
+  }
+  function __onGoto(){
+    notimpl();
+  }
+  function __onSelectAll(){
+    this.memo.selectAll();
+  }
+  function __onDateTime(){
+    notimpl();
+  }
+  function __onWordWrap(){
+    if(this.memo.wordWrap){
+      this.memo.scrollbars = 'ssBoth';
+      this.memo.wordWrap = false;
+    }else{
+      this.memo.scrollbars = 'ssVertical';
+      this.memo.wordWrap = true;
+    }
+  }
+  function __onWordWrapUpdate(){
+    actFormatWordWrap.checked = this.memo.wordWrap;
+  }
+  
+  function __onFont(){
+    notimpl();
+  }
+  function __onTopic(){
+    notimpl();
+  }
+  function __onAbout(){
+    msgBox("VCLメモ帳(DMonkey Script)",MB_OK);
+  }
+}
+
+
+var a = new MemoEdit(true);
+a.show();
+
+var b = new MemoEdit(false);
+b.left += 330;
+b.show();
+
+eventLoop();
