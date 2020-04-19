@@ -483,7 +483,10 @@ type
 implementation
 
 uses
-  ecma_engine,ecma_parser;
+  System.DateUtils
+  ,ecma_engine
+  ,ecma_parser
+  ;
 
 
 { TJGlobalObject }
@@ -3728,9 +3731,10 @@ begin
     begin
       //解析していれる
       v := DoParse(Param);
-      //GMTに変換
+      //LocalTimeとして変換(オリジナルのDMonkeyは引数をUTCとして処理するが、ECMAScriptの仕様では地域時間として扱うのが正しい)
       time := Trunc(AsDouble(@v));
-      UTC := ECMATimeToDateTime(time);
+      //UTC := ECMATimeToDateTime(time);
+      LocalTime := ECMATimeToDateTime(time);
     end;
   end;
 end;
@@ -3915,25 +3919,55 @@ begin
   end
   else begin
     //複数の数字
-    DecodeDate(date,y,m,d);
-    DecodeTime(date,ho,mi,se,ms);
+    //引数は年,月,日,時,分,秒,ミリ秒 を表す。「日」以降は省略可能
+    // 2020/04/04 m.matsubara DMonkeyオリジナルは次のコメントのコードで現在日時から初期値を得ていたが、ECMAScript標準に合わせ変更する
+    //DecodeDate(date,y,m,d);
+    //DecodeTime(date,ho,mi,se,ms);
+    d := 1;
+    ho := 0;
+    mi := 0;
+    se := 0;
+    ms := 0;
 
     try
+      //年
       v := Param[0];
       y := AsInteger(@v);
+      if (y < 100) then
+        y := y + 1900;
+      //月
       v := Param[1];
-      //月は１減らす
-      m := AsInteger(@v) - 1;
-      v := Param[2];
-      d := AsInteger(@v);
-      v := Param[3];
-      ho := AsInteger(@v);
-      v := Param[4];
-      mi := AsInteger(@v);
-      v := Param[5];
-      se := AsInteger(@v);
-      v := Param[6];
-      ms := AsInteger(@v);
+      m := AsInteger(@v) + 1; //月は１増やす（JavaScriptでは月は0～11、Delphiでは1～12）
+      if (Param.Count >= 3) then
+      begin
+        //日
+        v := Param[2];
+        d := AsInteger(@v);
+        if (Param.Count >= 4) then
+        begin
+          //時
+          v := Param[3];
+          ho := AsInteger(@v);
+          if (Param.Count >= 5) then
+          begin
+            //分
+            v := Param[4];
+            mi := AsInteger(@v);
+            if (Param.Count >= 6) then
+            begin
+              //秒
+              v := Param[5];
+              se := AsInteger(@v);
+              if (Param.Count >= 7) then
+              begin
+                //ミリ秒
+                v := Param[6];
+                ms := AsInteger(@v);
+              end;
+            end;
+          end;
+        end;
+      end;
     except
       on EListError do
     end;
